@@ -1,6 +1,6 @@
 <template lang="pug">
 	ul.clues(
-				v-bind:class="{ highlight, sparse, solved }"
+				v-bind:class="[vertical,{ sparse, highlight, solved }]"
 				v-bind:style="`--clue-gap: ${clueGap}`"
 				v-on:mouseenter="setHighlight"
 			)
@@ -20,6 +20,7 @@
 			clues: Array
 		},
 		computed: {
+			vertical: function() { return "x" in this.id ? "horizontal" : "vertical" },
 			clueGap: function() { return this.clues ? this.width - this.clues.length : 0 },
 			sparse: function() { return this.clues  && (this.clues.length < this.width ) }
 		}
@@ -27,7 +28,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.clues {
 		position:relative;
 		margin:0;
@@ -40,26 +41,27 @@
 		align-items: center;
 		justify-items: center;
 	}
-	.clues.solved {
-		color: #ccc;
-	}
-	.vertical .clues {
+	.vertical {
 		grid-template-rows: repeat(var(--clue-size),1fr);
 		grid-template-columns: 1fr;
 	}
-	.horizontal .clues {
+	.horizontal {
 		grid-template-rows: 1fr;
 		grid-template-columns: repeat(var(--clue-size),1fr);
 	}
 
-	.horizontal .sparse:before {
+	.horizontal.sparse:before {
 		content:"";
 		grid-column: span var(--clue-gap,1);
 	}
 
-	.vertical .sparse:before {
+	.vertical.sparse:before {
 		content:"";
 		grid-row: span var(--clue-gap,1);
+	}
+
+	.solved {
+		color: #ccc;
 	}
 
 	.clue { display:block; text-align:center; }
@@ -73,13 +75,13 @@
 		--long-side: 500%;
 		--offset: calc(-1*var(--board-gap));
 	}
-	.vertical .clues:nth-of-type(5n+5):not(:last-child)::after {
+	.vertical:nth-of-type(5n+5):not(:last-child)::after {
 		width: var(--short-side);
 		height: var(--long-side);
 		top: 0;
 		right: var(--offset);
 	}
-	.horizontal .clues:nth-of-type(5n+5):not(:last-child)::after {
+	.horizontal:nth-of-type(5n+5):not(:last-child)::after {
 		height: var(--short-side);
 		width: var(--long-side);
 		left: 0;
