@@ -2,6 +2,7 @@
 	ul.clues(
 				v-bind:class="{ highlight, sparse, solved }"
 				v-bind:style="`--clue-gap: ${clueGap}`"
+				v-on:mouseenter="setHighlight"
 			)
 		li.clue(
 				v-for="clue in clues"
@@ -10,9 +11,10 @@
 </template>
 
 <script>
+	import highlighter from "./mixins/highlighter"
 	export default {
+		mixins: [highlighter],
 		props: {
-			highlight: Boolean,
 			solved: Boolean,
 			width: Number,
 			clues: Array
@@ -21,6 +23,7 @@
 			clueGap: function() { return this.clues ? this.width - this.clues.length : 0 },
 			sparse: function() { return this.clues  && (this.clues.length < this.width ) }
 		}
+
 	}
 </script>
 

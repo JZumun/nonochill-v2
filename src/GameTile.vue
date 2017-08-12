@@ -9,25 +9,36 @@
 </template>
 
 <script>
+	import highlighter from "./mixins/highlighter"
 	import eventBus from "./pubsub/Bus"
-	import { TILE_HIGHLIGHT_EVT, TILE_TOGGLE_EVT } from "./pubsub/Events"
+	import { TILE_TOGGLE_EVT } from "./pubsub/Events"
+	import { TILE_STATES, MAX, MAX_INDEX } from "./utils/TileStates"
+
+	const getNextState = (current, reverse=false, index = TILE_STATES.indexOf(current)) =>
+		reverse
+			? index === 0 ? MAX : TILE_STATES[ index - 1 ]
+			: index === MAX_INDEX ? TILE_STATES[0] : TILE_STATES[ index + 1 ];
 
 	export default {
+		mixins: [highlighter],
 		props: {
-			highlight: Boolean,
 			state: String,
 			id: Object
 		},
 		methods: {
 			mouseEnter: function(event) {
-				eventBus.$emit(TILE_HIGHLIGHT_EVT,this.id);
+				this.setHighlight();
 				if (event.buttons==1) { this.toggle( event.shiftKey ) }
 			},
 			mouseDown: function(event) {
 				this.toggle( event.shiftKey )
 			},
 			toggle: function(reverse) {
-				eventBus.$emit(TILE_TOGGLE_EVT, {tile: this.id, reverse});
+				eventBus.$emit(TILE_TOGGLE_EVT, {
+					tile: this.id,
+					current: this.state,
+					next: getNextState(this.state,reverse)
+				});
 			}
 		}
 	}

@@ -2,42 +2,41 @@
 	.board-game(
 		v-bind:style="`--board-size:${size};--clue-size:${clueSize};`"
 	)
-		#section-clues-vertical.vertical.clue-list
+		#section-clues-vertical.vertical.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
 				v-for="clues, i in rules.column"
 				v-bind:key="i"
-				v-bind:highlight="highlight[1]===i"
+				v-bind:id="{y:i}"
 				v-bind:solved="solved.column[i]"
 				v-bind:clues="clues"
 				v-bind:width="clueSize"
 			)
-		#section-clues-horizontal.horizontal.clue-list
+		#section-clues-horizontal.horizontal.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
 				v-for="clues, i in rules.row"
 				v-bind:key="i"
-				v-bind:highlight="highlight[0]===i"
+				v-bind:id="{x:i}"
 				v-bind:solved="solved.row[i]"
 				v-bind:clues="clues"
 				v-bind:width="clueSize"
 			)
-		#section-board-game.board( @mouseleave="setHighlight({})" )
+		#section-board-game.board( @mouseleave="clearHighlight" )
 			.game-row(v-for="row,x in board" v-bind:key="x")
 				game-tile(
 					v-for="tile,y in row"
 					v-bind:key="y"
 					v-bind:id="{x,y}"
 					v-bind:state="board[x][y]"
-					v-bind:highlight="highlight[0]===x || highlight[1]===y"
 				)
 </template>
 
 <script>
-	import { TILE_HIGHLIGHT_EVT, TILE_TOGGLE_EVT,
+	import { TILE_TOGGLE_EVT, TILE_HIGHLIGHT_EVT,
 					 GAME_CLEAR_EVT, GAME_START_EVT, GAME_WIN_EVT } from "./pubsub/Events"
 	import eventBus from "./pubsub/Bus"
 
 	import { count, square, sameArrays } from "./utils/ArrayUtils"
-	import { FILLED, TILE_STATES, getNextState } from "./utils/TileStates"
+	import { FILLED, TILE_STATES } from "./utils/TileStates"
 	import generateRuleFromArray from "./utils/GenerateRule"
 
 	import GameTile from "./GameTile.vue"
@@ -71,7 +70,6 @@
 		},
 		data() {
 			return {
-				highlight: [],
 				board: [],
 				rules: {
 					column: [],
@@ -80,10 +78,9 @@
 			}
 		},
 		methods: {
-			setHighlight({x,y}) { this.highlight = [x,y] },
-			setTile({tile:{x,y},reverse}) {
+			setTile({tile:{x,y},next}) {
 				const board = this.board.slice();
-				board[x][y] = getNextState(this.board[x][y],reverse);
+				board[x][y] = next;
 				this.board = board;
 			},
 			clearBoard() {
@@ -95,10 +92,12 @@
 				//
 				this.rules.column = count(this.size).map( col => generateRuleFromArray( game.map(row=>row[col]) ) );
 				this.rules.row = count(this.size).map( row => generateRuleFromArray( game[row] ) );
+			},
+			clearHighlight() {
+				eventBus.$emit(TILE_HIGHLIGHT_EVT,{});
 			}
 		},
 		created() {
-			eventBus.$on(TILE_HIGHLIGHT_EVT,this.setHighlight);
 			eventBus.$on(TILE_TOGGLE_EVT,this.setTile);
 			eventBus.$on(GAME_CLEAR_EVT,this.clearBoard);
 			eventBus.$on(GAME_START_EVT,this.generateGame);
