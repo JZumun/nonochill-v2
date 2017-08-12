@@ -1,8 +1,8 @@
 <template lang="pug">
 	ul.clues(
-				v-bind:class="[vertical,{ sparse, highlight, solved }]"
-				v-bind:style="`--clue-gap: ${clueGap}`"
-				v-on:mouseenter="setHighlight"
+				:class="[vertical,{ sparse, highlight, solved }]"
+				:style="`--clue-gap: ${clueGap}`"
+				@mouseenter="setHighlight"
 			)
 		li.clue(
 				v-for="clue in clues"

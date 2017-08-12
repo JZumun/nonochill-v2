@@ -1,6 +1,6 @@
 <template lang="pug">
 	.game-tile(
-		v-bind:class="[{highlight},state]"
+		:class="[{highlight},state]"
 		@mouseenter="mouseEnter"
 		@mousedown="mouseDown"
 	)

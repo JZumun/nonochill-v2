@@ -1,32 +1,30 @@
 <template lang="pug">
-	.board-game(
-		v-bind:style="`--board-size:${size};--clue-size:${clueSize};`"
-	)
+	.board-game( :style="`--board-size:${size};--clue-size:${clueSize};`" )
 		#section-clues-vertical.vertical.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
 				v-for="clues, i in rules.column"
-				v-bind:key="i"
-				v-bind:id="{y:i}"
-				v-bind:solved="solved.column[i]"
-				v-bind:clues="clues"
-				v-bind:width="clueSize"
+				:key="this.id"
+				:id="{y:i}"
+				:solved="solved.column[i]"
+				:clues="clues"
+				:width="clueSize"
 			)
 		#section-clues-horizontal.horizontal.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
 				v-for="clues, i in rules.row"
-				v-bind:key="i"
-				v-bind:id="{x:i}"
-				v-bind:solved="solved.row[i]"
-				v-bind:clues="clues"
-				v-bind:width="clueSize"
+				:key="this.id"
+				:id="{x:i}"
+				:solved="solved.row[i]"
+				:clues="clues"
+				:width="clueSize"
 			)
 		#section-board-game.board( @mouseleave="clearHighlight" )
 			.game-row(v-for="row,x in board" v-bind:key="x")
 				game-tile(
 					v-for="tile,y in row"
-					v-bind:key="y"
-					v-bind:id="{x,y}"
-					v-bind:state="board[x][y]"
+					:key="this.id"
+					:id="{x,y}"
+					:state="board[x][y]"
 				)
 </template>
 
