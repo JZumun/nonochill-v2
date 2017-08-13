@@ -33,23 +33,22 @@
 					 GAME_CLEAR_EVT, GAME_START_EVT, GAME_WIN_EVT } from "../pubsub/Events"
 	import eventBus from "../pubsub/Bus"
 
-	import { count, square, sameArrays } from "../utils/ArrayUtils"
-	import { FILLED, TILE_STATES } from "../utils/TileStates"
-	import generateRuleFromArray from "../utils/GenerateRule"
+	import { random } from "../utils/RandomUtils"
+	import { count, square, sameArrays, filteredLength } from "../utils/ArrayUtils"
+	import computedRule from "./utils/GenerateRule"
 
 	import GameTile from "./GameTile.vue"
 	import GameClueList from "./GameClueList.vue"
 
-	const truthySize = arr => arr.filter(i=>i).length;
-	const computedRule = arr => arr ? generateRuleFromArray( arr, x=>x==FILLED ) : [];
 	const incrementColor = (value,max,reversed) => {
 		const empty = 0;
 		const crossed = -1;
 		return !reversed ? value == max ? crossed : value+1
 										: value == crossed ? max : value-1
 	}
-	const random = (min,max) => Math.floor( Math.random()*(max-min+1) ) + min
-	const sameRules = (a,b) => sameArrays(a,b, (x,y)=>x.val == y.val && x.count == y.count);
+
+	const sameRule = (x,y) => x.val == y.val && x.count == y.count;
+	const sameRules = (a,b) => sameArrays(a,b, sameRule);
 
 	export default {
 		props: {
@@ -68,8 +67,8 @@
 				}
 			},
 			win() {
-				return (truthySize(this.solved.column) == this.size) &&
-					(truthySize(this.solved.row) == this.size)
+				return (filteredLength(this.solved.column) == this.size) &&
+					(filteredLength(this.solved.row) == this.size)
 			}
 		},
 		watch: {
@@ -77,7 +76,6 @@
 		},
 		data() {
 			return {
-				tiles: TILE_STATES,
 				board: [],
 				rules: {
 					column: [],
@@ -97,8 +95,8 @@
 			generateGame() {
 				this.clearBoard();
 				const game = square(this.size, (i,j)=> Math.random() < this.density ? random(1,this.colors) : 0);
-				this.rules.column = count(this.size).map( col => generateRuleFromArray( game.map(row=>row[col]) ) );
-				this.rules.row = count(this.size).map( row => generateRuleFromArray( game[row] ) );
+				this.rules.column = count(this.size).map( col => computedRule( game.map(row=>row[col]) ) );
+				this.rules.row = count(this.size).map( row => computedRule( game[row] ) );
 			},
 			clearHighlight() {
 				eventBus.$emit(TILE_HIGHLIGHT_EVT,{});

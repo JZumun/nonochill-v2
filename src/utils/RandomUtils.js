@@ -1,5 +1,7 @@
+export const random = (min=0,max=0,step=1) => Math.floor( Math.random() * (max - min + 1) )/step + min;
+
 //http://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
-export default function gaussian(mean, stdev) {
+export function gaussian(mean, stdev) {
 		var y2;
 		var use_last = false;
 		return function() {
