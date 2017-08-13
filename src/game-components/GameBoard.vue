@@ -52,11 +52,6 @@
 	const sameRules = (a,b) => sameArrays(a,b, sameRule);
 
 	export default {
-		props: {
-			size: Number,
-			density: Number,
-			colors: Number
-		},
 		computed: {
 			rows() { return this.board },
 			columns() { return count(this.size).map( col => this.board.map(row=>row[col]) ) },
@@ -77,6 +72,9 @@
 		},
 		data() {
 			return {
+				size: 0,
+				colors: 1,
+				density: 0.6,
 				board: [],
 				rules: {
 					column: [],
@@ -93,7 +91,10 @@
 			clearBoard() {
 				this.board = square(this.size, (i,j)=> 0 );
 			},
-			generateGame() {
+			generateGame({size=this.size,colors=this.colors,density=this.density}) {
+				this.size = size;
+				this.colors = colors;
+				this.density = density;
 				this.clearBoard();
 				const game = square(this.size, (i,j)=> Math.random() < this.density ? random(1,this.colors) : 0);
 				this.rules.column = count(this.size).map( col => computedRule( game.map(row=>row[col]) ) );
@@ -107,8 +108,6 @@
 			eventBus.$on(TILE_TOGGLE_EVT,this.setTile);
 			eventBus.$on(GAME_CLEAR_EVT,this.clearBoard);
 			eventBus.$on(GAME_START_EVT,this.generateGame);
-
-			this.generateGame();
 		},
 		components: {
 			GameTile, GameClueList
@@ -157,5 +156,8 @@
 }
 .clue-list {
 	display:grid;
+}
+.win {
+	--grid-gap:0;
 }
 </style>

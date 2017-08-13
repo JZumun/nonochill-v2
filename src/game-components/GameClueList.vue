@@ -35,7 +35,7 @@
 		margin:0;
 		padding:0;
 		font-size:2vmin;
-		font-size: calc(30vmin/var(--board-size));
+		font-size: calc(22vmin/var(--board-size));
 		background-color:var(--translucent-white);
 		color: var(--state-1);
 		display: grid;
@@ -67,7 +67,7 @@
 	}
 
 	.solved {
-		background-color:rgba(255,255,255,0.5);
+		background-color:rgba(255,255,255,0.25);
 	}
 
 	.clue { display:block; text-align:center; }
