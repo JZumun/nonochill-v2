@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import GameBoard from "./GameBoard.vue"
+import GameBoard from "./game-components/GameBoard.vue"
 import Bus from "./pubsub/Bus"
 import { GAME_START_EVT } from "./pubsub/Events"
 export default {

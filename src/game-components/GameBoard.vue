@@ -30,12 +30,12 @@
 
 <script>
 	import { TILE_TOGGLE_EVT, TILE_HIGHLIGHT_EVT,
-					 GAME_CLEAR_EVT, GAME_START_EVT, GAME_WIN_EVT } from "./pubsub/Events"
-	import eventBus from "./pubsub/Bus"
+					 GAME_CLEAR_EVT, GAME_START_EVT, GAME_WIN_EVT } from "../pubsub/Events"
+	import eventBus from "../pubsub/Bus"
 
-	import { count, square, sameArrays } from "./utils/ArrayUtils"
-	import { FILLED, TILE_STATES } from "./utils/TileStates"
-	import generateRuleFromArray from "./utils/GenerateRule"
+	import { count, square, sameArrays } from "../utils/ArrayUtils"
+	import { FILLED, TILE_STATES } from "../utils/TileStates"
+	import generateRuleFromArray from "../utils/GenerateRule"
 
 	import GameTile from "./GameTile.vue"
 	import GameClueList from "./GameClueList.vue"

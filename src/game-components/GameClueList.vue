@@ -12,7 +12,7 @@
 </template>
 
 <script>
-	import highlighter from "./mixins/highlighter"
+	import highlighter from "../mixins/highlighter"
 	export default {
 		mixins: [highlighter],
 		props: {

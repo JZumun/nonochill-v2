@@ -10,9 +10,9 @@
 </template>
 
 <script>
-	import highlighter from "./mixins/highlighter"
-	import eventBus from "./pubsub/Bus"
-	import { TILE_TOGGLE_EVT } from "./pubsub/Events"
+	import highlighter from "../mixins/highlighter"
+	import eventBus from "../pubsub/Bus"
+	import { TILE_TOGGLE_EVT } from "../pubsub/Events"
 
 	export default {
 		mixins: [highlighter],
