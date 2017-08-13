@@ -35,6 +35,7 @@
 
 	import { random } from "../utils/RandomUtils"
 	import { count, square, sameArrays, filteredLength } from "../utils/ArrayUtils"
+	import { deserialize, serialize } from "./utils/Serializer"
 	import computedRule from "./utils/GenerateRule"
 
 	import GameTile from "./GameTile.vue"

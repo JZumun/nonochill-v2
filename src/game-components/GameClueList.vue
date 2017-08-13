@@ -35,7 +35,7 @@
 		margin:0;
 		padding:0;
 		font-size:2vmin;
-		font-size: calc(30vmin/var(--board-width));
+		font-size: calc(30vmin/var(--board-size));
 		background-color:var(--translucent-white);
 		color: var(--state-1);
 		display: grid;

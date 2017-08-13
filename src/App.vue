@@ -1,11 +1,11 @@
 <template>
   <div id="app">
 		<div>
-			Size <input type="number" min="2" max="25" v-model="size" @change="start" />
+			Size <input type="number" min="0" max="25" v-model="size" @change="start" />
 			Density <input type="number" step="0.1" v-model="density" @change="start" />
 			Colors <input type="number" max=5 min=1 v-model="colors"  @change="start" />
 		</div>
-		<game-board :size="parseInt(size)" :density="parseFloat(density)" :colors="parseInt(colors)"></game-board>
+		<game-board v-if="size>0" :size="parseInt(size)" :density="parseFloat(density)" :colors="parseInt(colors)"></game-board>
   </div>
 </template>
 
