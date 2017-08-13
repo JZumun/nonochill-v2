@@ -5,8 +5,9 @@
 				@mouseenter="setHighlight"
 			)
 		li.clue(
+				:data-state="clue.val"
 				v-for="clue in clues"
-				v-text="clue"
+				v-text="clue.count"
 			)
 </template>
 
@@ -36,11 +37,16 @@
 		font-size:2vmin;
 		font-size: calc(30vmin/var(--board-width));
 		background-color:var(--translucent-white);
-
+		color: var(--state-1);
 		display: grid;
 		align-items: center;
 		justify-items: center;
 	}
+
+	[data-state="2"] { color:var(--state-2); }
+	[data-state="3"] { color:var(--state-3); }
+	[data-state="4"] { color:var(--state-4); }
+	[data-state="5"] { color:var(--state-5); }
 	.vertical {
 		grid-template-rows: repeat(var(--clue-size),1fr);
 		grid-template-columns: 1fr;
@@ -61,7 +67,7 @@
 	}
 
 	.solved {
-		color: #ccc;
+		background-color:rgba(255,255,255,0.5);
 	}
 
 	.clue { display:block; text-align:center; }

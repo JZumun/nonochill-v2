@@ -1,6 +1,7 @@
 <template lang="pug">
 	.game-tile(
-		:class="[{highlight},state]"
+		:class="{highlight}"
+		:data-state="state"
 		@mouseenter="mouseEnter"
 		@mousedown="mouseDown"
 	)
@@ -12,17 +13,11 @@
 	import highlighter from "./mixins/highlighter"
 	import eventBus from "./pubsub/Bus"
 	import { TILE_TOGGLE_EVT } from "./pubsub/Events"
-	import { TILE_STATES, MAX, MAX_INDEX } from "./utils/TileStates"
-
-	const getNextState = (current, reverse=false, index = TILE_STATES.indexOf(current)) =>
-		reverse
-			? index === 0 ? MAX : TILE_STATES[ index - 1 ]
-			: index === MAX_INDEX ? TILE_STATES[0] : TILE_STATES[ index + 1 ];
 
 	export default {
 		mixins: [highlighter],
 		props: {
-			state: String,
+			state: Number,
 			id: Object
 		},
 		methods: {
@@ -34,11 +29,7 @@
 				this.toggle( event.shiftKey )
 			},
 			toggle: function(reverse) {
-				eventBus.$emit(TILE_TOGGLE_EVT, {
-					tile: this.id,
-					current: this.state,
-					next: getNextState(this.state,reverse)
-				});
+				eventBus.$emit(TILE_TOGGLE_EVT, { tile: this.id, reverse });
 			}
 		}
 	}
@@ -86,26 +77,41 @@
 		transition: opacity 0.1s, transform 0.1s;
 	}
 
-	.filled {
+	[data-state] {
 		--scale-x:0.6;
 		--scale-y:0.6;
 		--opacity:1;
-		--bgcolor:var(--dark-accent);
+		--bgcolor:var(--state-1);
 	}
+	[data-state="0"] {
+		--opacity:0;
+	}
+	[data-state="2"] { --bgcolor:var(--state-2); }
+	[data-state="3"] { --bgcolor:var(--state-3); }
+	[data-state="4"] { --bgcolor:var(--state-4); }
+	[data-state="5"] { --bgcolor:var(--state-5); }
 
-	.crossed {
+	[data-state="-1"] {
 		--scale-y:0.8;
 		--scale-x:0.2;
 		--bgcolor:var(--gray-accent);
 		--opacity:1;
 	}
-	.crossed:before {
+	[data-state="-1"]:before {
 		--rotate:45deg;
 	}
-	.crossed:after {
+	[data-state="-1"]:after {
 		--rotate:-45deg;
 	}
 
+	.win .game-tile {
+		--scale-x:2;
+		--scale-y:2;
+		overflow:hidden;
+	}
+	.win [data-state="-1"] {
+		--bgcolor:transparent;
+	}
 	.highlight {
 		background-color:var(--highlight-color);
 	}

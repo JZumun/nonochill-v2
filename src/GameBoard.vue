@@ -18,7 +18,7 @@
 				:clues="clues"
 				:width="clueSize"
 			)
-		#section-board-game.board( @mouseleave="clearHighlight" )
+		#section-board-game.board( @mouseleave="clearHighlight", :class="{win}" )
 			.game-row(v-for="row,x in board" v-bind:key="x")
 				game-tile(
 					v-for="tile,y in row"
@@ -42,20 +42,29 @@
 
 	const truthySize = arr => arr.filter(i=>i).length;
 	const computedRule = arr => arr ? generateRuleFromArray( arr, x=>x==FILLED ) : [];
+	const incrementColor = (value,max,reversed) => {
+		const empty = 0;
+		const crossed = -1;
+		return !reversed ? value == max ? crossed : value+1
+										: value == crossed ? max : value-1
+	}
+	const random = (min,max) => Math.floor( Math.random()*(max-min+1) ) + min
+	const sameRules = (a,b) => sameArrays(a,b, (x,y)=>x.val == y.val && x.count == y.count);
 
 	export default {
 		props: {
 			size: Number,
-			density: Number
+			density: Number,
+			colors: Number
 		},
 		computed: {
 			rows() { return this.board },
 			columns() { return count(this.size).map( col => this.board.map(row=>row[col]) ) },
-			clueSize() { return Math.ceil(this.size/2) },
+			clueSize() { return Math.ceil(this.size) },
 			solved() {
 				return {
-					row: this.rows.map((row,i) => sameArrays( computedRule(row), this.rules.row[i] )),
-					column: this.columns.map((col,j) => sameArrays( computedRule(col), this.rules.column[j] ))
+					row: this.rows.map((row,i) => sameRules( computedRule(row), this.rules.row[i] )),
+					column: this.columns.map((col,j) => sameRules( computedRule(col), this.rules.column[j] ))
 				}
 			},
 			win() {
@@ -68,6 +77,7 @@
 		},
 		data() {
 			return {
+				tiles: TILE_STATES,
 				board: [],
 				rules: {
 					column: [],
@@ -76,18 +86,17 @@
 			}
 		},
 		methods: {
-			setTile({tile:{x,y},next}) {
+			setTile({tile:{x,y},reverse}) {
 				const board = this.board.slice();
-				board[x][y] = next;
+				board[x][y] = incrementColor(board[x][y],this.colors,reverse);
 				this.board = board;
 			},
 			clearBoard() {
-				this.board = square(this.size, (i,j)=> TILE_STATES[0] );
+				this.board = square(this.size, (i,j)=> 0 );
 			},
 			generateGame() {
 				this.clearBoard();
-				const game = square(this.size, (i,j)=> Math.random() < this.density ? 1 : 0);
-				//
+				const game = square(this.size, (i,j)=> Math.random() < this.density ? random(1,this.colors) : 0);
 				this.rules.column = count(this.size).map( col => generateRuleFromArray( game.map(row=>row[col]) ) );
 				this.rules.row = count(this.size).map( row => generateRuleFromArray( game[row] ) );
 			},
@@ -108,7 +117,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .board-game {
 	--board-gap:1px;
 	--board-size:1;
@@ -136,10 +145,6 @@
 	display:grid;
 	grid: 1fr / repeat(var(--board-size),1fr);
 	grid-gap:var(--board-gap);
-}
-.empty {
-	--board-width:2;
-	--board-height:2;
 }
 .vertical.clue-list {
     grid-area:upper-rules;
