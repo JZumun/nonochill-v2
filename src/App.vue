@@ -57,4 +57,20 @@ export default {
 	justify-self: center;
 	align-self: center;
 }
+
+@media all and (max-width:800px) {
+	.whole {
+		display:block;
+	}
+	.page-section {
+		width:100%;
+		max-height:100%;
+	}
+	.main {
+		width: calc(100vw - 2em);
+		height: calc(100vw - 2em);
+		margin:1em auto;
+		padding:0.5em;
+	}
+}
 </style>

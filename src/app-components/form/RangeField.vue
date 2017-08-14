@@ -38,11 +38,8 @@
 <style scoped>
 	.form-field.form-range {
 		display:grid;
-		grid-template-columns: 4ch 4fr 1.5ch;
+		grid-template-columns: 5.5ch 4fr 2ch;
 		grid-gap:0.5em;
-	}
-	.value {
-		font-size:0.75em;
 	}
 	.range {
 		width:100%;

@@ -28,6 +28,5 @@
 
 .label {
 	display:block;
-	font-size:0.75em;
 }
 </style>
