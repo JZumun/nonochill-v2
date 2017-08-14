@@ -2,7 +2,7 @@
 	div#app.whole
 		sidebar
 		section#main.main.page-section
-			game-board(ref="board" v-if="size>0" )
+			game-board( v-if="size>0" )
 </template>
 
 <script>
@@ -40,13 +40,6 @@ export default {
   	text-transform: lowercase;
 }
 
-.sidebar {
-	background-color:var(--dark-accent);
-	color:var(--translucent-white);
-	overflow-y:auto;
-}
-.sidebar *+* { margin-top:0.5rem; }
-
 .main {
 	--margin: 2em;
 	--game-width-restraint: calc(100vw - (var(--sidebar-width) + 2*var(--margin)));
@@ -63,21 +56,5 @@ export default {
 
 	justify-self: center;
 	align-self: center;
-}
-
-.game-title {
-	font-size:1.5em;
-	padding:0.5em;
-	text-align:center;
-	margin:0;
-	background: var(--dark-accent);
-	color:var(--translucent-white);
-}
-.game-title sup {
-	font-size:0.5em;
-	font-weight:bold;
-}
-.game-size {
-	white-space: nowrap;
 }
 </style>
