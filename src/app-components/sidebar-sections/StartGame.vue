@@ -20,7 +20,7 @@
 	import RangeField from "../form/RangeField.vue"
 
 	import Bus from "../../pubsub/Bus"
-	import { GAME_START_EVT, GAME_BAD_SERIAL_EVT } from "../../pubsub/Events"
+	import { GAME_START_EVT, GAME_BAD_SERIAL_EVT, GAME_READY_EVT } from "../../pubsub/Events"
 
 	export default {
 		components: { SidebarSection, RangeField },
@@ -49,6 +49,7 @@
 		},
 		created() {
 			Bus.$on(GAME_BAD_SERIAL_EVT,e=>this.code=e)
+			Bus.$on(GAME_READY_EVT,e=>this.closed=true)
 		}
 	}
 </script>

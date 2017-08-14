@@ -9,7 +9,17 @@
 <script>
 	import debounce from "debounce";
 	import Bus from "../../pubsub/Bus"
-	import { TILE_TOGGLE_EVT, GAME_START_EVT } from "../../pubsub/Events"
+	import { TILE_TOGGLE_EVT, GAME_START_EVT , GAME_CLEAR_EVT } from "../../pubsub/Events"
+
+	const invertMove = move => ({
+		undone: true,
+		tile: move.tile,
+		next: move.curr,
+		curr: move.next
+	})
+	const invertMoves = moves => moves.reverse().map(invertMove)
+	const invertAndEmitMoves = moves => invertMoves(moves)
+															.map(move=>(Bus.$emit(TILE_TOGGLE_EVT,move),move))
 
 	export default {
 		data() {
@@ -24,6 +34,9 @@
 				this.past.push(this.staged);
 				this.staged = [];
 			},500),
+			performMoves(moves) {
+
+			},
 			queueMove: function(move) {
 				if (move.undone) return;
 
@@ -33,25 +46,13 @@
 			},
 			undo() {
 				const moves = this.past.pop();
-				moves.reverse().forEach((move)=>{
-					Bus.$emit(TILE_TOGGLE_EVT,{
-						undone: true,
-						tile: move.tile,
-						next: move.curr
-					})
-				})
-				this.future.push(moves);
+				const inverted = invertAndEmitMoves(moves);
+				this.future.push(inverted);
 			},
 			redo() {
 				const moves = this.future.pop();
-				moves.reverse().forEach((move)=>{
-					Bus.$emit(TILE_TOGGLE_EVT,{
-						undone: true,
-						tile: move.tile,
-						next: move.next
-					})
-				})
-				this.past.push(moves);
+				const inverted = invertAndEmitMoves(moves);
+				this.past.push(inverted);
 			},
 			clear() {
 				this.future = [];
@@ -62,6 +63,7 @@
 		created() {
 			Bus.$on(TILE_TOGGLE_EVT,this.queueMove);
 			Bus.$on(GAME_START_EVT,this.clear);
+			Bus.$on(GAME_CLEAR_EVT,this.clear);
 		}
 	}
 </script>
