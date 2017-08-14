@@ -25,12 +25,14 @@
 					:key="this.id"
 					:id="{x,y}"
 					:state="board[x][y]"
+					:max-state="colors"
 				)
 </template>
 
 <script>
 	import { TILE_TOGGLE_EVT, TILE_HIGHLIGHT_EVT,
-					 GAME_CLEAR_EVT, GAME_START_EVT, GAME_WIN_EVT } from "../pubsub/Events"
+					 GAME_CLEAR_EVT, GAME_READY_EVT,
+					 GAME_START_EVT, GAME_WIN_EVT, GAME_BAD_SERIAL_EVT } from "../pubsub/Events"
 	import eventBus from "../pubsub/Bus"
 
 	import { random } from "../utils/RandomUtils"
@@ -41,18 +43,16 @@
 	import GameTile from "./GameTile.vue"
 	import GameClueList from "./GameClueList.vue"
 
-	const incrementColor = (value,max,reversed) => {
-		const empty = 0;
-		const crossed = -1;
-		return !reversed ? value == max ? crossed : value+1
-										: value == crossed ? max : value-1
-	}
-
 	const sameRule = (x,y) => x.val == y.val && x.count == y.count;
 	const sameRules = (a,b) => sameArrays(a,b, sameRule);
 
 	export default {
 		computed: {
+			serialization() { return serialize({
+				size: this.size,
+				column: this.rules.column,
+				row: this.rules.row
+			}) },
 			rows() { return this.board },
 			columns() { return count(this.size).map( col => this.board.map(row=>row[col]) ) },
 			clueSize() { return Math.ceil(this.size) },
@@ -83,15 +83,37 @@
 			}
 		},
 		methods: {
-			setTile({tile:{x,y},reverse}) {
+			setTile({tile:{x,y},next}) {
 				const board = this.board.slice();
-				board[x][y] = incrementColor(board[x][y],this.colors,reverse);
+				board[x][y] = next;
 				this.board = board;
 			},
 			clearBoard() {
 				this.board = square(this.size, (i,j)=> 0 );
 			},
-			generateGame({size=this.size,colors=this.colors,density=this.density}) {
+			loadGameFromCode(code) {
+				if (!code || code.length < 1) {
+					return eventBus.$emit(GAME_BAD_SERIAL_EVT,"EMPTY CODE");
+				}
+				try {
+					const options = deserialize(code);
+
+					this.size = options.size;
+					this.colors = options.colors;
+					this.rules = {}
+					this.rules.column = options.column,
+					this.rules.row = options.row
+				} catch(e) {
+					return eventBus.$emit(GAME_BAD_SERIAL_EVT,"BAD CODE");
+				}
+
+				this.clearBoard();
+				eventBus.$emit(GAME_READY_EVT,this.serialization);
+			},
+			generateGame({size=0,colors=0,density=0,code}) {
+				if (code) {
+					return this.loadGameFromCode(code)
+				}
 				this.size = size;
 				this.colors = colors;
 				this.density = density;
@@ -99,6 +121,8 @@
 				const game = square(this.size, (i,j)=> Math.random() < this.density ? random(1,this.colors) : 0);
 				this.rules.column = count(this.size).map( col => computedRule( game.map(row=>row[col]) ) );
 				this.rules.row = count(this.size).map( row => computedRule( game[row] ) );
+
+				eventBus.$emit(GAME_READY_EVT,this.serialization);
 			},
 			clearHighlight() {
 				eventBus.$emit(TILE_HIGHLIGHT_EVT,{});
@@ -158,6 +182,6 @@
 	display:grid;
 }
 .win {
-	--grid-gap:0;
+	--board-gap:0;
 }
 </style>

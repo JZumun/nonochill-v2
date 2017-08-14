@@ -15,14 +15,19 @@
 <style scoped>
 .form-field {
 	position:relative;
-	display:block;
+	display:grid;
+	grid-auto-flow:column;
+	grid-gap:0.25em;
+	align-items:baseline;
 	flex: 1 1 0;
 }
 
+.form-field > *+* {
+	margin-top:0;
+}
+
 .label {
+	display:block;
 	font-size:0.75em;
-	position:absolute;
-	top:0.33em;
-	left:0.33em;
 }
 </style>

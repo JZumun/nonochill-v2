@@ -1,35 +1,15 @@
 <template lang="pug">
 	div#app.whole
-		section#sidebar.sidebar.page-section
-			h1.game-title NonoChill#[sup v.2]
-			sidebar-section(title="Play")
-				form(@submit="start")
-					fieldset
-						legend Options
-						form-field(name="Size")
-							input.input(
-								type="number"
-								min="2" max="25"
-								v-model="size"
-							)
-						form-field(name="Colors")
-							input.input(
-								type="number"
-								min="1" max="5"
-								value="1"
-								v-model="colors"
-							)
-						button Start Game
+		sidebar
 		section#main.main.page-section
-			game-board( v-if="size>0" )
+			game-board(ref="board" v-if="size>0" )
 </template>
 
 <script>
+import Sidebar from "./app-components/Sidebar.vue"
 import GameBoard from "./game-components/GameBoard.vue"
-import SidebarSection from "./app-components/SidebarSection.vue"
-import FormField from "./app-components/form/FormField.vue"
 import Bus from "./pubsub/Bus"
-import { GAME_START_EVT } from "./pubsub/Events"
+import { GAME_START_EVT, GAME_READY_EVT, GAME_CLEAR_EVT } from "./pubsub/Events"
 export default {
   name: 'app',
   data () {
@@ -37,23 +17,17 @@ export default {
 			size: 5,
 			density: 0.6,
 			colors: 3,
-      msg: 'Welcome to Your Vue.js App'
+			gameCode: ""
     }
   },
 	components: {
-		GameBoard,
-		SidebarSection,
-		FormField
+		Sidebar,
+		GameBoard
 	},
 	methods: {
-		start(e) {
-			e.preventDefault();
-			Bus.$emit(GAME_START_EVT,{
-				size: parseInt(this.size),
-				colors: parseInt(this.colors) ,
-				density: parseFloat(this.density)
-			})
-		}
+	},
+	created() {
+		Bus.$on(GAME_READY_EVT,serialization=>this.gameCode=serialization);
 	}
 }
 </script>

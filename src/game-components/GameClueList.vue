@@ -42,7 +42,9 @@
 		align-items: center;
 		justify-items: center;
 	}
-
+.highlight {
+	background-color:white;
+}
 	[data-state="2"] { color:var(--state-2); }
 	[data-state="3"] { color:var(--state-3); }
 	[data-state="4"] { color:var(--state-4); }
@@ -67,7 +69,7 @@
 	}
 
 	.solved {
-		background-color:rgba(255,255,255,0.25);
+		background-color:rgba(255,255,255,0.5);
 	}
 
 	.clue { display:block; text-align:center; }

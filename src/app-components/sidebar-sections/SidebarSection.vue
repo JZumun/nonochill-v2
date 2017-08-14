@@ -22,7 +22,7 @@
 </script>
 
 <style scoped>
-	.sidebar-section { padding:1em }
+	.sidebar-section { padding:1em; margin-top:0; }
 
 	.hidden { display:none }
 	.invisible { opacity:0 }
