@@ -89,6 +89,10 @@ fieldset {
 }
 [disabled] {
 	opacity:0.25;
+	cursor:default !important;
+}
+[disabled]:hover {
+	opacity:0.25;
 }
 
 .inline > * {

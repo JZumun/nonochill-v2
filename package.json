@@ -9,6 +9,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "debounce": "^1.0.2",
     "pug": "^2.0.0-rc.3",
     "pug-loader": "^2.3.0",
     "vue": "^2.3.3"
