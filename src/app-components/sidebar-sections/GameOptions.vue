@@ -1,5 +1,5 @@
 <template lang="pug">
-	sidebar-section(title="Options", :closed="closed" @toggle="s=>this.closed=!s")
+	sidebar-section(title="Options", :closed="closed" @toggle="s=>this.closed=!s" :disabled="disabled")
 		game-history
 		fieldset
 			legend board
@@ -22,14 +22,15 @@
 		components: {SidebarSection,GameHistory},
 		data() {
 			return {
-				closed: true,
+				disabled: true,
+				closed: false,
 				code: ""
 			}
 		},
 		created() {
 			Bus.$on(GAME_READY_EVT,serialization=>{
 				this.code=serialization;
-				this.closed= false
+				this.disabled = false
 			});
 		},
 		methods: {
