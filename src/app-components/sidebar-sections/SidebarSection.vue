@@ -1,7 +1,7 @@
 <template lang="pug">
 	div.sidebar-section-container
 		h2.header( @click="toggleHidden" v-text="title")
-		section.sidebar-section( :class="{hidden}" )
+		section.sidebar-section( :class="{closed}" )
 			slot
 </template>
 
@@ -9,14 +9,13 @@
 	export default {
 		props: {
 			title: String,
-			initiallyHidden: {
+			closed: {
 				type: Boolean,
 				default: true
 			}
 		},
-		data() { return { hidden: this.initiallyHidden } },
 		methods: {
-			toggleHidden() { return this.hidden = !this.hidden }
+			toggleHidden() { this.$emit("toggle",this.closed) }
 		}
 	}
 </script>
@@ -24,7 +23,7 @@
 <style scoped>
 	.sidebar-section { padding:1em; margin-top:0; }
 
-	.hidden { display:none }
+	.closed { display:none }
 	.invisible { opacity:0 }
 	.header {
 		font-size:1em;

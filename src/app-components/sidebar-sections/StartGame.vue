@@ -1,5 +1,5 @@
 <template lang="pug">
-	sidebar-section(title="Play", :initiallyHidden="false")
+	sidebar-section(title="Play", :closed="closed" @toggle="s=>this.closed=!s")
 		form(@submit.prevent="start")
 			fieldset
 				legend Options
@@ -29,7 +29,8 @@
 				size: 5,
 				density: 0.6,
 				colors: 3,
-				code: ""
+				code: "",
+				closed: false
 			}
 		},
 		methods: {
