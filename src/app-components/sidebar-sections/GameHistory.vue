@@ -9,7 +9,7 @@
 <script>
 	import debounce from "debounce";
 	import Bus from "../../pubsub/Bus"
-	import { TILE_TOGGLE_EVT, GAME_START_EVT , GAME_CLEAR_EVT } from "../../pubsub/Events"
+	import { TILE_TOGGLE_EVT, GAME_START_EVT , GAME_CLEAR_EVT, CREATOR_START_EVT } from "../../pubsub/Events"
 
 	const invertMove = move => ({
 		undone: true,
@@ -63,6 +63,7 @@
 		created() {
 			Bus.$on(TILE_TOGGLE_EVT,this.queueMove);
 			Bus.$on(GAME_START_EVT,this.clear);
+			Bus.$on(CREATOR_START_EVT,this.clear);
 			Bus.$on(GAME_CLEAR_EVT,this.clear);
 		}
 	}
