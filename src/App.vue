@@ -5,11 +5,13 @@
 			div.title-card(v-if="state==0")
 				h1 Nono#[span Chill]#[sup v.2]
 			game(  :disabled=" state!=1 " )
+			creator( :disabled="state!=2")
 </template>
 
 <script>
 import Sidebar from "./app-components/Sidebar.vue"
 import Game from "./game-components/Game.vue"
+import Creator from "./game-components/Creator.vue"
 import Bus from "./pubsub/Bus"
 import { GAME_START_EVT, GAME_READY_EVT, GAME_CLEAR_EVT, CREATOR_START_EVT } from "./pubsub/Events"
 
@@ -29,6 +31,7 @@ export default {
 	components: {
 		Sidebar,
 		Game,
+		Creator
 	},
 	methods: {
 	},

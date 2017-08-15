@@ -60,7 +60,7 @@
 			}
 		},
 		methods: {
-			win() { eventBus.$emit(GAME_WIN_EVT); },
+			win() { eventBus.$emit(GAME_WIN_EVT) },
 			setTile({tile:{x,y},next}) {
 				const board = this.board.slice();
 				board[x][y] = next;
@@ -81,6 +81,7 @@
 					this.rules = {}
 					this.rules.column = options.column,
 					this.rules.row = options.row
+					this.won = false;
 				} catch(e) {
 					return eventBus.$emit(GAME_BAD_SERIAL_EVT,"BAD CODE");
 				}
@@ -98,7 +99,7 @@
 				const game = square(this.size, (i,j)=> Math.random() < density ? random(1,this.colors) : 0);
 				this.rules.column = count(this.size).map( col => computedRule( game.map(row=>row[col]) ) );
 				this.rules.row = count(this.size).map( row => computedRule( game[row] ) );
-
+				this.won = false;
 				eventBus.$emit(GAME_READY_EVT,this.serialization);
 			},
 			enableListeners() {

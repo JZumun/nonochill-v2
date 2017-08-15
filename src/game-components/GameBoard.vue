@@ -18,7 +18,7 @@
 				:width="size"
 				:highlight="highlight" @highlight="setHighlight"
 			)
-		#section-board-game.board( @mouseleave="clearHighlight", :class="{win}" )
+		#section-board-game.board( @mouseleave="clearHighlight", :class="{win}")
 			.game-row(v-for="row,x in board" v-bind:key="x")
 				game-tile(
 					v-for="tile,y in row"
@@ -124,5 +124,6 @@
 }
 .clues.solved {
 	background-color:rgba(255,255,255,0.5);
+	opacity:0.5;
 }
 </style>
