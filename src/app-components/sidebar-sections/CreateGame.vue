@@ -3,7 +3,7 @@
 		form(@submit.prevent="start")
 			fieldset
 				legend Options
-				range-field( name="Size" :min="2" :max="25" v-model.number="size" )
+				range-field( name="Size" :min="2" :max="20" v-model.number="size" )
 				range-field( name="Colors" :min="1" :max="5" v-model.number="colors" )
 				button Start
 </template>
