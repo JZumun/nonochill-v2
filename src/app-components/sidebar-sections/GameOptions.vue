@@ -8,7 +8,7 @@
 		fieldset
 			legend Level Code
 			small copy this code to share this level with others.
-			textarea(v-model="code" readonly onclick="this.focus();this.select()")
+			textarea(v-model="code" readonly onclick="this.focus();this.select()" rows="8")
 </template>
 
 <script>
