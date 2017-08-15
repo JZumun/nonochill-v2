@@ -4,5 +4,7 @@ export const GAME_READY_EVT = "game:ready";
 export const GAME_WIN_EVT = "game:win";
 export const GAME_BAD_SERIAL_EVT = "game:bad-serial"
 
+export const CREATOR_START_EVT = "game:create"
+
 export const TILE_HIGHLIGHT_EVT = "tile:highlight";
 export const TILE_TOGGLE_EVT = "tile:toggle";
