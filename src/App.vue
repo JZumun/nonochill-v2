@@ -2,32 +2,39 @@
 	div#app.whole
 		sidebar
 		section#main.main.page-section
-			game-board( v-if="size>0" )
+			div.title-card(v-if="state==0")
+				h1 Nono#[span Chill]#[sup v.2]
+			game(  :disabled=" state!=1 " )
 </template>
 
 <script>
 import Sidebar from "./app-components/Sidebar.vue"
-import GameBoard from "./game-components/GameBoard.vue"
+import Game from "./game-components/Game.vue"
 import Bus from "./pubsub/Bus"
-import { GAME_START_EVT, GAME_READY_EVT, GAME_CLEAR_EVT } from "./pubsub/Events"
+import { GAME_START_EVT, GAME_READY_EVT, GAME_CLEAR_EVT, CREATOR_START_EVT } from "./pubsub/Events"
+
+const state = Object.freeze({
+	NULL: 0,
+	GAME: 1,
+	CREATOR: 2,
+})
+
 export default {
   name: 'app',
   data () {
     return {
-			size: 5,
-			density: 0.6,
-			colors: 3,
-			gameCode: ""
+			state: state.NULL
     }
   },
 	components: {
 		Sidebar,
-		GameBoard
+		Game,
 	},
 	methods: {
 	},
 	created() {
-		Bus.$on(GAME_READY_EVT,serialization=>this.gameCode=serialization);
+		Bus.$on(GAME_START_EVT,_=>{ this.state = state.GAME });
+		Bus.$on(CREATOR_START_EVT,_=>{ this.state = state.CREATOR })
 	}
 }
 </script>
@@ -56,6 +63,48 @@ export default {
 
 	justify-self: center;
 	align-self: center;
+	display:flex;
+}
+
+.title-card {
+	display:grid;
+	align-content: center;
+	justify-content:center;
+	width:100%;
+}
+
+.title-card h1 {
+	font-size:10vmin;
+	width:100%;
+	text-align:center;
+	color: var(--light-accent);
+	margin:0;
+	position:relative;
+	z-index:1;
+	padding:0.5em;
+	border:1px solid;
+}
+.title-card span {
+	color: var(--dark-accent);
+	position:relative;
+	padding:0.65em 0.25em;
+	background:var(--translucent-white);
+	margin:0 -0.175em;
+	z-index:-1;
+}
+
+.title-card sup {
+	font-weight:bold;
+	font-size:0.5em;
+	color: var(--dim-accent);
+}
+
+cite:before {
+	content: " - "
+}
+
+.hidden {
+	display:none !important;
 }
 
 @media all and (max-width:800px) {
