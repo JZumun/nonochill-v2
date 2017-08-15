@@ -49,7 +49,8 @@
 	export default {
 		computed: {
 			serialization() { return serialize({
-				size: this.size,
+				width: this.size,
+				height: this.size,
 				column: this.rules.column,
 				row: this.rules.row
 			}) },
@@ -98,7 +99,7 @@
 				try {
 					const options = deserialize(code);
 
-					this.size = options.size;
+					this.size = options.width;
 					this.colors = options.colors;
 					this.rules = {}
 					this.rules.column = options.column,
