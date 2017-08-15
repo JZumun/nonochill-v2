@@ -29,6 +29,9 @@
 				size: this.size,
 				colors: this.colors
 			}) }
+		},
+		mounted() {
+			Bus.$on(GAME_READY_EVT,_=>this.closed=true)
 		}
 	}
 </script>
