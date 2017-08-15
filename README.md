@@ -1,6 +1,6 @@
 ![Nonogram](/src/assets/screenshot.png)
 # nonochill <sup>v.2</sup>
-My Second nonogram game implementation using Vue.
+My Second nonogram game implementation using Vue. Play it [here](https://jzumun.github.io/nonochill-v2/).
 
 This is basically a rewrite of the [first one](https://github.com/JZumun/nonochill), using Vue ***single file components*** to better break up the logic and allow me to add some new features more easily.
 
