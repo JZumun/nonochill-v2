@@ -1,6 +1,6 @@
 <template lang="pug">
 	.game-tile(
-		:class="{highlight}"
+		:class="{highlighted}"
 		:data-state="state"
 		@mouseenter="mouseEnter"
 		@mousedown="mouseDown"
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-	import highlighter from "../mixins/highlighter"
+	import highlighter from "./mixins/highlighter"
 	import eventBus from "../pubsub/Bus"
 	import { TILE_TOGGLE_EVT } from "../pubsub/Events"
 
@@ -124,7 +124,7 @@
 	.win [data-state="-1"] {
 		--bgcolor:transparent;
 	}
-	.highlight {
+	.highlighted {
 		background-color:var(--highlight-color);
 	}
 </style>
