@@ -12,13 +12,46 @@
 	import GameBoard from "./GameBoard.vue"
 	import { deserialize, serialize } from "./utils/Serializer"
 	import { random } from "../utils/RandomUtils"
-	import { count, square } from "../utils/ArrayUtils"
+	import { count, square, range } from "../utils/ArrayUtils"
 
 	import { TILE_TOGGLE_EVT,
 					 GAME_CLEAR_EVT, GAME_READY_EVT,
 					 GAME_START_EVT, GAME_WIN_EVT, GAME_BAD_SERIAL_EVT } from "../pubsub/Events"
 	import eventBus from "../pubsub/Bus"
 	import computedRule from "./utils/GenerateRule"
+
+	const manhattan = (a,b) => Math.abs(b.x - a.x) + Math.abs(b.y - a.y);
+	const radial = (a,b) => Math.sqrt( (b.x - a.x)**2 + (b.y - a.y)**2 );
+	const shuffledCount = n => count(n).sort(_=>Math.random() - 0.5);
+	const randomTile = size => ({ x: random(0,size-1), y: random(0,size-1) })
+	const bounded = (center,radius,size) => [
+		Math.max(0, center - radius),
+		Math.min(size, center + radius)
+	];
+
+	const createGameBoard = (size,colors,density) => {
+		const board = square(size, (i,j)=> Math.random() < density ? 1 : 0);
+		if (colors == 1) return  board;
+
+		const loopNum = Math.ceil(size / colors) * colors;
+		for (const [index,i] of shuffledCount( loopNum ).entries() ) {
+			const hue = (i%colors)+1;
+			const center = randomTile(size);
+			const radius = Math.ceil( Math.max(size - index, 2) /2);
+			const horizontalRange = range(...bounded(center.x, radius, size));
+			const verticalRange = range(...bounded(center.y, radius, size));
+			
+			for (const x of horizontalRange) {
+				for (const y of verticalRange) {
+					if (radial(center,{x,y}) <= radius) {
+						board[x][y] = board[x][y] ? hue : 0;
+					}
+				}
+			}
+		}
+
+		return board;
+	}
 
 	export default {
 		components: {GameBoard},
@@ -96,7 +129,7 @@
 				this.size = size;
 				this.colors = colors;
 				this.clearBoard();
-				const game = square(this.size, (i,j)=> Math.random() < density ? random(1,this.colors) : 0);
+				const game = createGameBoard(this.size,this.colors,density);
 				this.rules.column = count(this.size).map( col => computedRule( game.map(row=>row[col]) ) );
 				this.rules.row = count(this.size).map( row => computedRule( game[row] ) );
 				this.won = false;
