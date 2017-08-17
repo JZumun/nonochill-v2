@@ -1,5 +1,6 @@
 <template lang="pug">
 	sidebar-section(title="Options", :closed="closed" @toggle="s=>this.closed=!s" :disabled="disabled")
+		color-scheme
 		game-history
 		fieldset
 			legend board
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+	import ColorScheme from "./ColorScheme.vue"
 	import GameHistory from "./GameHistory.vue"
 	import SidebarSection from "./SidebarSection.vue"
 
@@ -19,7 +21,7 @@
 	import { GAME_READY_EVT, GAME_CLEAR_EVT } from "../../pubsub/Events"
 
 	export default {
-		components: {SidebarSection,GameHistory},
+		components: {SidebarSection,GameHistory, ColorScheme},
 		data() {
 			return {
 				disabled: true,

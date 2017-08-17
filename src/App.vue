@@ -1,5 +1,5 @@
 <template lang="pug">
-	div#app.whole
+	div#app.whole(:style="colorStyling")
 		sidebar
 		section#main.main.page-section
 			div.title-card(v-if="state==0")
@@ -13,7 +13,7 @@ import Sidebar from "./app-components/Sidebar.vue"
 import Game from "./game-components/Game.vue"
 import Creator from "./game-components/Creator.vue"
 import Bus from "./pubsub/Bus"
-import { GAME_START_EVT, GAME_READY_EVT, GAME_CLEAR_EVT, CREATOR_START_EVT } from "./pubsub/Events"
+import { GAME_START_EVT, GAME_READY_EVT, GAME_CLEAR_EVT, CREATOR_START_EVT, COLOR_CHANGE_EVT } from "./pubsub/Events"
 
 const state = Object.freeze({
 	NULL: 0,
@@ -25,9 +25,17 @@ export default {
   name: 'app',
   data () {
     return {
-			state: state.NULL
+			state: state.NULL,
+			colors: [],
     }
   },
+	computed: {
+		colorStyling() {
+			return `${this.colors.map((color,index)=>{
+				return `--state-${index+1}:${color};`
+			}).join("")}`
+		}
+	},
 	components: {
 		Sidebar,
 		Game,
@@ -38,6 +46,7 @@ export default {
 	created() {
 		Bus.$on(GAME_START_EVT,_=>{ this.state = state.GAME });
 		Bus.$on(CREATOR_START_EVT,_=>{ this.state = state.CREATOR })
+		Bus.$on(COLOR_CHANGE_EVT,colors=>{ this.colors = colors })
 	}
 }
 </script>
