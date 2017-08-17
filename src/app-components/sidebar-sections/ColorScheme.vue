@@ -42,7 +42,7 @@
 	ul {
 		display: grid;
 		margin:0; padding:0;
-		grid-auto-flow:column;
+		grid-template-columns: repeat(auto-fit,minmax(2em,1fr));
 		grid-gap:0.25em;
 	}
 
@@ -62,6 +62,7 @@
 
 	li:last-of-type {
 		border:0;
+		grid-column: span 2;
 	}
 
 	input {
