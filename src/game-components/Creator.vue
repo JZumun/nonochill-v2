@@ -110,7 +110,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.disabled {
 		display:none !important;
 	}
