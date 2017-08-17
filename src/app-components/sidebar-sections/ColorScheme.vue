@@ -24,7 +24,7 @@
 			resetColors() {
 				this.colors = [
 					"#3a1a2f",
-					"#ca8aaf",
+					"#A3658C",
 					"#e7cbdd",
 					"#ff7187",
 					"#8db0e1"
