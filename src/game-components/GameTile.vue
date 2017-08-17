@@ -117,9 +117,9 @@
 	}
 
 	.win .game-tile {
-		--scale-x:2;
-		--scale-y:2;
-		overflow:hidden;
+		--scale-x:1;
+		--scale-y:1;
+		overflow:visible;
 	}
 	.win [data-state="-1"] {
 		--bgcolor:transparent;
