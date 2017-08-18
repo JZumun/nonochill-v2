@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import store from "./store/Store"
 import Sidebar from "./app-components/Sidebar.vue"
 import Game from "./game-components/Game.vue"
 import Creator from "./game-components/Creator.vue"
@@ -22,6 +23,7 @@ const state = Object.freeze({
 })
 
 export default {
+	store,
   name: 'app',
   data () {
     return {
