@@ -25,7 +25,7 @@
 		data() {
 			return {
 				disabled: true,
-				closed: false,
+				closed: true,
 				code: ""
 			}
 		},
@@ -33,6 +33,7 @@
 			Bus.$on(GAME_READY_EVT,serialization=>{
 				this.code=serialization;
 				this.disabled = false
+				this.closed = false;
 			});
 		},
 		methods: {

@@ -25,6 +25,10 @@
 		props: {
 			disabled: {
 				default: true
+			},
+			colorScheme: {
+				type: Array,
+				default: []
 			}
 		},
 		data() {
@@ -55,7 +59,8 @@
 						height: this.size,
 						colors: this.colors,
 						column: this.rules.column,
-						row: this.rules.row
+						row: this.rules.row,
+						colorScheme: this.colorScheme
 					});
 				} catch(e) {
 					console.error(e);
@@ -73,7 +78,9 @@
 				}
 			},
 			serialization(val) {
-				eventBus.$emit(GAME_READY_EVT,val);
+				if (!this.disabled) {
+					eventBus.$emit(GAME_READY_EVT,val);
+				}
 			}
 		},
 		methods: {

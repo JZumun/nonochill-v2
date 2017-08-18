@@ -4,8 +4,8 @@
 		section#main.main.page-section
 			div.title-card(v-if="state==0")
 				h1 Nono#[span Chill]#[sup v.2]
-			game(  :disabled=" state!=1 " )
-			creator( :disabled="state!=2")
+			game(  :disabled=" state!=1 ", :colorScheme="colors" )
+			creator( :disabled="state!=2", :colorScheme="colors")
 </template>
 
 <script>

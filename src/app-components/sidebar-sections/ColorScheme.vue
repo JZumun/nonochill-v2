@@ -11,29 +11,33 @@
 <script>
 	import Bus from "../../pubsub/Bus"
 	import { COLOR_CHANGE_EVT, COLOR_CLEAR_EVT } from "../../pubsub/Events"
+
+	const colors = [
+		"#3a1a2f",
+		"#A3658C",
+		"#e7cbdd",
+		"#ff7187",
+		"#8db0e1"
+	];
 	export default {
 		data() {
 			return {
-				colors: []
+				colors: colors
 			}
 		},
 		methods: {
 			changeColors() {
-				Bus.$emit(COLOR_CHANGE_EVT,this.colors);
+				Bus.$emit(COLOR_CHANGE_EVT,this.colors,true);
 			},
 			resetColors() {
-				this.colors = [
-					"#3a1a2f",
-					"#A3658C",
-					"#e7cbdd",
-					"#ff7187",
-					"#8db0e1"
-				];
-				Bus.$emit(COLOR_CHANGE_EVT,this.colors);
+				this.colors =colors;
+				Bus.$emit(COLOR_CHANGE_EVT,this.colors,true);
 			}
 		},
 		mounted() {
-			this.resetColors();
+			Bus.$on(COLOR_CHANGE_EVT,(colors,fromMe)=>{
+				if (!fromMe) this.colors = colors;
+			})
 		}
 	}
 </script>

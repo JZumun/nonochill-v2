@@ -7,8 +7,8 @@
 const serializeRule = rule => `{${rule.val},${rule.count}}`
 const serializeRuleList = list => `[${ list.map(serializeRule).join("") }]`
 const serializeRuleGroup = group => `[${ group.map(serializeRuleList).join("|") }]`
-export const serialize = ({width,height,colors,column,row}) => {
-	return btoa([ width,height, colors, serializeRuleGroup(column), serializeRuleGroup(row) ].join("//"));
+export const serialize = ({width,height,colors,column,row,colorScheme=[]}) => {
+	return btoa([ width,height, colors, serializeRuleGroup(column), serializeRuleGroup(row), colorScheme.join("?") ].join("//"));
 }
 
 const deserializeRule = string => {
@@ -24,6 +24,7 @@ export const deserialize = (string) => {
 		height: parseInt(arr[1]),
 		colors: parseInt(arr[2]),
 		column: deserializeRuleGroup(arr[3]),
-		row: deserializeRuleGroup(arr[4])
+		row: deserializeRuleGroup(arr[4]),
+		colorScheme: arr[5] && arr[5].split("?")
 	}
 }

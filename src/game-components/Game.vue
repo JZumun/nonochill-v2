@@ -14,7 +14,7 @@
 	import { random } from "../utils/RandomUtils"
 	import { count, square, range } from "../utils/ArrayUtils"
 
-	import { TILE_TOGGLE_EVT,
+	import { TILE_TOGGLE_EVT, COLOR_CHANGE_EVT,
 					 GAME_CLEAR_EVT, GAME_READY_EVT,
 					 GAME_START_EVT, GAME_WIN_EVT, GAME_BAD_SERIAL_EVT } from "../pubsub/Events"
 	import eventBus from "../pubsub/Bus"
@@ -40,7 +40,7 @@
 			const radius = Math.ceil( Math.max(size - index, 2) /2);
 			const horizontalRange = range(...bounded(center.x, radius, size));
 			const verticalRange = range(...bounded(center.y, radius, size));
-			
+
 			for (const x of horizontalRange) {
 				for (const y of verticalRange) {
 					if (radial(center,{x,y}) <= radius) {
@@ -59,6 +59,10 @@
 			disabled: {
 				type: Boolean,
 				default: false
+			},
+			colorScheme: {
+				type: Array,
+				default: []
 			}
 		},
 		data() {
@@ -79,7 +83,8 @@
 					height: this.size,
 					colors: this.colors,
 					column: this.rules.column,
-					row: this.rules.row
+					row: this.rules.row,
+					colorScheme: this.colorScheme
 				});
 			},
 		},
@@ -115,6 +120,10 @@
 					this.rules.column = options.column,
 					this.rules.row = options.row
 					this.won = false;
+
+					if (options.colorScheme) {
+						eventBus.$emit(COLOR_CHANGE_EVT,options.colorScheme);
+					}
 				} catch(e) {
 					return eventBus.$emit(GAME_BAD_SERIAL_EVT,"BAD CODE");
 				}
