@@ -27,11 +27,11 @@ export default {
   name: 'app',
   data () {
     return {
-			state: state.NULL,
 			colors: [],
     }
   },
 	computed: {
+		state() { return this.$store.state.mode },
 		colorStyling() {
 			return `${this.colors.map((color,index)=>{
 				return `--state-${index+1}:${color};`
@@ -46,9 +46,9 @@ export default {
 	methods: {
 	},
 	created() {
-		Bus.$on(GAME_START_EVT,_=>{ this.state = state.GAME });
-		Bus.$on(CREATOR_START_EVT,_=>{ this.state = state.CREATOR })
-		Bus.$on(COLOR_CHANGE_EVT,colors=>{ this.colors = colors })
+		Bus.$on(GAME_START_EVT,_=>{ this.$store.commit("change-mode", state.GAME) });
+		Bus.$on(CREATOR_START_EVT,_=>{ this.$store.commit("change-mode", state.CREATOR)  })
+		Bus.$on(COLOR_CHANGE_EVT,colors=>{ this.$store.commit("change-colors",colors) })
 	}
 }
 </script>
