@@ -22,7 +22,7 @@
 	export default {
 		data() {
 			return {
-				colors: colors
+				colors: colors.slice()
 			}
 		},
 		methods: {
@@ -30,7 +30,7 @@
 				Bus.$emit(COLOR_CHANGE_EVT,this.colors,true);
 			},
 			resetColors() {
-				this.colors =colors;
+				this.colors =colors.slice();
 				Bus.$emit(COLOR_CHANGE_EVT,this.colors,true);
 			}
 		},
