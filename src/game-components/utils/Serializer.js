@@ -15,7 +15,7 @@ const deserializeRule = string => {
 	const arr = string.replace(/[\{\}\[\]]/g,"").split(",").map(x=>parseInt(x));
 	return { val: arr[0], count: arr[1] }
 }
-const deserializeList = string => string.split("}{").map(deserializeRule);
+const deserializeList = string => string.split("}{").map(deserializeRule).filter(({count,val})=>count && val);
 const deserializeRuleGroup = string => string.split("|").map(deserializeList);
 export const deserialize = (string) => {
 	const arr = atob(string).split("//");
