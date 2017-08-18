@@ -14,7 +14,8 @@
 	import { random } from "../utils/RandomUtils"
 	import { count, square, range } from "../utils/ArrayUtils"
 
-	import { TILE_TOGGLE_EVT, COLOR_CHANGE_EVT,
+	import { CHANGE_COLORS } from "../store/mutations"
+	import { TILE_TOGGLE_EVT,
 					 GAME_CLEAR_EVT, GAME_READY_EVT,
 					 GAME_START_EVT, GAME_WIN_EVT, GAME_BAD_SERIAL_EVT } from "../pubsub/Events"
 	import eventBus from "../pubsub/Bus"
@@ -122,7 +123,7 @@
 					this.won = false;
 
 					if (options.colorScheme) {
-						eventBus.$emit(COLOR_CHANGE_EVT,options.colorScheme);
+						this.$store.commit(CHANGE_COLORS,options.colorScheme);
 					}
 				} catch(e) {
 					return eventBus.$emit(GAME_BAD_SERIAL_EVT,"BAD CODE");

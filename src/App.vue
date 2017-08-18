@@ -14,7 +14,7 @@ import Sidebar from "./app-components/Sidebar.vue"
 import Game from "./game-components/Game.vue"
 import Creator from "./game-components/Creator.vue"
 import Bus from "./pubsub/Bus"
-import { GAME_START_EVT, GAME_READY_EVT, GAME_CLEAR_EVT, CREATOR_START_EVT, COLOR_CHANGE_EVT } from "./pubsub/Events"
+import { GAME_START_EVT, GAME_READY_EVT, GAME_CLEAR_EVT, CREATOR_START_EVT } from "./pubsub/Events"
 
 const state = Object.freeze({
 	NULL: 0,
@@ -25,15 +25,11 @@ const state = Object.freeze({
 export default {
 	store,
   name: 'app',
-  data () {
-    return {
-			colors: [],
-    }
-  },
 	computed: {
 		state() { return this.$store.state.mode },
+		colors() { return this.$store.state.colors },
 		colorStyling() {
-			return `${this.colors.map((color,index)=>{
+			return `${this.$store.state.colors.map((color,index)=>{
 				return `--state-${index+1}:${color};`
 			}).join("")}`
 		}
@@ -48,7 +44,6 @@ export default {
 	created() {
 		Bus.$on(GAME_START_EVT,_=>{ this.$store.commit("change-mode", state.GAME) });
 		Bus.$on(CREATOR_START_EVT,_=>{ this.$store.commit("change-mode", state.CREATOR)  })
-		Bus.$on(COLOR_CHANGE_EVT,colors=>{ this.$store.commit("change-colors",colors) })
 	}
 }
 </script>

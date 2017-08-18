@@ -8,7 +8,7 @@ import mutations from "./mutations"
 Vue.use(Vuex)
 const state = {
 	mode: mode.NULL,
-	colors: colors.slice(),
+	colors: [...colors],
 	serialization: ""
 }
 

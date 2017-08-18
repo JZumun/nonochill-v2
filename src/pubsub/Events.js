@@ -8,6 +8,3 @@ export const CREATOR_START_EVT = "game:create"
 
 export const TILE_HIGHLIGHT_EVT = "tile:highlight";
 export const TILE_TOGGLE_EVT = "tile:toggle";
-
-export const COLOR_CHANGE_EVT = "color:change";
-export const COLOR_CLEAR_EVT = "color:clear";
