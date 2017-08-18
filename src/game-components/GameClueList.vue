@@ -67,7 +67,7 @@
 		grid-row: span var(--clue-gap,1);
 	}
 
-	.clue { display:block; text-align:center; }
+	.clue { display:block; text-align:center; line-height:0.5 }
 
 	.clues:nth-of-type(5n+5):not(:last-child)::after {
 		content: "";
