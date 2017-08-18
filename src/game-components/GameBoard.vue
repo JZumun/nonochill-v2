@@ -123,7 +123,7 @@
 	--board-gap:0;
 }
 .clues.solved {
-	background-color:rgba(255,255,255,0.5);
+	background-color:rgba(255,255,255,0.25);
 	opacity:0.5;
 }
 </style>

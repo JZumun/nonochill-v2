@@ -42,7 +42,7 @@
 		justify-items: center;
 	}
 .highlighted {
-	background-color:white;
+	background-color:var(--highlight-color);
 }
 	[data-state="2"] { color:var(--state-2); }
 	[data-state="3"] { color:var(--state-3); }
