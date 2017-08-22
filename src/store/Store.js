@@ -7,7 +7,7 @@ import mutations from "./mutations"
 
 Vue.use(Vuex)
 const state = {
-	mode: mode.NULL,
+	mode: mode.INIT,
 	colors: [...colors],
 	serialization: ""
 }

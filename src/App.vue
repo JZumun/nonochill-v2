@@ -4,23 +4,19 @@
 		section#main.main.page-section
 			div.title-card(v-if="state==0")
 				h1 Nono#[span Chill]#[sup v.2]
-			game(  :disabled=" state!=1 ", :colorScheme="colors" )
+			game(  :disabled=" state<1 || state>=2 ", :colorScheme="colors" )
 			creator( :disabled="state!=2", :colorScheme="colors")
 </template>
 
 <script>
 import store from "./store/Store"
+import { CHANGE_MODE } from "./store/mutations"
+import state from "./store/values/modes"
 import Sidebar from "./app-components/Sidebar.vue"
 import Game from "./game-components/Game.vue"
 import Creator from "./game-components/Creator.vue"
 import Bus from "./pubsub/Bus"
 import { GAME_START_EVT, GAME_READY_EVT, GAME_CLEAR_EVT, CREATOR_START_EVT } from "./pubsub/Events"
-
-const state = Object.freeze({
-	NULL: 0,
-	GAME: 1,
-	CREATOR: 2,
-})
 
 export default {
 	store,
@@ -42,8 +38,10 @@ export default {
 	methods: {
 	},
 	created() {
-		Bus.$on(GAME_START_EVT,_=>{ this.$store.commit("change-mode", state.GAME) });
-		Bus.$on(CREATOR_START_EVT,_=>{ this.$store.commit("change-mode", state.CREATOR)  })
+		Bus.$on(GAME_START_EVT,_=>{ this.$store.commit(CHANGE_MODE, state.GAME_SETUP) });
+		Bus.$on(GAME_READY_EVT,_=>{ this.$store.commit(CHANGE_MODE, state.GAME_READY ) })
+		Bus.$on(CREATOR_START_EVT,_=>{ this.$store.commit(CHANGE_MODE, state.CREATOR)  })
+
 	}
 }
 </script>
