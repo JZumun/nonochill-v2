@@ -4,44 +4,49 @@
 		section#main.main.page-section
 			div.title-card(v-if="state==0")
 				h1 Nono#[span Chill]#[sup v.2]
-			game(  :disabled=" state<1 || state>=2 ", :colorScheme="colors" )
-			creator( :disabled="state!=2", :colorScheme="colors")
+			game-board( v-else :colors="colorNum", :board="board", :rules="rules" )
 </template>
 
 <script>
 import store from "./store/Store"
-import { CHANGE_MODE } from "./store/mutations"
+import { CHANGE_MODE, UPDATE_RULES } from "./store/mutations"
 import state from "./store/values/modes"
+
+import {count} from "./utils/ArrayUtils"
+
 import Sidebar from "./app-components/Sidebar.vue"
-import Game from "./game-components/Game.vue"
-import Creator from "./game-components/Creator.vue"
-import Bus from "./pubsub/Bus"
-import { GAME_START_EVT, GAME_READY_EVT, GAME_CLEAR_EVT, CREATOR_START_EVT } from "./pubsub/Events"
+import GameBoard from "./game-components/GameBoard.vue"
+
+import computedRule from "./game-components/utils/GenerateRule"
 
 export default {
 	store,
   name: 'app',
 	computed: {
+		board() { return this.$store.state.board },
+		rules() { return this.$store.state.rules },
 		state() { return this.$store.state.mode },
-		colors() { return this.$store.state.colors },
+		colorNum() { return this.$store.state.colorNum },
+		colors() { return this.$store.state.colorScheme },
 		colorStyling() {
-			return `${this.$store.state.colors.map((color,index)=>{
+			return `${this.$store.state.colorScheme.map((color,index)=>{
 				return `--state-${index+1}:${color};`
 			}).join("")}`
 		}
 	},
+	watch: {
+		board(val) {
+			if (this.state == 2) {
+				this.$store.commit(UPDATE_RULES,{
+					row: this.board.map(row=>computedRule(row)),
+					column: count(this.board.length).map( col => computedRule( this.board.map(row => row[col]) ) )
+				})
+			}
+		}
+	},
 	components: {
 		Sidebar,
-		Game,
-		Creator
-	},
-	methods: {
-	},
-	created() {
-		Bus.$on(GAME_START_EVT,_=>{ this.$store.commit(CHANGE_MODE, state.GAME_SETUP) });
-		Bus.$on(GAME_READY_EVT,_=>{ this.$store.commit(CHANGE_MODE, state.GAME_READY ) })
-		Bus.$on(CREATOR_START_EVT,_=>{ this.$store.commit(CHANGE_MODE, state.CREATOR)  })
-
+		GameBoard
 	}
 }
 </script>

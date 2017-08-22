@@ -14,7 +14,7 @@
 
 	export default {
 		computed: {
-			colors() { return this.$store.state.colors }
+			colors() { return this.$store.getters.colorsUsed }
 		},
 		methods: {
 			changeColors(index,value) {

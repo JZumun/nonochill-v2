@@ -1,6 +1,3 @@
-import eventBus from "../../pubsub/Bus"
-import { TILE_HIGHLIGHT_EVT } from "../../pubsub/Events"
-
 const equalAndValued = (a,b) => a != null && a === b;
 export default {
 	props: {

@@ -1,5 +1,5 @@
 <template lang="pug">
-	sidebar-section(title="Level Editor", :closed="closed" @toggle="s=>this.closed=!s")
+	#create-game
 		form(@submit.prevent="start")
 			fieldset
 				legend Options
@@ -9,14 +9,13 @@
 </template>
 
 <script>
-	import SidebarSection from "./SidebarSection.vue"
 	import RangeField from "../form/RangeField.vue"
 
-	import Bus from "../../pubsub/Bus"
-	import { CREATOR_START_EVT, GAME_READY_EVT } from "../../pubsub/Events"
+	import modes from "../../store/values/modes"
+	import { START_EDITOR } from "../../store/mutations"
 
 	export default {
-		components: { SidebarSection, RangeField },
+		components: { RangeField },
 		data() {
 			return {
 				size: 5,
@@ -25,13 +24,12 @@
 			}
 		},
 		methods: {
-			start() { Bus.$emit(CREATOR_START_EVT,{
-				size: this.size,
-				colors: this.colors
-			}) }
-		},
-		mounted() {
-			Bus.$on(GAME_READY_EVT,_=>this.closed=true)
+			start() {
+				this.$store.commit(START_EDITOR, {
+					size: this.size,
+					colors: this.colors
+				})
+			}
 		}
 	}
 </script>
