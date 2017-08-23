@@ -4,11 +4,12 @@
 				type="range"
 				:min="min"
 				:max="max"
-				:step="step"
-				:value="value"
+				step="any"
+				:value="innerValue"
 				@input="updateRange($event.target.value)"
+				@mouseup="snapValue"
 		)
-		span.value(v-text="value")
+		span.value(v-text="prettyValue")
 </template>
 
 <script>
@@ -29,8 +30,25 @@
 				type: Number
 			}
 		},
+		computed: {
+			prettyValue() {
+				return Math.floor(this.value) == this.value ? this.value : this.value.toFixed(2);
+			}
+		},
+		data() {
+			return {
+				innerValue: this.value
+			}
+		},
 		methods: {
-			updateRange(value) { this.$emit("input",Number(value)) }
+			updateRange(value) {
+				this.innerValue = Number(value);
+				const roundedValue = Math.round(Number(value) / this.step) * this.step;
+				this.$emit("input",roundedValue)
+			},
+			snapValue() {
+				this.innerValue = this.value;
+			}
 		}
 	}
 </script>
@@ -38,7 +56,7 @@
 <style scoped>
 	.form-field.form-range {
 		display:grid;
-		grid-template-columns: 5.5ch 4fr 2ch;
+		grid-template-columns: 5.5ch 4fr 3ch;
 		grid-gap:0.5em;
 	}
 	.range {
