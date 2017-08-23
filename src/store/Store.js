@@ -6,7 +6,7 @@ import colors from "./values/colors"
 import mutations from "./mutations"
 import actions from "./actions"
 
-import { serialize } from "../game-components/utils/Serializer"
+import { serialize } from "utils/game/Serializer"
 
 Vue.use(Vuex)
 const state = {
@@ -41,7 +41,7 @@ const getters = {
 
 export default new Vuex.Store({
 	state,
-	getters, 
+	getters,
 	mutations,
 	actions
 })

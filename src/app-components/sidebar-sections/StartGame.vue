@@ -16,14 +16,14 @@
 </template>
 
 <script>
-	import RangeField from "../form/RangeField.vue"
+	import RangeField from "app-components/form/RangeField.vue"
 
-	import generateGame from "../../game-components/utils/GenerateGame";
-	import generateRule from "../../game-components/utils/GenerateRule";
-	import { deserialize } from "../../game-components/utils/Serializer";
+	import generateGame from "utils/game/GenerateGame";
+	import generateRule from "utils/game/GenerateRule";
+	import { deserialize } from "utils/game/Serializer";
 
-	import { START_GAME } from "../../store/mutations"
-	import  { count } from "../../utils/ArrayUtils"
+	import { START_GAME } from "store/mutations"
+	import  { count } from "utils/ArrayUtils"
 
 	export default {
 		components: { RangeField },

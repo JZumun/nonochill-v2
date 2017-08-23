@@ -15,7 +15,7 @@
 	import CreateGame from "./sidebar-sections/CreateGame.vue"
 	import GameOptions from "./sidebar-sections/GameOptions.vue"
 
-	import modes from "../store/values/modes"
+	import modes from "store/values/modes"
 
 	export default {
 		components: {SidebarSection, StartGame, GameOptions, CreateGame},

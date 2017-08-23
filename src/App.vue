@@ -8,16 +8,16 @@
 </template>
 
 <script>
-import store from "./store/Store"
-import { UPDATE_RULES } from "./store/mutations"
-import state from "./store/values/modes"
+import store from "store/Store"
+import { UPDATE_RULES } from "store/mutations"
+import state from "store/values/modes"
 
-import {count} from "./utils/ArrayUtils"
+import {count} from "utils/ArrayUtils"
 
-import Sidebar from "./app-components/Sidebar.vue"
-import GameBoard from "./game-components/GameBoard.vue"
+import Sidebar from "app-components/Sidebar.vue"
+import GameBoard from "game-components/GameBoard.vue"
 
-import computedRule from "./game-components/utils/GenerateRule"
+import computedRule from "utils/game/GenerateRule"
 
 export default {
 	store,

@@ -11,8 +11,8 @@
 
 <script>
 	import highlighter from "./mixins/highlighter"
-	import incrementColor from "./utils/IncrementColor"
-	import { ACTION_SET_TILE } from "../store/actions";
+	import incrementColor from "utils/game/IncrementColor"
+	import { ACTION_SET_TILE } from "store/actions";
 
 	export default {
 		mixins: [highlighter],

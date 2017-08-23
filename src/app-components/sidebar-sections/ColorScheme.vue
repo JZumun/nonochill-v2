@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	import { CHANGE_COLOR, RESET_COLORS } from "../../store/mutations"
+	import { CHANGE_COLOR, RESET_COLORS } from "store/mutations"
 
 
 	export default {

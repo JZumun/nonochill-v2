@@ -1,5 +1,5 @@
-import { random } from "../../utils/RandomUtils"
-import { count, square, range } from "../../utils/ArrayUtils"
+import { random } from "utils/RandomUtils"
+import { count, square, range } from "utils/ArrayUtils"
 
 const manhattan = (a,b) => Math.abs(b.x - a.x) + Math.abs(b.y - a.y);
 const radial = (a,b) => Math.sqrt( (b.x - a.x)**2 + (b.y - a.y)**2 );

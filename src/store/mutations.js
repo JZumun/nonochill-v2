@@ -1,7 +1,7 @@
 import originalColors from "./values/colors"
 import modes from "./values/modes"
 
-import { square,count } from "../utils/ArrayUtils"
+import { square,count } from "utils/ArrayUtils"
 
 export const CHANGE_MODE = "change-mode";
 export const CHANGE_COLORS = "change-colors";

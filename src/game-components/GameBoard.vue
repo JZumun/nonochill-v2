@@ -34,8 +34,8 @@
 	import GameTile from "./GameTile.vue"
 	import GameClueList from "./GameClueList.vue"
 
-	import { count, sameArrays, filteredLength } from "../utils/ArrayUtils"
-	import computedRule from "./utils/GenerateRule"
+	import { count, sameArrays, filteredLength } from "utils/ArrayUtils"
+	import computedRule from "utils/game/GenerateRule"
 	const sameRule = (x,y) => x.val == y.val && x.count == y.count;
 	const sameRules = (a,b) => sameArrays(a,b, sameRule);
 

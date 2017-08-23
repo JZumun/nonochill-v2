@@ -7,7 +7,7 @@
 </template>
 
 <script>
-	import { UNDO_MOVE, REDO_MOVE } from "../../store/mutations"
+	import { UNDO_MOVE, REDO_MOVE } from "store/mutations"
 	export default {
 		computed: {
 			past() { return this.$store.state.history.past },

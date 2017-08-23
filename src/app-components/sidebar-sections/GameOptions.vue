@@ -16,7 +16,7 @@
 	import ColorScheme from "./ColorScheme.vue"
 	import GameHistory from "./GameHistory.vue"
 
-	import { RESET_BOARD } from "../../store/mutations"
+	import { RESET_BOARD } from "store/mutations"
 
 	export default {
 		components: {GameHistory, ColorScheme},
