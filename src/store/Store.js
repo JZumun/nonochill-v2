@@ -13,6 +13,7 @@ const state = {
 	mode: mode.INIT,
 	colorScheme: [...colors],
 	colorNum: 3,
+	colorAnchor: null,
 	board: [],
 	rules: {
 		column: [],

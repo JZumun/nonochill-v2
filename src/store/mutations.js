@@ -20,6 +20,9 @@ export const COMMIT_MOVES = "commit-moves";
 export const UNDO_MOVE = "undo-move";
 export const REDO_MOVE = "redo-move";
 
+export const ANCHOR_COLOR = "anchor-color";
+export const UNANCHOR_COLOR = "unanchor-color";
+
 const invertMove = move => ({
 	undone: true,
 	tile: move.tile,
@@ -108,5 +111,12 @@ export default {
 		const moves = invertMoves(state.history.future.pop());
 		state.board = updateBoard(state.board, moves);
 		state.history.past.push(moves);
+	},
+
+	[ANCHOR_COLOR](state,key) {
+		state.colorAnchor = key;
+	},
+	[UNANCHOR_COLOR](state,key) {
+		state.colorAnchor = null;
 	}
 }

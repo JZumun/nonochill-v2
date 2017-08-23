@@ -21,6 +21,9 @@
 			maxState: Number,
 			id: Object
 		},
+		computed: {
+			anchor() { return this.$store.state.colorAnchor }
+		},
 		methods: {
 			mouseEnter: function(event) {
 				this.setHighlight();
@@ -30,11 +33,21 @@
 				this.toggle( event.shiftKey )
 			},
 			toggle: function(reverse) {
-				this.$store.dispatch(ACTION_SET_TILE, {
-					tile: this.id,
-					curr: this.state,
-					next: incrementColor(this.state, this.maxState, reverse)
-				});
+				let next;
+				if (!this.anchor) {
+					next = incrementColor(this.state, this.maxState, reverse)
+				} else {
+					next = incrementColor( this.state > 0 ? 1 : this.state, 1, reverse );
+					next = next == 1 ? this.anchor : next;
+				}
+
+				if (next != this.state) {
+					this.$store.dispatch(ACTION_SET_TILE, {
+						tile: this.id,
+						curr: this.state,
+						next
+					});
+				}
 			}
 		}
 	}

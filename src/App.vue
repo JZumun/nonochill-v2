@@ -8,8 +8,10 @@
 </template>
 
 <script>
+import { jwerty } from "jwerty"
+
 import store from "store/Store"
-import { UPDATE_RULES } from "store/mutations"
+import { UPDATE_RULES, ANCHOR_COLOR, UNANCHOR_COLOR } from "store/mutations"
 import state from "store/values/modes"
 
 import {count} from "utils/ArrayUtils"
@@ -43,6 +45,20 @@ export default {
 				})
 			}
 		}
+	},
+	methods: {
+		keyup(e) {
+				this.$store.commit(UNANCHOR_COLOR,e.keyCode - 48);
+		},
+		keydown(e) {
+			const value = e.keyCode - 48;
+			if (this.$store.state.colorAnchor != value && this.$store.state.colorNum >= value)
+				this.$store.commit(ANCHOR_COLOR,value);
+		}
+	},
+	created() {
+		window.addEventListener("keydown",jwerty.event("[1-5]",this.keydown));
+		window.addEventListener("keyup",jwerty.event("[1-5]",this.keyup))
 	},
 	components: {
 		Sidebar,
