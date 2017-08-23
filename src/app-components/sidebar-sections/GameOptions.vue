@@ -1,5 +1,5 @@
 <template lang="pug">
-	sidebar-section(title="Options", :closed="closed" @toggle="s=>this.closed=!s" :disabled="disabled")
+	#game-options
 		color-scheme
 		game-history
 		fieldset
@@ -15,30 +15,23 @@
 <script>
 	import ColorScheme from "./ColorScheme.vue"
 	import GameHistory from "./GameHistory.vue"
-	import SidebarSection from "./SidebarSection.vue"
 
-	import Bus from "../../pubsub/Bus"
-	import { GAME_READY_EVT, GAME_CLEAR_EVT } from "../../pubsub/Events"
+	import { RESET_BOARD } from "../../store/mutations"
 
 	export default {
-		components: {SidebarSection,GameHistory, ColorScheme},
+		components: {GameHistory, ColorScheme},
 		data() {
 			return {
 				disabled: true,
-				closed: true,
-				code: ""
+				closed: true
 			}
 		},
-		created() {
-			Bus.$on(GAME_READY_EVT,serialization=>{
-				this.code=serialization;
-				this.disabled = false
-				this.closed = false;
-			});
+		computed: {
+			code() { return this.$store.getters.serialization }
 		},
 		methods: {
 			clear() {
-				Bus.$emit(GAME_CLEAR_EVT);
+				this.$store.commit(RESET_BOARD);
 			}
 		}
 	}

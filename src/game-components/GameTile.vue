@@ -11,15 +11,8 @@
 
 <script>
 	import highlighter from "./mixins/highlighter"
-	import eventBus from "../pubsub/Bus"
-	import { TILE_TOGGLE_EVT } from "../pubsub/Events"
-
-	const incrementColor = (value=-1,max=1,reversed=false) => {
-		const empty = 0;
-		const crossed = -1;
-		return !reversed ? value == max ? crossed : value+1
-										: value == crossed ? max : value-1
-	}
+	import incrementColor from "./utils/IncrementColor"
+	import { ACTION_SET_TILE } from "../store/actions";
 
 	export default {
 		mixins: [highlighter],
@@ -37,7 +30,7 @@
 				this.toggle( event.shiftKey )
 			},
 			toggle: function(reverse) {
-				eventBus.$emit(TILE_TOGGLE_EVT, {
+				this.$store.dispatch(ACTION_SET_TILE, {
 					tile: this.id,
 					curr: this.state,
 					next: incrementColor(this.state, this.maxState, reverse)

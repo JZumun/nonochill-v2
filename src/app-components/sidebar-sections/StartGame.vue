@@ -1,5 +1,5 @@
 <template lang="pug">
-	sidebar-section(title="Play", :closed="closed" @toggle="s=>this.closed=!s")
+	#start-game
 		form(@submit.prevent="start")
 			fieldset
 				legend Options
@@ -16,14 +16,17 @@
 </template>
 
 <script>
-	import SidebarSection from "./SidebarSection.vue"
 	import RangeField from "../form/RangeField.vue"
 
-	import Bus from "../../pubsub/Bus"
-	import { GAME_WIN_EVT, GAME_START_EVT, GAME_BAD_SERIAL_EVT, GAME_READY_EVT } from "../../pubsub/Events"
+	import generateGame from "../../game-components/utils/GenerateGame";
+	import generateRule from "../../game-components/utils/GenerateRule";
+	import { deserialize } from "../../game-components/utils/Serializer";
+
+	import { START_GAME, CHANGE_MODE } from "../../store/mutations"
+	import  { count } from "../../utils/ArrayUtils"
 
 	export default {
-		components: { SidebarSection, RangeField },
+		components: { RangeField },
 		data() {
 			return {
 				size: 5,
@@ -35,22 +38,34 @@
 		},
 		methods: {
 			start() {
-				Bus.$emit(GAME_START_EVT,{
+				const board = generateGame(this.size,this.colors,this.density)
+				const rules = {
+					column: count(this.size).map( col => generateRule( board.map( row => row[col] ) ) ),
+					row: count(this.size).map( row => generateRule( board[row] ) )
+				}
+				this.$store.commit(START_GAME,{
 					size: this.size,
-					colors: this.colors ,
-					density: this.density
-				})
+					colors: this.colors,
+					rules
+				});
 			},
 			startWithCode() {
-				Bus.$emit(GAME_START_EVT,{
-					code: this.code
+				let options;
+				try {
+					options = deserialize(this.code)
+				} catch( e ) {
+					this.code = "FAULTY CODE";
+				}
+				this.$store.commit(START_GAME,{
+					size: options.width,
+					rules: {
+						row: options.row,
+						column: options.column
+					},
+					colors: options.colors,
+					scheme: options.colorScheme
 				})
 			}
-		},
-		created() {
-			Bus.$on(GAME_BAD_SERIAL_EVT,e=>this.code=e)
-			Bus.$on(GAME_READY_EVT,e=>this.closed=true)
-			Bus.$on(GAME_WIN_EVT,e=>this.closed=false)
 		}
 	}
 </script>

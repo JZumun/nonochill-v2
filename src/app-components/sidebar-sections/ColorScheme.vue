@@ -3,41 +3,26 @@
 		legend Color Scheme
 		ul
 			li( v-for="color,i in colors" :style="`--color:${color}`")
-				input(type="color" v-model="colors[i]" @change="changeColors")
+				input(type="color" :value="colors[i]" @change="changeColors(i,$event.target.value)")
 			li
 				button(@click.prevent="resetColors" ) Reset
 </template>
 
 <script>
-	import Bus from "../../pubsub/Bus"
-	import { COLOR_CHANGE_EVT, COLOR_CLEAR_EVT } from "../../pubsub/Events"
+	import { CHANGE_COLOR, RESET_COLORS } from "../../store/mutations"
 
-	const colors = [
-		"#3a1a2f",
-		"#A3658C",
-		"#e7cbdd",
-		"#ff7187",
-		"#8db0e1"
-	];
+
 	export default {
-		data() {
-			return {
-				colors: colors.slice()
-			}
+		computed: {
+			colors() { return this.$store.getters.colorsUsed }
 		},
 		methods: {
-			changeColors() {
-				Bus.$emit(COLOR_CHANGE_EVT,this.colors,true);
+			changeColors(index,value) {
+				this.$store.commit(CHANGE_COLOR,{ index, value });
 			},
 			resetColors() {
-				this.colors =colors.slice();
-				Bus.$emit(COLOR_CHANGE_EVT,this.colors,true);
+				this.$store.commit(RESET_COLORS);
 			}
-		},
-		mounted() {
-			Bus.$on(COLOR_CHANGE_EVT,(colors,fromMe)=>{
-				if (!fromMe) this.colors = colors;
-			})
 		}
 	}
 </script>
