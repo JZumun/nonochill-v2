@@ -9,7 +9,7 @@
 
 <script>
 import store from "./store/Store"
-import { CHANGE_MODE, UPDATE_RULES } from "./store/mutations"
+import { UPDATE_RULES } from "./store/mutations"
 import state from "./store/values/modes"
 
 import {count} from "./utils/ArrayUtils"

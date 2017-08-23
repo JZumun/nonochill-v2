@@ -33,23 +33,38 @@ const updateBoard = (oldBoard,moves) => moves.reduce((board,{tile:{x,y},next})=>
 	return board;
 },oldBoard.slice());
 
+const clearBoard = (state,size=state.board.length) => {
+	state.board = square(size,el=>0);
+}
+const clearHistory = state => {
+	state.history = {
+		past: [],
+		future: [],
+		staged: []
+	}
+}
+
 export default {
 	[START_GAME](state,{ size, rules, colors, scheme = originalColors.slice() }) {
-		state.board = square(size,el=>0);
 		state.rules = rules;
-		state.colorNum = colors;
 		state.colorScheme = scheme;
+		state.colorNum = colors;
 		state.mode = modes.GAME_SETUP;
+
+		clearBoard(state,size);
+		clearHistory(state);
 	},
 	[START_EDITOR](state,{ size, colors, scheme = originalColors.slice() }) {
-		state.board = square(size,el=>0);
+		state.colorScheme = scheme;
 		state.colorNum = colors;
+		state.mode = modes.CREATOR;
 		state.rules = {
 			column: count(size).map(el=>[]),
 			row: count(size).map(el=>[])
 		}
-		state.colorScheme = scheme;
-		state.mode = modes.CREATOR;
+
+		clearBoard(state,size);
+		clearHistory(state);
 	},
 	[CHANGE_MODE](state,mode) {
 		state.mode = mode;
@@ -66,8 +81,8 @@ export default {
 	},
 
 	[RESET_BOARD](state) {
-		const size = state.board.length;
-		state.board = square(size,el=>0);
+		clearBoard(state);
+		clearHistory(state);
 	},
 	[UPDATE_RULES](state,rules) {
 		state.rules = rules;

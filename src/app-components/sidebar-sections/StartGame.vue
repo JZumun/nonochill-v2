@@ -22,7 +22,7 @@
 	import generateRule from "../../game-components/utils/GenerateRule";
 	import { deserialize } from "../../game-components/utils/Serializer";
 
-	import { START_GAME, CHANGE_MODE } from "../../store/mutations"
+	import { START_GAME } from "../../store/mutations"
 	import  { count } from "../../utils/ArrayUtils"
 
 	export default {
