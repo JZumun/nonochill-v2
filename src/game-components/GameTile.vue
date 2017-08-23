@@ -12,6 +12,7 @@
 <script>
 	import highlighter from "./mixins/highlighter"
 	import incrementColor from "./utils/IncrementColor"
+	import { ACTION_SET_TILE } from "../store/actions";
 
 	export default {
 		mixins: [highlighter],
@@ -29,7 +30,7 @@
 				this.toggle( event.shiftKey )
 			},
 			toggle: function(reverse) {
-				this.$store.commit("set-tile", {
+				this.$store.dispatch(ACTION_SET_TILE, {
 					tile: this.id,
 					curr: this.state,
 					next: incrementColor(this.state, this.maxState, reverse)

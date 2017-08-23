@@ -7,64 +7,15 @@
 </template>
 
 <script>
-	import debounce from "debounce";
-	import Bus from "../../pubsub/Bus"
-	import { TILE_TOGGLE_EVT, GAME_START_EVT , GAME_CLEAR_EVT, CREATOR_START_EVT } from "../../pubsub/Events"
-
-	const invertMove = move => ({
-		undone: true,
-		tile: move.tile,
-		next: move.curr,
-		curr: move.next
-	})
-	const invertMoves = moves => moves.reverse().map(invertMove)
-	const invertAndEmitMoves = moves => invertMoves(moves)
-															.map(move=>(Bus.$emit(TILE_TOGGLE_EVT,move),move))
-
+	import { UNDO_MOVE, REDO_MOVE } from "../../store/mutations"
 	export default {
-		data() {
-			return {
-				past: [],
-				future: [],
-				staged: []
-			}
+		computed: {
+			past() { return this.$store.state.history.past },
+			future() { return this.$store.state.history.future }
 		},
 		methods: {
-			commitMoves: debounce(function(){
-				this.past.push(this.staged);
-				this.staged = [];
-			},500),
-			performMoves(moves) {
-
-			},
-			queueMove: function(move) {
-				if (move.undone) return;
-
-				this.future = []
-				this.staged.push(move);
-				this.commitMoves();
-			},
-			undo() {
-				const moves = this.past.pop();
-				const inverted = invertAndEmitMoves(moves);
-				this.future.push(inverted);
-			},
-			redo() {
-				const moves = this.future.pop();
-				const inverted = invertAndEmitMoves(moves);
-				this.past.push(inverted);
-			},
-			clear() {
-				this.future = [];
-				this.past = [];
-				this.staged = [];
-			}
-		},
-		created() {
-			Bus.$on(TILE_TOGGLE_EVT,this.queueMove);
-			Bus.$on(GAME_START_EVT,this.clear);
-			Bus.$on(CREATOR_START_EVT,this.clear);
-			Bus.$on(GAME_CLEAR_EVT,this.clear);
+			undo() { this.$store.commit(UNDO_MOVE) },
+			redo() { this.$store.commit(REDO_MOVE) }
 		}
 	}
 </script>

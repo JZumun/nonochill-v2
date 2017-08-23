@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import mode from "./values/modes"
 import colors from "./values/colors"
 import mutations from "./mutations"
+import actions from "./actions"
 
 import { serialize } from "../game-components/utils/Serializer"
 
@@ -16,6 +17,11 @@ const state = {
 	rules: {
 		column: [],
 		row: []
+	},
+	history: {
+		staged: [],
+		past: [],
+		future: []
 	}
 }
 
@@ -34,5 +40,8 @@ const getters = {
 
 
 export default new Vuex.Store({
-	state, mutations,getters
+	state,
+	getters, 
+	mutations,
+	actions
 })
