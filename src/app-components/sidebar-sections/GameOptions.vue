@@ -4,8 +4,8 @@
 		game-history
 		fieldset
 			legend board
-			small this will also reset your history.
-			button(@click="clear") Reset
+			small clearing the board will also reset your history.
+			button(@click="clear") Clear Board
 		fieldset
 			legend Level Code
 			small copy this code to share this level with others.

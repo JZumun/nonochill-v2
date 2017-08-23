@@ -4,8 +4,7 @@
 		ul
 			li( v-for="color,i in colors" :style="`--color:${color}`")
 				input(type="color" :value="colors[i]" @change="changeColors(i,$event.target.value)")
-			li
-				button(@click.prevent="resetColors" ) Reset
+		button(@click.prevent="resetColors" ) revert colors
 </template>
 
 <script>
@@ -38,7 +37,8 @@
 	li {
 		--background-color: var(--dark-accent);
 		display:block;
-		width: 100%;
+		width:100%;
+		height:2em;
 		margin:0;
 		background: var(--color);
 		border:1px solid var(--dim-accent);
@@ -47,11 +47,6 @@
 
 	li:hover {
 		opacity:0.5;
-	}
-
-	li:last-of-type {
-		border:0;
-		grid-column: span 2;
 	}
 
 	input {
@@ -65,8 +60,6 @@
 	}
 
 	button {
-		width:100%;
-		height:100%;
 		cursor:pointer;
 	}
 </style>
