@@ -43,8 +43,8 @@
 <style scoped>
 	.game-tile {
 		position:relative;
-		--scale-x:1;
-		--scale-y:1;
+		--scale-x:0;
+		--scale-y:0;
 		--rotate:0deg;
 		--opacity:0;
 		--bgcolor:var(--translucent-white);
@@ -89,6 +89,8 @@
 		--bgcolor:var(--state-1);
 	}
 	[data-state="0"] {
+		--scale-x:0;
+		--scale-y:0;
 		--opacity:0;
 	}
 	[data-state="2"] { --bgcolor:var(--state-2); }
