@@ -14,8 +14,8 @@ import state from "store/values/modes"
 
 import {count} from "utils/ArrayUtils"
 
-import Sidebar from "app-components/Sidebar.vue"
-import GameBoard from "game-components/GameBoard.vue"
+import Sidebar from "components/app/Sidebar.vue"
+import GameBoard from "components/game/GameBoard.vue"
 
 import computedRule from "utils/game/GenerateRule"
 

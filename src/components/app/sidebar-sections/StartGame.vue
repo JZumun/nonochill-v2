@@ -16,7 +16,7 @@
 </template>
 
 <script>
-	import RangeField from "app-components/form/RangeField.vue"
+	import RangeField from "components/app/form/RangeField.vue"
 
 	import generateGame from "utils/game/GenerateGame";
 	import generateRule from "utils/game/GenerateRule";

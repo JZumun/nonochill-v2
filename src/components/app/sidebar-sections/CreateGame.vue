@@ -9,7 +9,7 @@
 </template>
 
 <script>
-	import RangeField from "app-components/form/RangeField.vue"
+	import RangeField from "components/app/form/RangeField.vue"
 
 	import modes from "store/values/modes"
 	import { START_EDITOR } from "store/mutations"
