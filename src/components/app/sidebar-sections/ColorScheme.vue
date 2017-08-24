@@ -2,7 +2,7 @@
 	fieldset
 		legend Color Scheme
 		ul
-			li( v-for="color,i in colors" :style="`--color:${color}`")
+			li( v-for="color,i in colors" :style="`--color:${color}`" :class="{highlighted: i+1 == anchor}")
 				label
 					span(v-text="i+1")
 					input(type="color" :value="colors[i]" @change="changeColors(i,$event.target.value)")
@@ -15,6 +15,7 @@
 
 	export default {
 		computed: {
+			anchor() { return this.$store.state.colorAnchor },
 			colors() { return this.$store.getters.colorsUsed }
 		},
 		methods: {
@@ -80,5 +81,9 @@
 
 	button {
 		cursor:pointer;
+	}
+
+	.highlighted {
+		box-shadow: inset 0 0 0 2px var(--background-color), 0 0 0 1px var(--light-accent);
 	}
 </style>

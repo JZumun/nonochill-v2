@@ -37,7 +37,7 @@
 				if (!this.anchor) {
 					next = incrementColor(this.state, this.maxState, reverse)
 				} else {
-					next = incrementColor( this.state > 0 ? 1 : this.state, 1, reverse );
+					next = incrementColor( this.state == this.anchor ? 1 : this.state > 0 ? 0 : this.state, 1, reverse );
 					next = next == 1 ? this.anchor : next;
 				}
 
