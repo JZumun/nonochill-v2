@@ -2,21 +2,22 @@
 	.board-game( :style="`--board-size:${size};--clue-size:${size};`" )
 		#section-clues-vertical.vertical.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
-				:class="{solved: solved.column[i]}"
 				v-for="clues, i in rules.column" :key="this.id"
 				:id="{y:i}"
 				:clues="clues"
 				:width="size"
-				:highlight="highlight" @highlight="setHighlight"
+				:class="{solved: solved.column[i], highlighted: i==highlight.y}"
+				@mouseenter.native="setHighlight(null,i)"
+
 			)
 		#section-clues-horizontal.horizontal.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
-				:class="{solved: solved.row[i]}"
 				v-for="clues, i in rules.row" :key="this.id"
 				:id="{x:i}"
 				:clues="clues"
 				:width="size"
-				:highlight="highlight" @highlight="setHighlight"
+				:class="{solved: solved.row[i], highlighted: i==highlight.x}"
+				@mouseenter.native="setHighlight(i,null)"
 			)
 		#section-board-game.board( @mouseleave="clearHighlight", :class="{win}")
 			.game-row(v-for="row,x in board" v-bind:key="x")
@@ -26,7 +27,8 @@
 					:id="{x,y}"
 					:state="board[x][y]"
 					:max-state="colors"
-					:highlight="highlight" @highlight="setHighlight"
+					:class="{highlighted: highlight.x == x || highlight.y == y}"
+					@mouseenter.native="setHighlight(x,y)"
 				)
 </template>
 
@@ -71,7 +73,7 @@
 		},
 		methods: {
 			clearHighlight() { this.highlight = {} },
-			setHighlight(id) { this.highlight = id }
+			setHighlight(x,y) { this.highlight = {x,y} }
 		}
 	}
 </script>
@@ -124,5 +126,9 @@
 }
 .clues.solved {
 	background-color:rgba(255,255,255,0.125);
+}
+
+.highlighted {
+	background: var(--highlight-color) !important;
 }
 </style>

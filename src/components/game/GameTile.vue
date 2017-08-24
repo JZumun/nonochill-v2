@@ -1,6 +1,5 @@
 <template lang="pug">
 	.game-tile(
-		:class="{highlighted}"
 		:data-state="state"
 		@mouseenter="mouseEnter"
 		@mousedown="mouseDown"
@@ -10,12 +9,10 @@
 </template>
 
 <script>
-	import highlighter from "./mixins/highlighter"
 	import incrementColor from "utils/game/IncrementColor"
 	import { ACTION_SET_TILE } from "store/actions";
 
 	export default {
-		mixins: [highlighter],
 		props: {
 			state: Number,
 			maxState: Number,
@@ -26,7 +23,6 @@
 		},
 		methods: {
 			mouseEnter: function(event) {
-				this.setHighlight();
 				if (event.buttons==1) { this.toggle( event.shiftKey ) }
 			},
 			mouseDown: function(event) {
@@ -131,8 +127,5 @@
 	}
 	.win [data-state="-1"] {
 		--bgcolor:transparent;
-	}
-	.highlighted {
-		background-color:var(--highlight-color);
 	}
 </style>

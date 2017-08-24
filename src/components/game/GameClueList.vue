@@ -1,8 +1,7 @@
 <template lang="pug">
 	ul.clues(
-				:class="[vertical,{ sparse, highlighted }]"
+				:class="[vertical,{ sparse }]"
 				:style="`--clue-gap: ${clueGap}`"
-				@mouseenter="setHighlight"
 			)
 		li.clue(
 				:data-state="clue.val"
@@ -12,10 +11,9 @@
 </template>
 
 <script>
-	import highlighter from "./mixins/highlighter"
 	export default {
-		mixins: [highlighter],
 		props: {
+			id: Object,
 			width: Number,
 			clues: Array
 		},
@@ -41,9 +39,7 @@
 		align-items: center;
 		justify-items: center;
 	}
-.highlighted {
-	background-color:var(--highlight-color);
-}
+
 	[data-state="2"] { color:var(--state-2); }
 	[data-state="3"] { color:var(--state-3); }
 	[data-state="4"] { color:var(--state-4); }
