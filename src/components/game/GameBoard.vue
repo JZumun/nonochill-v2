@@ -36,14 +36,14 @@
 	import { mapState, mapActions } from "vuex";
 	import { ACTION_TOGGLE_TILE } from "store/actions";
 
-import { count, sameArrays, filteredLength } from "utils/ArrayUtils";
+	import { count, sameArrays, filteredLength } from "utils/ArrayUtils";
 	import computedRule from "utils/game/GenerateRule";
 
 	const equalAndValued = (a, b) => a != null && a === b;
-const sameRule = (x, y) => x.val === y.val && x.count === y.count;
-const sameRules = (a, b) => sameArrays(a, b, sameRule);
+	const sameRule = (x, y) => x.val === y.val && x.count === y.count;
+	const sameRules = (a, b) => sameArrays(a, b, sameRule);
 
-export default {
+	export default {
 		components: { GameTile, GameClueList },
 		data () {
 			return {
