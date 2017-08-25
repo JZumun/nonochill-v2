@@ -10,17 +10,12 @@
 <script>
 import { jwerty } from "jwerty"
 
-import  { mapState } from "vuex"
+import  { mapState, mapActions } from "vuex"
 import store from "store/Store"
-import { UPDATE_RULES, ANCHOR_COLOR, UNANCHOR_COLOR, REVERSE_COLOR } from "store/mutations"
-import state from "store/values/modes"
-
-import {count} from "utils/ArrayUtils"
+import { ACTION_ANCHOR_COLOR, ACTION_REVERSE_COLOR } from "store/actions"
 
 import Sidebar from "components/app/Sidebar.vue"
 import GameBoard from "components/game/GameBoard.vue"
-
-import computedRule from "utils/game/GenerateRule"
 
 export default {
 	store,
@@ -35,37 +30,15 @@ export default {
 			return `--state-${index+1}:${color};`
 		}).join("")}`
 	}),
-	watch: {
-		board(val) {
-			if (this.state == 2) {
-				this.$store.commit(UPDATE_RULES,{
-					row: this.board.map(row=>computedRule(row)),
-					column: count(this.board.length).map( col => computedRule( this.board.map(row => row[col]) ) )
-				})
-			}
-		}
-	},
-	methods: {
-		keyup(e) {
-				this.$store.commit(UNANCHOR_COLOR,e.keyCode - 48);
-		},
-		keydown(e) {
-			const value = e.keyCode - 48;
-			if (this.anchor != value && this.maxColor >= value)
-				this.$store.commit(ANCHOR_COLOR,value);
-		},
-		reverseUp(e) {
-			if (this.reverse) { this.$store.commit(REVERSE_COLOR, false) }
-		},
-		reverseDown(e) {
-			if (!this.reverse) { this.$store.commit(REVERSE_COLOR, true) }
-		}
-	},
+	methods: mapActions({
+		anchorColor: ACTION_ANCHOR_COLOR,
+		reverseColor: ACTION_REVERSE_COLOR
+	}),
 	created() {
-		window.addEventListener("keydown",jwerty.event("[1-5]",this.keydown));
-		window.addEventListener("keyup",jwerty.event("[1-5]",this.keyup))
-		window.addEventListener("keydown", jwerty.event("`",this.reverseDown ))
-		window.addEventListener("keyup", jwerty.event("`",this.reverseUp  ))
+		window.addEventListener("keydown", jwerty.event( "[1-5]", e=>this.anchorColor(e.keyCode - 48) ));
+		window.addEventListener("keyup",   jwerty.event( "[1-5]", e=>this.anchorColor(null) ))
+		window.addEventListener("keydown", jwerty.event( "`",     e=>this.reverseColor(true) ))
+		window.addEventListener("keyup",   jwerty.event( "`",     e=>this.reverseColor(false) ))
 	},
 	components: {
 		Sidebar,

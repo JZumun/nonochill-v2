@@ -2,30 +2,30 @@
 	.board-game( :style="`--board-size:${size};--clue-size:${size};`" )
 		#section-clues-vertical.vertical.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
-				v-for="clues, i in rules.column" :key="i"
+				v-for="clues, y in rules.column" :key="y"
 				:vertical="true"
 				:clues="clues"
 				:width="size"
-				:class="{solved: solved.column[i], highlighted: isHighlighted(null,i)}"
-				@mouseenter.native="setHighlight(null,i)"
+				:class="{solved: solved.column[y], highlighted: isHighlighted({y})}"
+				@mouseenter.native="setHighlight({y})"
 
 			)
 		#section-clues-horizontal.horizontal.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
-				v-for="clues, i in rules.row" :key="i"
+				v-for="clues, x in rules.row" :key="x"
 				:clues="clues"
 				:width="size"
-				:class="{solved: solved.row[i], highlighted: isHighlighted(i,null)}"
-				@mouseenter.native="setHighlight(i,null)"
+				:class="{solved: solved.row[x], highlighted: isHighlighted({x})}"
+				@mouseenter.native="setHighlight({x})"
 			)
 		#section-board-game.board( @mouseleave="clearHighlight", :class="{win}")
 			.game-row(v-for="row,x in board" v-bind:key="x")
 				game-tile(
 					v-for="tile,y in row" key="`${x}-${y}`"
 					:state="board[x][y]"
-					:class="{highlighted: isHighlighted(x,y)}"
-					@mouseenter.native="enterTile(x,y,$event)"
-					@mousedown.native="toggle(x,y)"
+					:class="{highlighted: isHighlighted({x,y})}"
+					@mouseenter.native="enterTile({x,y},$event)"
+					@mousedown.native="toggle({x,y})"
 				)
 </template>
 
@@ -33,7 +33,7 @@
 	import GameTile from "./GameTile.vue"
 	import GameClueList from "./GameClueList.vue"
 
-	import  { mapState } from "vuex"
+	import  { mapState, mapActions } from "vuex"
 	import { ACTION_TOGGLE_TILE } from "store/actions";
 
 	import { count, sameArrays, filteredLength } from "utils/ArrayUtils"
@@ -71,23 +71,19 @@
 		watch: {
 			win(val) { if(val) this.$emit("win") }
 		},
-		methods: {
+		methods: Object.assign({
 			clearHighlight() { this.highlight = {} },
-			setHighlight(x,y) { this.highlight = {x,y} },
-			isHighlighted(x,y) { return equalAndValued(this.highlight.x,x) ||
+			setHighlight(tile) { this.highlight = tile },
+			isHighlighted({x,y}) { return equalAndValued(this.highlight.x,x) ||
 																	equalAndValued(this.highlight.y,y) },
 
-			enterTile(x,y,e) {
-				this.setHighlight(x,y);
-				if (e.buttons == 1) { this.toggle(x,y) }
-			},
-			toggle(x,y) {
-				this.$store.dispatch(ACTION_TOGGLE_TILE, {
-					tile: {x,y},
-					curr: this.board[x][y]
-				});
+			enterTile(tile,e) {
+				this.setHighlight(tile);
+				if (e.buttons == 1) { this.toggle(tile) }
 			}
-		}
+		},mapActions({
+			toggle: ACTION_TOGGLE_TILE
+		}))
 	}
 </script>
 

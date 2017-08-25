@@ -62,7 +62,6 @@ export default {
 	[START_EDITOR](state,{ size, colors, scheme = originalColors.slice() }) {
 		state.colorScheme = scheme;
 		state.colorNum = colors;
-		state.mode = modes.CREATOR;
 		state.rules = {
 			column: count(size).map(el=>[]),
 			row: count(size).map(el=>[])

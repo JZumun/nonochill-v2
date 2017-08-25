@@ -22,7 +22,7 @@
 	import generateRule from "utils/game/GenerateRule";
 	import { deserialize } from "utils/game/Serializer";
 
-	import { START_GAME } from "store/mutations"
+	import { ACTION_START_GAME } from "store/actions"
 	import  { count } from "utils/ArrayUtils"
 
 	export default {
@@ -43,7 +43,7 @@
 					column: count(this.size).map( col => generateRule( board.map( row => row[col] ) ) ),
 					row: count(this.size).map( row => generateRule( board[row] ) )
 				}
-				this.$store.commit(START_GAME,{
+				this.$store.dispatch(ACTION_START_GAME,{
 					size: this.size,
 					colors: this.colors,
 					rules
@@ -56,7 +56,7 @@
 				} catch( e ) {
 					this.code = "FAULTY CODE";
 				}
-				this.$store.commit(START_GAME,{
+				this.$store.dispatch(ACTION_START_GAME,{
 					size: options.width,
 					rules: {
 						row: options.row,

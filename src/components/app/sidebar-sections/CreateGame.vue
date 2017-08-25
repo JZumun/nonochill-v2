@@ -11,9 +11,9 @@
 <script>
 	import RangeField from "components/app/form/RangeField.vue"
 
-	import { mapMutations } from "vuex"
+	import { mapActions } from "vuex"
 	import modes from "store/values/modes"
-	import { START_EDITOR } from "store/mutations"
+	import { ACTION_START_EDITOR } from "store/actions"
 
 	export default {
 		components: { RangeField },
@@ -24,6 +24,6 @@
 				closed: true
 			}
 		},
-		methods: mapMutations({start: START_EDITOR})
+		methods: mapActions({start: ACTION_START_EDITOR})
 	}
 </script>
