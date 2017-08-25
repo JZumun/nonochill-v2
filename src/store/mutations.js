@@ -23,6 +23,8 @@ export const REDO_MOVE = "redo-move";
 export const ANCHOR_COLOR = "anchor-color";
 export const UNANCHOR_COLOR = "unanchor-color";
 
+export const REVERSE_COLOR = "reverse-color";
+
 const invertMove = move => ({
 	undone: true,
 	tile: move.tile,
@@ -118,5 +120,8 @@ export default {
 	},
 	[UNANCHOR_COLOR](state,key) {
 		state.colorAnchor = null;
+	},
+	[REVERSE_COLOR](state,value) {
+		state.colorReverse = value;
 	}
 }

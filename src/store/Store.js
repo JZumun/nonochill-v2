@@ -14,6 +14,7 @@ const state = {
 	colorScheme: [...colors],
 	colorNum: 3,
 	colorAnchor: null,
+	colorReverse: false,
 	board: [],
 	rules: {
 		column: [],

@@ -4,14 +4,14 @@
 		section#main.main.page-section
 			div.title-card(v-if="state==0")
 				h1 Nono#[span Chill]#[sup v.2]
-			game-board( v-else :colors="colorNum", :board="board", :rules="rules" )
+			game-board( v-else )
 </template>
 
 <script>
 import { jwerty } from "jwerty"
 
 import store from "store/Store"
-import { UPDATE_RULES, ANCHOR_COLOR, UNANCHOR_COLOR } from "store/mutations"
+import { UPDATE_RULES, ANCHOR_COLOR, UNANCHOR_COLOR, REVERSE_COLOR } from "store/mutations"
 import state from "store/values/modes"
 
 import {count} from "utils/ArrayUtils"
@@ -26,10 +26,7 @@ export default {
   name: 'app',
 	computed: {
 		board() { return this.$store.state.board },
-		rules() { return this.$store.state.rules },
 		state() { return this.$store.state.mode },
-		colorNum() { return this.$store.state.colorNum },
-		colors() { return this.$store.state.colorScheme },
 		colorStyling() {
 			return `${this.$store.state.colorScheme.map((color,index)=>{
 				return `--state-${index+1}:${color};`
@@ -54,11 +51,19 @@ export default {
 			const value = e.keyCode - 48;
 			if (this.$store.state.colorAnchor != value && this.$store.state.colorNum >= value)
 				this.$store.commit(ANCHOR_COLOR,value);
+		},
+		reverseUp(e) {
+			if (this.$store.state.colorReverse) { this.$store.commit(REVERSE_COLOR, false) }
+		},
+		reverseDown(e) {
+			if (!this.$store.state.colorReverse) { this.$store.commit(REVERSE_COLOR, true) }
 		}
 	},
 	created() {
 		window.addEventListener("keydown",jwerty.event("[1-5]",this.keydown));
 		window.addEventListener("keyup",jwerty.event("[1-5]",this.keyup))
+		window.addEventListener("keydown", jwerty.event("`",this.reverseDown ))
+		window.addEventListener("keyup", jwerty.event("`",this.reverseUp  ))
 	},
 	components: {
 		Sidebar,

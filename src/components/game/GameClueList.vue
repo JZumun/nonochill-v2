@@ -1,6 +1,6 @@
 <template lang="pug">
 	ul.clues(
-				:class="[vertical,{ sparse }]"
+				:class="{ sparse,vertical,horizontal:!vertical }"
 				:style="`--clue-gap: ${clueGap}`"
 			)
 		li.clue(
@@ -15,10 +15,13 @@
 		props: {
 			id: Object,
 			width: Number,
-			clues: Array
+			clues: Array,
+			vertical: {
+				type: Boolean,
+				default: false
+			}
 		},
 		computed: {
-			vertical: function() { return "x" in this.id ? "horizontal" : "vertical" },
 			clueGap: function() { return this.clues ? this.width - this.clues.length : 0 },
 			sparse: function() { return this.clues  && (this.clues.length < this.width ) }
 		}

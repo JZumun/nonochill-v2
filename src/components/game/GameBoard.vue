@@ -2,33 +2,30 @@
 	.board-game( :style="`--board-size:${size};--clue-size:${size};`" )
 		#section-clues-vertical.vertical.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
-				v-for="clues, i in rules.column" :key="this.id"
-				:id="{y:i}"
+				v-for="clues, i in rules.column" :key="i"
+				:vertical="true"
 				:clues="clues"
 				:width="size"
-				:class="{solved: solved.column[i], highlighted: i==highlight.y}"
+				:class="{solved: solved.column[i], highlighted: isHighlighted(null,i)}"
 				@mouseenter.native="setHighlight(null,i)"
 
 			)
 		#section-clues-horizontal.horizontal.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
-				v-for="clues, i in rules.row" :key="this.id"
-				:id="{x:i}"
+				v-for="clues, i in rules.row" :key="i"
 				:clues="clues"
 				:width="size"
-				:class="{solved: solved.row[i], highlighted: i==highlight.x}"
+				:class="{solved: solved.row[i], highlighted: isHighlighted(i,null)}"
 				@mouseenter.native="setHighlight(i,null)"
 			)
 		#section-board-game.board( @mouseleave="clearHighlight", :class="{win}")
 			.game-row(v-for="row,x in board" v-bind:key="x")
 				game-tile(
-					v-for="tile,y in row"
-					:key="this.id"
-					:id="{x,y}"
+					v-for="tile,y in row" key="`${x}-${y}`"
 					:state="board[x][y]"
-					:max-state="colors"
-					:class="{highlighted: highlight.x == x || highlight.y == y}"
-					@mouseenter.native="setHighlight(x,y)"
+					:class="{highlighted: isHighlighted(x,y)}"
+					@mouseenter.native="enterTile(x,y,$event)"
+					@mousedown.native="toggle(x,y)"
 				)
 </template>
 
@@ -36,24 +33,27 @@
 	import GameTile from "./GameTile.vue"
 	import GameClueList from "./GameClueList.vue"
 
+
+	import { ACTION_TOGGLE_TILE } from "store/actions";
+
 	import { count, sameArrays, filteredLength } from "utils/ArrayUtils"
 	import computedRule from "utils/game/GenerateRule"
+
+	const equalAndValued = (a,b) => a != null && a === b;
 	const sameRule = (x,y) => x.val == y.val && x.count == y.count;
 	const sameRules = (a,b) => sameArrays(a,b, sameRule);
 
 	export default {
 		components: {GameTile, GameClueList},
-		props: {
-			colors: Number,
-			board: Array,
-			rules: Object
-		},
 		data() {
 			return {
 				highlight: {}
 			}
 		},
 		computed: {
+			colors() { return this.$store.state.colorNum },
+			board() { return this.$store.state.board },
+			rules() { return this.$store.state.rules },
 			rows() { return this.board },
 			columns() { return count(this.size).map( col => this.board.map(row=>row[col]) ) },
 			size() { return this.board.length; },
@@ -73,7 +73,20 @@
 		},
 		methods: {
 			clearHighlight() { this.highlight = {} },
-			setHighlight(x,y) { this.highlight = {x,y} }
+			setHighlight(x,y) { this.highlight = {x,y} },
+			isHighlighted(x,y) { return equalAndValued(this.highlight.x,x) ||
+																	equalAndValued(this.highlight.y,y) },
+
+			enterTile(x,y,e) {
+				this.setHighlight(x,y);
+				if (e.buttons == 1) { this.toggle(x,y) }
+			},
+			toggle(x,y) {
+				this.$store.dispatch(ACTION_TOGGLE_TILE, {
+					tile: {x,y},
+					curr: this.board[x][y]
+				});
+			}
 		}
 	}
 </script>
@@ -124,11 +137,12 @@
 .win {
 	--board-gap:0;
 }
-.clues.solved {
-	background-color:rgba(255,255,255,0.125);
+
+.game-tile.highlighted, .clues.highlighted {
+	background: var(--highlight-color) ;
 }
 
-.highlighted {
-	background: var(--highlight-color) !important;
+.clues.solved {
+	background-color:rgba(255,255,255,0.125);
 }
 </style>

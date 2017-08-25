@@ -1,50 +1,13 @@
 <template lang="pug">
-	.game-tile(
-		:data-state="state"
-		@mouseenter="mouseEnter"
-		@mousedown="mouseDown"
-	)
+	.game-tile( :data-state="state" )
 		.game-tile-contents
 			slot
 </template>
 
 <script>
-	import incrementColor from "utils/game/IncrementColor"
-	import { ACTION_SET_TILE } from "store/actions";
-
 	export default {
 		props: {
-			state: Number,
-			maxState: Number,
-			id: Object
-		},
-		computed: {
-			anchor() { return this.$store.state.colorAnchor }
-		},
-		methods: {
-			mouseEnter: function(event) {
-				if (event.buttons==1) { this.toggle( event.shiftKey ) }
-			},
-			mouseDown: function(event) {
-				this.toggle( event.shiftKey )
-			},
-			toggle: function(reverse) {
-				let next;
-				if (!this.anchor) {
-					next = incrementColor(this.state, this.maxState, reverse)
-				} else {
-					next = incrementColor( this.state == this.anchor ? 1 : this.state > 0 ? 0 : this.state, 1, reverse );
-					next = next == 1 ? this.anchor : next;
-				}
-
-				if (next != this.state) {
-					this.$store.dispatch(ACTION_SET_TILE, {
-						tile: this.id,
-						curr: this.state,
-						next
-					});
-				}
-			}
+			state: Number
 		}
 	}
 </script>
