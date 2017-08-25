@@ -1,0 +1,13 @@
+{
+  extends: ['vue'],
+  plugins: ['vue'],
+  rules: {
+    "indent": ["error", "tab"],
+    "quotes": ["error", "double",  { "allowTemplateLiterals": true }],
+    "semi": ["error","always"]
+  },
+  parserOptions: {
+    ecmaVersion: 2016,
+    sourceType: 'module'
+  }
+}

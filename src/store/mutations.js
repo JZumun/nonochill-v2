@@ -1,7 +1,7 @@
-import originalColors from "./values/colors"
-import modes from "./values/modes"
+import originalColors from "./values/colors";
+import modes from "./values/modes";
 
-import { square,count } from "utils/ArrayUtils"
+import { square, count } from "utils/ArrayUtils";
 
 export const CHANGE_MODE = "change-mode";
 export const CHANGE_COLORS = "change-colors";
@@ -30,97 +30,97 @@ const invertMove = move => ({
 	tile: move.tile,
 	next: move.curr,
 	curr: move.next
-})
-const invertMoves = moves => moves.reverse().map(invertMove)
+});
+const invertMoves = moves => moves.reverse().map(invertMove);
 
-const updateBoard = (oldBoard,moves) => moves.reduce((board,{tile:{x,y},next})=>{
+const updateBoard = (oldBoard, moves) => moves.reduce((board, { tile: { x, y }, next }) => {
 	board[x][y] = next;
 	return board;
-},oldBoard.slice());
+}, oldBoard.slice());
 
-const clearBoard = (state,size=state.board.length) => {
-	state.board = square(size,el=>0);
-}
+const clearBoard = (state, size = state.board.length) => {
+	state.board = square(size, el => 0);
+};
 const clearHistory = state => {
 	state.history = {
 		past: [],
 		future: [],
 		staged: []
-	}
-}
+	};
+};
 
 export default {
-	[START_GAME](state,{ size, rules, colors, scheme = originalColors.slice() }) {
+	[START_GAME] (state, { size, rules, colors, scheme = originalColors.slice() }) {
 		state.rules = rules;
 		state.colorScheme = scheme;
 		state.colorNum = colors;
 		state.mode = modes.GAME_SETUP;
 
-		clearBoard(state,size);
+		clearBoard(state, size);
 		clearHistory(state);
 	},
-	[START_EDITOR](state,{ size, colors, scheme = originalColors.slice() }) {
+	[START_EDITOR] (state, { size, colors, scheme = originalColors.slice() }) {
 		state.colorScheme = scheme;
 		state.colorNum = colors;
 		state.rules = {
-			column: count(size).map(el=>[]),
-			row: count(size).map(el=>[])
-		}
+			column: count(size).map(el => []),
+			row: count(size).map(el => [])
+		};
 
-		clearBoard(state,size);
+		clearBoard(state, size);
 		clearHistory(state);
 	},
-	[CHANGE_MODE](state,mode) {
+	[CHANGE_MODE] (state, mode) {
 		state.mode = mode;
 	},
 
-	[CHANGE_COLORS](state,colors) {
+	[CHANGE_COLORS] (state, colors) {
 		state.colorScheme = colors.slice();
 	},
-	[CHANGE_COLOR](state,{index,value}) {
-		state.colorScheme.splice(index,1,value);
+	[CHANGE_COLOR] (state, { index, value }) {
+		state.colorScheme.splice(index, 1, value);
 	},
-	[RESET_COLORS](state) {
+	[RESET_COLORS] (state) {
 		state.colorScheme = originalColors;
 	},
 
-	[RESET_BOARD](state) {
+	[RESET_BOARD] (state) {
 		clearBoard(state);
 		clearHistory(state);
 	},
-	[UPDATE_RULES](state,rules) {
+	[UPDATE_RULES] (state, rules) {
 		state.rules = rules;
 	},
 
-	[SET_TILE](state,payload) {
-		state.board = updateBoard(state.board,[payload]);
+	[SET_TILE] (state, payload) {
+		state.board = updateBoard(state.board, [payload]);
 	},
-	[STAGE_MOVE](state,payload) {
+	[STAGE_MOVE] (state, payload) {
 		state.history.future = [];
 		state.history.staged.push(payload);
 	},
-	[COMMIT_MOVES](state) {
+	[COMMIT_MOVES] (state) {
 		state.history.past.push(state.history.staged);
 		state.history.staged = [];
 	},
-	[UNDO_MOVE](state) {
+	[UNDO_MOVE] (state) {
 		const moves = invertMoves(state.history.past.pop());
-		state.board = updateBoard(state.board,moves);
+		state.board = updateBoard(state.board, moves);
 		state.history.future.push(moves);
 	},
-	[REDO_MOVE](state) {
+	[REDO_MOVE] (state) {
 		const moves = invertMoves(state.history.future.pop());
 		state.board = updateBoard(state.board, moves);
 		state.history.past.push(moves);
 	},
 
-	[ANCHOR_COLOR](state,key) {
+	[ANCHOR_COLOR] (state, key) {
 		state.colorAnchor = key;
 	},
-	[UNANCHOR_COLOR](state,key) {
+	[UNANCHOR_COLOR] (state, key) {
 		state.colorAnchor = null;
 	},
-	[REVERSE_COLOR](state,value) {
+	[REVERSE_COLOR] (state, value) {
 		state.colorReverse = value;
 	}
-}
+};

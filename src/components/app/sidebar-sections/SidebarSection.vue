@@ -11,7 +11,7 @@
 			title: String,
 			disabled: {
 				type: Boolean,
-				default: false,
+				default: false
 			},
 			closed: {
 				type: Boolean,
@@ -19,12 +19,12 @@
 			}
 		},
 		computed: {
-			reallyClosed() { return this.disabled || this.closed }
+			reallyClosed () { return this.disabled || this.closed; }
 		},
 		methods: {
-			toggleHidden() { this.$emit("toggle",this.closed) }
+			toggleHidden () { this.$emit("toggle", this.closed); }
 		}
-	}
+	};
 </script>
 
 <style scoped>

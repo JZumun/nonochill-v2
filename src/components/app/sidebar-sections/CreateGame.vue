@@ -9,21 +9,20 @@
 </template>
 
 <script>
-	import RangeField from "components/app/form/RangeField.vue"
+	import RangeField from "components/app/form/RangeField.vue";
 
-	import { mapActions } from "vuex"
-	import modes from "store/values/modes"
-	import { ACTION_START_EDITOR } from "store/actions"
+	import { mapActions } from "vuex";
+	import { ACTION_START_EDITOR } from "store/actions";
 
 	export default {
 		components: { RangeField },
-		data() {
+		data () {
 			return {
 				size: 5,
 				colors: 3,
 				closed: true
-			}
+			};
 		},
-		methods: mapActions({start: ACTION_START_EDITOR})
-	}
+		methods: mapActions({ start: ACTION_START_EDITOR })
+	};
 </script>

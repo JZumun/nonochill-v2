@@ -4,7 +4,7 @@ const modes = Object.freeze({
 	GAME_READY: 1.5,
 	CREATOR: 2,
 	CREATOR_READY: 2.5
-})
+});
 
 const isin = (...arr) => mode => arr.includes(mode);
 

@@ -9,7 +9,7 @@
 		props: {
 			name: String
 		}
-	}
+	};
 </script>
 
 <style scoped>

@@ -10,34 +10,33 @@
 </template>
 
 <script>
-	import SidebarSection from "./sidebar-sections/SidebarSection.vue"
-	import StartGame from "./sidebar-sections/StartGame.vue"
-	import CreateGame from "./sidebar-sections/CreateGame.vue"
-	import GameOptions from "./sidebar-sections/GameOptions.vue"
+	import SidebarSection from "./sidebar-sections/SidebarSection.vue";
+	import StartGame from "./sidebar-sections/StartGame.vue";
+	import CreateGame from "./sidebar-sections/CreateGame.vue";
+	import GameOptions from "./sidebar-sections/GameOptions.vue";
 
-	import { mapState } from "vuex"
-	import modes from "store/values/modes"
+	import { mapState } from "vuex";
+	import modes from "store/values/modes";
 
 	export default {
-		components: {SidebarSection, StartGame, GameOptions, CreateGame},
+		components: { SidebarSection, StartGame, GameOptions, CreateGame },
 		computed: mapState(["mode"]),
 		watch: {
-			mode(val) {
-				if (val == modes.INIT){ this.section = [true, false, false] }
-				else { this.section = [false, false, true] }
+			mode (val) {
+				if (val === modes.INIT) { this.section = [true, false, false]; } else { this.section = [false, false, true]; }
 			}
 		},
-		data() {
+		data () {
 			return {
-				section: [true,false,false]
-			}
+				section: [true, false, false]
+			};
 		},
 		methods: {
-			toggle(section) {
-				this.section = this.section.map( (val,i) => i == section ? !val : false );
+			toggle (section) {
+				this.section = this.section.map((val, i) => i === section ? !val : false);
 			}
 		}
-	}
+	};
 </script>
 
 <style>

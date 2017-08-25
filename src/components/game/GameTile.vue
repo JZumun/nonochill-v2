@@ -9,7 +9,7 @@
 		props: {
 			state: Number
 		}
-	}
+	};
 </script>
 
 <style scoped>

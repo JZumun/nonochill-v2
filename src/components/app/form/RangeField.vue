@@ -13,10 +13,10 @@
 </template>
 
 <script>
-	import FormField from "./FormField.vue"
+	import FormField from "./FormField.vue";
 
 	export default {
-		components: {FormField},
+		components: { FormField },
 		props: {
 			value: Number,
 			name: String,
@@ -31,26 +31,26 @@
 			}
 		},
 		computed: {
-			prettyValue() {
-				return Math.floor(this.value) == this.value ? this.value : this.value.toFixed(2);
+			prettyValue () {
+				return Math.floor(this.value) === this.value ? this.value : this.value.toFixed(2);
 			}
 		},
-		data() {
+		data () {
 			return {
 				innerValue: this.value
-			}
+			};
 		},
 		methods: {
-			updateRange(value) {
+			updateRange (value) {
 				this.innerValue = Number(value);
 				const roundedValue = Math.round(Number(value) / this.step) * this.step;
-				this.$emit("input",roundedValue)
+				this.$emit("input", roundedValue);
 			},
-			snapValue() {
+			snapValue () {
 				this.innerValue = this.value;
 			}
 		}
-	}
+	};
 </script>
 
 <style scoped>

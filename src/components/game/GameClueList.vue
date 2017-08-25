@@ -22,11 +22,11 @@
 			}
 		},
 		computed: {
-			clueGap: function() { return this.clues ? this.width - this.clues.length : 0 },
-			sparse: function() { return this.clues  && (this.clues.length < this.width ) }
+			clueGap: function () { return this.clues ? this.width - this.clues.length : 0; },
+			sparse: function () { return this.clues && (this.clues.length < this.width); }
 		}
 
-	}
+	};
 </script>
 
 <style scoped>

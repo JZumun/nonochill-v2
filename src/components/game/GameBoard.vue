@@ -30,61 +30,63 @@
 </template>
 
 <script>
-	import GameTile from "./GameTile.vue"
-	import GameClueList from "./GameClueList.vue"
+	import GameTile from "./GameTile.vue";
+	import GameClueList from "./GameClueList.vue";
 
-	import  { mapState, mapActions } from "vuex"
+	import { mapState, mapActions } from "vuex";
 	import { ACTION_TOGGLE_TILE } from "store/actions";
 
-	import { count, sameArrays, filteredLength } from "utils/ArrayUtils"
-	import computedRule from "utils/game/GenerateRule"
+import { count, sameArrays, filteredLength } from "utils/ArrayUtils";
+	import computedRule from "utils/game/GenerateRule";
 
-	const equalAndValued = (a,b) => a != null && a === b;
-	const sameRule = (x,y) => x.val == y.val && x.count == y.count;
-	const sameRules = (a,b) => sameArrays(a,b, sameRule);
+	const equalAndValued = (a, b) => a != null && a === b;
+const sameRule = (x, y) => x.val === y.val && x.count === y.count;
+const sameRules = (a, b) => sameArrays(a, b, sameRule);
 
-	export default {
-		components: {GameTile, GameClueList},
-		data() {
+export default {
+		components: { GameTile, GameClueList },
+		data () {
 			return {
 				highlight: {}
-			}
+			};
 		},
 		computed: Object.assign({
-				solved() {
-					return {
-						row: this.rows.map((row,i) => sameRules( computedRule(row), this.rules.row[i] )),
-						column: this.columns.map((col,j) => sameRules( computedRule(col), this.rules.column[j] ))
-					}
-				},
-				win() {
-					return (filteredLength(this.solved.column) == this.size) &&
-						(filteredLength(this.solved.row) == this.size)
-				},
-			},mapState({
-				board: "board",
-				rules: "rules",
-				size: ({board}) => board.length,
-				rows: "board",
-				columns: ({board}) => count(board.length).map( col => board.map( row => row[col] ) )
+			solved () {
+				return {
+					row: this.rows.map((row, i) => sameRules(computedRule(row), this.rules.row[i])),
+					column: this.columns.map((col, j) => sameRules(computedRule(col), this.rules.column[j]))
+				};
+			},
+			win () {
+				return (filteredLength(this.solved.column) === this.size) &&
+						(filteredLength(this.solved.row) === this.size);
+			}
+		}, mapState({
+			board: "board",
+			rules: "rules",
+			size: ({ board }) => board.length,
+			rows: "board",
+			columns: ({ board }) => count(board.length).map(col => board.map(row => row[col]))
 		})),
 		watch: {
-			win(val) { if(val) this.$emit("win") }
+			win (val) { if (val) this.$emit("win"); }
 		},
 		methods: Object.assign({
-			clearHighlight() { this.highlight = {} },
-			setHighlight(tile) { this.highlight = tile },
-			isHighlighted({x,y}) { return equalAndValued(this.highlight.x,x) ||
-																	equalAndValued(this.highlight.y,y) },
+			clearHighlight () { this.highlight = {}; },
+			setHighlight (tile) { this.highlight = tile; },
+			isHighlighted ({ x, y }) {
+				return equalAndValued(this.highlight.x, x) ||
+																	equalAndValued(this.highlight.y, y);
+			},
 
-			enterTile(tile,e) {
+			enterTile (tile, e) {
 				this.setHighlight(tile);
-				if (e.buttons == 1) { this.toggle(tile) }
+				if (e.buttons === 1) { this.toggle(tile); }
 			}
-		},mapActions({
+		}, mapActions({
 			toggle: ACTION_TOGGLE_TILE
 		}))
-	}
+	};
 </script>
 
 <style scoped>

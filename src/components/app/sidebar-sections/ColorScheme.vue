@@ -10,20 +10,19 @@
 </template>
 
 <script>
-	import { mapState, mapGetters, mapMutations } from "vuex"
-	import { CHANGE_COLOR, RESET_COLORS } from "store/mutations"
-
+	import { mapState, mapGetters, mapMutations } from "vuex";
+	import { CHANGE_COLOR, RESET_COLORS } from "store/mutations";
 
 	export default {
 		computed: Object.assign({},
-			mapState({anchor: "colorAnchor" }),
+			mapState({ anchor: "colorAnchor" }),
 			mapGetters({ colors: "colorsUsed" })
 		),
 		methods: mapMutations({
 			changeColors: CHANGE_COLOR,
 			resetColors: RESET_COLORS
 		})
-	}
+	};
 </script>
 
 <style scoped>

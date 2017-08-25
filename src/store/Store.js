@@ -1,14 +1,14 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-import mode from "./values/modes"
-import colors from "./values/colors"
-import mutations from "./mutations"
-import actions from "./actions"
+import mode from "./values/modes";
+import colors from "./values/colors";
+import mutations from "./mutations";
+import actions from "./actions";
 
-import { serialize } from "utils/game/Serializer"
+import { serialize } from "utils/game/Serializer";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 const state = {
 	mode: mode.INIT,
 	colorScheme: [...colors],
@@ -25,10 +25,10 @@ const state = {
 		past: [],
 		future: []
 	}
-}
+};
 
 const getters = {
-	serialization: ({board,colorNum,colorScheme,rules}) => serialize({
+	serialization: ({ board, colorNum, colorScheme, rules }) => serialize({
 		width: board.length,
 		height: board.length,
 		colors: colorNum,
@@ -36,14 +36,12 @@ const getters = {
 		row: rules.row,
 		colorScheme
 	}),
-	colorsUsed: ({colorNum, colorScheme}) => colorScheme.slice(0,colorNum)
-}
-
-
+	colorsUsed: ({ colorNum, colorScheme }) => colorScheme.slice(0, colorNum)
+};
 
 export default new Vuex.Store({
 	state,
 	getters,
 	mutations,
 	actions
-})
+});

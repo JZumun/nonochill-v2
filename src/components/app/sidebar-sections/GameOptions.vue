@@ -13,21 +13,21 @@
 </template>
 
 <script>
-	import ColorScheme from "./ColorScheme.vue"
-	import GameHistory from "./GameHistory.vue"
+	import ColorScheme from "./ColorScheme.vue";
+	import GameHistory from "./GameHistory.vue";
 
-	import { mapGetters, mapMutations } from "vuex"
-	import { RESET_BOARD } from "store/mutations"
+	import { mapGetters, mapMutations } from "vuex";
+	import { RESET_BOARD } from "store/mutations";
 
 	export default {
-		components: {GameHistory, ColorScheme},
-		data() {
+		components: { GameHistory, ColorScheme },
+		data () {
 			return {
 				disabled: true,
 				closed: true
-			}
+			};
 		},
-		computed: mapGetters({code:"serialization"}),
+		computed: mapGetters({ code: "serialization" }),
 		methods: mapMutations({ clear: RESET_BOARD })
-	}
+	};
 </script>

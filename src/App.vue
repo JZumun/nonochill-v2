@@ -8,43 +8,43 @@
 </template>
 
 <script>
-import { jwerty } from "jwerty"
+import { jwerty } from "jwerty";
 
-import  { mapState, mapActions } from "vuex"
-import store from "store/Store"
-import { ACTION_ANCHOR_COLOR, ACTION_REVERSE_COLOR } from "store/actions"
+import { mapState, mapActions } from "vuex";
+import store from "store/Store";
+import { ACTION_ANCHOR_COLOR, ACTION_REVERSE_COLOR } from "store/actions";
 
-import Sidebar from "components/app/Sidebar.vue"
-import GameBoard from "components/game/GameBoard.vue"
+import Sidebar from "components/app/Sidebar.vue";
+import GameBoard from "components/game/GameBoard.vue";
 
 export default {
 	store,
-  name: 'app',
+	name: "app",
 	computed: mapState({
 		reverse: "colorReverse",
 		anchor: "colorAnchor",
 		maxColor: "colorNum",
 		board: "board",
 		state: "mode",
-		colorStyling: ({colorScheme}) => `${colorScheme.map((color,index)=>{
-			return `--state-${index+1}:${color};`
+		colorStyling: ({ colorScheme }) => `${colorScheme.map((color, index) => {
+			return `--state-${index + 1}:${color};`;
 		}).join("")}`
 	}),
 	methods: mapActions({
 		anchorColor: ACTION_ANCHOR_COLOR,
 		reverseColor: ACTION_REVERSE_COLOR
 	}),
-	created() {
-		window.addEventListener("keydown", jwerty.event( "[1-5]", e=>this.anchorColor(e.keyCode - 48) ));
-		window.addEventListener("keyup",   jwerty.event( "[1-5]", e=>this.anchorColor(null) ))
-		window.addEventListener("keydown", jwerty.event( "`",     e=>this.reverseColor(true) ))
-		window.addEventListener("keyup",   jwerty.event( "`",     e=>this.reverseColor(false) ))
+	created () {
+		window.addEventListener("keydown", jwerty.event("[1-5]", e => this.anchorColor(e.keyCode - 48)));
+		window.addEventListener("keyup", jwerty.event("[1-5]", e => this.anchorColor(null)));
+		window.addEventListener("keydown", jwerty.event("`", e => this.reverseColor(true)));
+		window.addEventListener("keyup", jwerty.event("`", e => this.reverseColor(false)));
 	},
 	components: {
 		Sidebar,
 		GameBoard
 	}
-}
+};
 </script>
 
 <style>

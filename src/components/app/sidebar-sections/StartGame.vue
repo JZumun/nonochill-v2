@@ -16,47 +16,47 @@
 </template>
 
 <script>
-	import RangeField from "components/app/form/RangeField.vue"
+	import RangeField from "components/app/form/RangeField.vue";
 
 	import generateGame from "utils/game/GenerateGame";
-	import generateRule from "utils/game/GenerateRule";
-	import { deserialize } from "utils/game/Serializer";
+import generateRule from "utils/game/GenerateRule";
+import { deserialize } from "utils/game/Serializer";
 
-	import { ACTION_START_GAME } from "store/actions"
-	import  { count } from "utils/ArrayUtils"
+import { ACTION_START_GAME } from "store/actions";
+	import { count } from "utils/ArrayUtils";
 
 	export default {
 		components: { RangeField },
-		data() {
+		data () {
 			return {
 				size: 5,
 				density: 0.6,
 				colors: 3,
 				code: "",
 				closed: false
-			}
+			};
 		},
 		methods: {
-			start() {
-				const board = generateGame(this.size,this.colors,this.density)
+			start () {
+				const board = generateGame(this.size, this.colors, this.density);
 				const rules = {
-					column: count(this.size).map( col => generateRule( board.map( row => row[col] ) ) ),
-					row: count(this.size).map( row => generateRule( board[row] ) )
-				}
-				this.$store.dispatch(ACTION_START_GAME,{
+					column: count(this.size).map(col => generateRule(board.map(row => row[col]))),
+					row: count(this.size).map(row => generateRule(board[row]))
+				};
+				this.$store.dispatch(ACTION_START_GAME, {
 					size: this.size,
 					colors: this.colors,
 					rules
 				});
 			},
-			startWithCode() {
+			startWithCode () {
 				let options;
 				try {
-					options = deserialize(this.code)
-				} catch( e ) {
+					options = deserialize(this.code);
+				} catch (e) {
 					this.code = "FAULTY CODE";
 				}
-				this.$store.dispatch(ACTION_START_GAME,{
+				this.$store.dispatch(ACTION_START_GAME, {
 					size: options.width,
 					rules: {
 						row: options.row,
@@ -64,9 +64,9 @@
 					},
 					colors: options.colors,
 					scheme: options.colorScheme
-				})
-				this.code = ""
+				});
+				this.code = "";
 			}
 		}
-	}
+	};
 </script>

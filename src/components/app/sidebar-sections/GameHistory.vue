@@ -7,8 +7,8 @@
 </template>
 
 <script>
-	import { mapState,mapMutations } from "vuex"
-	import { UNDO_MOVE, REDO_MOVE } from "store/mutations"
+	import { mapState, mapMutations } from "vuex";
+	import { UNDO_MOVE, REDO_MOVE } from "store/mutations";
 	export default {
 		computed: mapState({
 			past: state => state.history.past,
@@ -18,7 +18,7 @@
 			undo: UNDO_MOVE,
 			redo: REDO_MOVE
 		})
-	}
+	};
 </script>
 
 <style scoped>
