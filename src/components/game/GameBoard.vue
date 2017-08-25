@@ -33,7 +33,7 @@
 	import GameTile from "./GameTile.vue"
 	import GameClueList from "./GameClueList.vue"
 
-
+	import  { mapState } from "vuex"
 	import { ACTION_TOGGLE_TILE } from "store/actions";
 
 	import { count, sameArrays, filteredLength } from "utils/ArrayUtils"
@@ -50,24 +50,24 @@
 				highlight: {}
 			}
 		},
-		computed: {
-			colors() { return this.$store.state.colorNum },
-			board() { return this.$store.state.board },
-			rules() { return this.$store.state.rules },
-			rows() { return this.board },
-			columns() { return count(this.size).map( col => this.board.map(row=>row[col]) ) },
-			size() { return this.board.length; },
-			solved() {
-				return {
-					row: this.rows.map((row,i) => sameRules( computedRule(row), this.rules.row[i] )),
-					column: this.columns.map((col,j) => sameRules( computedRule(col), this.rules.column[j] ))
-				}
-			},
-			win() {
-				return (filteredLength(this.solved.column) == this.size) &&
-					(filteredLength(this.solved.row) == this.size)
-			},
-		},
+		computed: Object.assign({
+				solved() {
+					return {
+						row: this.rows.map((row,i) => sameRules( computedRule(row), this.rules.row[i] )),
+						column: this.columns.map((col,j) => sameRules( computedRule(col), this.rules.column[j] ))
+					}
+				},
+				win() {
+					return (filteredLength(this.solved.column) == this.size) &&
+						(filteredLength(this.solved.row) == this.size)
+				},
+			},mapState({
+				board: "board",
+				rules: "rules",
+				size: ({board}) => board.length,
+				rows: "board",
+				columns: ({board}) => count(board.length).map( col => board.map( row => row[col] ) )
+		})),
 		watch: {
 			win(val) { if(val) this.$emit("win") }
 		},

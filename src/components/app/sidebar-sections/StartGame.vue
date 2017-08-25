@@ -65,6 +65,7 @@
 					colors: options.colors,
 					scheme: options.colorScheme
 				})
+				this.code = ""
 			}
 		}
 	}

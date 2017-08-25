@@ -1,6 +1,6 @@
 <template lang="pug">
 	#create-game
-		form(@submit.prevent="start")
+		form(@submit.prevent="start({size,colors})")
 			fieldset
 				legend Options
 				range-field( name="Size" :min="2" :max="20" v-model.number="size" )
@@ -11,6 +11,7 @@
 <script>
 	import RangeField from "components/app/form/RangeField.vue"
 
+	import { mapMutations } from "vuex"
 	import modes from "store/values/modes"
 	import { START_EDITOR } from "store/mutations"
 
@@ -23,13 +24,6 @@
 				closed: true
 			}
 		},
-		methods: {
-			start() {
-				this.$store.commit(START_EDITOR, {
-					size: this.size,
-					colors: this.colors
-				})
-			}
-		}
+		methods: mapMutations({start: START_EDITOR})
 	}
 </script>

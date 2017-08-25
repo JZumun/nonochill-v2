@@ -5,27 +5,24 @@
 			li( v-for="color,i in colors" :style="`--color:${color}`" :class="{highlighted: i+1 == anchor}")
 				label
 					span(v-text="i+1")
-					input(type="color" :value="colors[i]" @change="changeColors(i,$event.target.value)")
+					input(type="color" :value="colors[i]" @change="changeColors({index: i,value: $event.target.value})")
 		button(@click.prevent="resetColors" ) revert colors
 </template>
 
 <script>
+	import { mapState, mapGetters, mapMutations } from "vuex"
 	import { CHANGE_COLOR, RESET_COLORS } from "store/mutations"
 
 
 	export default {
-		computed: {
-			anchor() { return this.$store.state.colorAnchor },
-			colors() { return this.$store.getters.colorsUsed }
-		},
-		methods: {
-			changeColors(index,value) {
-				this.$store.commit(CHANGE_COLOR,{ index, value });
-			},
-			resetColors() {
-				this.$store.commit(RESET_COLORS);
-			}
-		}
+		computed: Object.assign({},
+			mapState({anchor: "colorAnchor" }),
+			mapGetters({ colors: "colorsUsed" })
+		),
+		methods: mapMutations({
+			changeColors: CHANGE_COLOR,
+			resetColors: RESET_COLORS
+		})
 	}
 </script>
 

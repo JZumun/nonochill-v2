@@ -15,15 +15,12 @@
 	import CreateGame from "./sidebar-sections/CreateGame.vue"
 	import GameOptions from "./sidebar-sections/GameOptions.vue"
 
+	import { mapState } from "vuex"
 	import modes from "store/values/modes"
 
 	export default {
 		components: {SidebarSection, StartGame, GameOptions, CreateGame},
-		computed: {
-			mode() {
-				return this.$store.state.mode;
-			}
-		},
+		computed: mapState(["mode"]),
 		watch: {
 			mode(val) {
 				if (val == modes.INIT){ this.section = [true, false, false] }

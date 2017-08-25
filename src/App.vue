@@ -10,6 +10,7 @@
 <script>
 import { jwerty } from "jwerty"
 
+import  { mapState } from "vuex"
 import store from "store/Store"
 import { UPDATE_RULES, ANCHOR_COLOR, UNANCHOR_COLOR, REVERSE_COLOR } from "store/mutations"
 import state from "store/values/modes"
@@ -24,15 +25,16 @@ import computedRule from "utils/game/GenerateRule"
 export default {
 	store,
   name: 'app',
-	computed: {
-		board() { return this.$store.state.board },
-		state() { return this.$store.state.mode },
-		colorStyling() {
-			return `${this.$store.state.colorScheme.map((color,index)=>{
-				return `--state-${index+1}:${color};`
-			}).join("")}`
-		}
-	},
+	computed: mapState({
+		reverse: "colorReverse",
+		anchor: "colorAnchor",
+		maxColor: "colorNum",
+		board: "board",
+		state: "mode",
+		colorStyling: ({colorScheme}) => `${colorScheme.map((color,index)=>{
+			return `--state-${index+1}:${color};`
+		}).join("")}`
+	}),
 	watch: {
 		board(val) {
 			if (this.state == 2) {
@@ -49,14 +51,14 @@ export default {
 		},
 		keydown(e) {
 			const value = e.keyCode - 48;
-			if (this.$store.state.colorAnchor != value && this.$store.state.colorNum >= value)
+			if (this.anchor != value && this.maxColor >= value)
 				this.$store.commit(ANCHOR_COLOR,value);
 		},
 		reverseUp(e) {
-			if (this.$store.state.colorReverse) { this.$store.commit(REVERSE_COLOR, false) }
+			if (this.reverse) { this.$store.commit(REVERSE_COLOR, false) }
 		},
 		reverseDown(e) {
-			if (!this.$store.state.colorReverse) { this.$store.commit(REVERSE_COLOR, true) }
+			if (!this.reverse) { this.$store.commit(REVERSE_COLOR, true) }
 		}
 	},
 	created() {

@@ -16,6 +16,7 @@
 	import ColorScheme from "./ColorScheme.vue"
 	import GameHistory from "./GameHistory.vue"
 
+	import { mapGetters, mapMutations } from "vuex"
 	import { RESET_BOARD } from "store/mutations"
 
 	export default {
@@ -26,13 +27,7 @@
 				closed: true
 			}
 		},
-		computed: {
-			code() { return this.$store.getters.serialization }
-		},
-		methods: {
-			clear() {
-				this.$store.commit(RESET_BOARD);
-			}
-		}
+		computed: mapGetters({code:"serialization"}),
+		methods: mapMutations({ clear: RESET_BOARD })
 	}
 </script>
