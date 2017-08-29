@@ -2,8 +2,7 @@
 	div#app.whole(:style="colorStyling")
 		sidebar
 		section#main.main.page-section
-			div.title-card(v-if="state==0")
-				h1 Nono#[span Chill]#[sup v.2]
+			title-screen(v-if="state==0")
 			game-board( v-else )
 </template>
 
@@ -16,6 +15,7 @@ import { ACTION_ANCHOR_COLOR, ACTION_REVERSE_COLOR } from "store/actions";
 
 import Sidebar from "components/app/Sidebar.vue";
 import GameBoard from "components/game/GameBoard.vue";
+import TitleScreen from "components/app/TitleScreen.vue";
 
 export default {
 	store,
@@ -42,7 +42,8 @@ export default {
 	},
 	components: {
 		Sidebar,
-		GameBoard
+		GameBoard,
+		TitleScreen
 	}
 };
 </script>

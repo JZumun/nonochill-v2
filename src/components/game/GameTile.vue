@@ -20,21 +20,17 @@
 		--rotate:0deg;
 		--opacity:0;
 		--bgcolor:var(--translucent-white);
+		color: var(--dark-accent);
 		z-index:1;
 		background-color: white;
 		overflow: hidden;
+		display: flex;
+    align-items: center;
+    justify-content: center;
 	}
 
 	.game-tile-contents {
-		position:absolute;
-		top:50%;
-		left:50%;
-		margin-top:-1em;
-		margin-left:-50%;
-		text-align: center;
-		width:100%;
-		font-size: 5vmin;
-		line-height: 1em;
+		position:relative;
 		z-index:2;
 	}
 
@@ -59,6 +55,9 @@
 		--scale-y:0.6;
 		--opacity:1;
 		--bgcolor:var(--state-1);
+	}
+	[data-state="1"] {
+		color: var(--light-accent);
 	}
 	[data-state="0"] {
 		--scale-x:0;
