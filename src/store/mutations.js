@@ -38,9 +38,7 @@ const updateBoard = (oldBoard, moves) => moves.reduce((board, { tile: { x, y }, 
 	return board;
 }, oldBoard.slice());
 
-const clearBoard = (state, size = state.board.length) => {
-	state.board = square(size, el => 0);
-};
+const clearBoard = size => square(size, el => 0);
 const clearHistory = state => {
 	state.history = {
 		past: [],
@@ -50,13 +48,12 @@ const clearHistory = state => {
 };
 
 export default {
-	[START_GAME] (state, { size, rules, colors, scheme = originalColors.slice() }) {
+	[START_GAME] (state, { size, rules, colors, scheme = originalColors.slice(), board = clearBoard(size) }) {
 		state.rules = rules;
 		state.colorScheme = scheme;
 		state.colorNum = colors;
 		state.mode = modes.GAME_SETUP;
-
-		clearBoard(state, size);
+		state.board = board;
 		clearHistory(state);
 	},
 	[START_EDITOR] (state, { size, colors, scheme = originalColors.slice() }) {
@@ -67,7 +64,7 @@ export default {
 			row: count(size).map(el => [])
 		};
 
-		clearBoard(state, size);
+		state.board = clearBoard(size);
 		clearHistory(state);
 	},
 	[CHANGE_MODE] (state, mode) {
@@ -85,7 +82,7 @@ export default {
 	},
 
 	[RESET_BOARD] (state) {
-		clearBoard(state);
+		state.board = clearBoard(state.size);
 		clearHistory(state);
 	},
 	[UPDATE_RULES] (state, rules) {

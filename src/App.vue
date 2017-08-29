@@ -2,8 +2,7 @@
 	div#app.whole(:style="colorStyling")
 		sidebar
 		section#main.main.page-section
-			title-screen(v-if="state==0")
-			game-board( v-else )
+			game-board
 </template>
 
 <script>
@@ -15,7 +14,7 @@ import { ACTION_ANCHOR_COLOR, ACTION_REVERSE_COLOR } from "store/actions";
 
 import Sidebar from "components/app/Sidebar.vue";
 import GameBoard from "components/game/GameBoard.vue";
-import TitleScreen from "components/app/TitleScreen.vue";
+import TitleScreen from "components/mixins/titleScreen";
 
 export default {
 	store,
@@ -42,9 +41,9 @@ export default {
 	},
 	components: {
 		Sidebar,
-		GameBoard,
-		TitleScreen
-	}
+		GameBoard
+	},
+	mixins: [TitleScreen]
 };
 </script>
 
