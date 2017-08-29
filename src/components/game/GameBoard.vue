@@ -30,6 +30,7 @@
 </template>
 
 <script>
+	import highlighter from "../mixins/highlighter";
 	import GameTile from "./GameTile.vue";
 	import GameClueList from "./GameClueList.vue";
 
@@ -39,11 +40,11 @@
 	import { count, sameArrays, filteredLength } from "utils/ArrayUtils";
 	import computedRule from "utils/game/GenerateRule";
 
-	const equalAndValued = (a, b) => a != null && a === b;
 	const sameRule = (x, y) => x.val === y.val && x.count === y.count;
 	const sameRules = (a, b) => sameArrays(a, b, sameRule);
 
 	export default {
+		mixins: [highlighter],
 		components: { GameTile, GameClueList },
 		data () {
 			return {
@@ -72,13 +73,6 @@
 			win (val) { if (val) this.$emit("win"); }
 		},
 		methods: Object.assign({
-			clearHighlight () { this.highlight = {}; },
-			setHighlight (tile) { this.highlight = tile; },
-			isHighlighted ({ x, y }) {
-				return equalAndValued(this.highlight.x, x) ||
-																	equalAndValued(this.highlight.y, y);
-			},
-
 			enterTile (tile, e) {
 				this.setHighlight(tile);
 				if (e.buttons === 1) { this.toggle(tile); }
@@ -91,6 +85,8 @@
 
 <style scoped>
 .board-game {
+	--fill-scale:0.6;
+	--cross-scale:0.2;
 	--board-gap:1px;
 	--board-size:1;
 	--clue-size:1;

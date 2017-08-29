@@ -51,8 +51,8 @@
 	}
 
 	[data-state] {
-		--scale-x:0.6;
-		--scale-y:0.6;
+		--scale-x:var(--fill-scale,0.8);
+		--scale-y:var(--fill-scale,0.8);
 		--opacity:1;
 		--bgcolor:var(--state-1);
 	}
@@ -70,8 +70,8 @@
 	[data-state="5"] { --bgcolor:var(--state-5); }
 
 	[data-state="-1"] {
-		--scale-y:0.8;
-		--scale-x:0.2;
+		--scale-y:var(--fill-scale,0.8);
+		--scale-x:var(--cross-scale,0.2);
 		--bgcolor:var(--gray-accent);
 		--opacity:1;
 	}
