@@ -9,7 +9,14 @@
 				@input="updateRange($event.target.value)"
 				@mouseup="snapValue"
 		)
-		span.value(v-text="prettyValue")
+		input.text.input(
+				type="number"
+				:value="prettyValue"
+				:min="min",
+				:max="max"
+				:step="step"
+				@input="updateRange($event.target.value)"
+		)
 </template>
 
 <script>
@@ -41,9 +48,12 @@
 			};
 		},
 		methods: {
-			updateRange (value) {
-				this.innerValue = Number(value);
-				const roundedValue = Math.round(Number(value) / this.step) * this.step;
+			updateRange (input) {
+				const value = Number(input);
+				if (Number.isNaN(value)) { return; }
+
+				this.innerValue = value;
+				const roundedValue = Math.round(value / this.step) * this.step;
 				this.$emit("input", roundedValue);
 			},
 			snapValue () {
@@ -56,11 +66,18 @@
 <style scoped>
 	.form-field.form-range {
 		display:grid;
-		grid-template-columns: 5.5ch 4fr 3ch;
+		grid-template-columns: 5.5ch 1fr 6ch;
 		grid-gap:0.5em;
+		margin-right:-0.5em;
 	}
 	.range {
 		width:100%;
+	}
+
+	.text {
+		border:0;
+		text-align:left;
+		padding-left:0.5em;
 	}
 
 	input[type=range] {
@@ -113,9 +130,18 @@ input[type=range]::-moz-range-track {
 	background: var(--dim-accent);
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
 @media all and (max-width:800px) {
 	input[type=range] {
-		margin: 0.5em 0;	
+		margin: 0.5em 0;
 	}
 	input[type=range]::-webkit-slider-thumb {
 	  height: 2em;
