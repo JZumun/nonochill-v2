@@ -14,12 +14,14 @@
 	import { mapActions } from "vuex";
 	import { ACTION_START_EDITOR } from "store/actions";
 
+	import { random } from "utils/RandomUtils";
+
 	export default {
 		components: { RangeField },
 		data () {
 			return {
-				size: 5,
-				colors: 3,
+				size: random(5, 11),
+				colors: random(1, 5),
 				closed: true
 			};
 		},

@@ -19,19 +19,20 @@
 	import RangeField from "components/app/form/RangeField.vue";
 
 	import generateGame from "utils/game/GenerateGame";
-import generateRule from "utils/game/GenerateRule";
-import { deserialize } from "utils/game/Serializer";
+	import generateRule from "utils/game/GenerateRule";
+	import { deserialize } from "utils/game/Serializer";
 
-import { ACTION_START_GAME } from "store/actions";
+	import { ACTION_START_GAME } from "store/actions";
 	import { count } from "utils/ArrayUtils";
+	import { random } from "utils/RandomUtils";
 
 	export default {
 		components: { RangeField },
 		data () {
 			return {
-				size: 5,
-				density: 0.6,
-				colors: 3,
+				size: random(5, 20),
+				density: random(0.6, 0.95, 0.05),
+				colors: random(1, 5),
 				code: "",
 				closed: false
 			};
