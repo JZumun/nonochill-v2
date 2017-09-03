@@ -1,8 +1,9 @@
 <template lang="pug">
 	div#app.whole(:style="colorStyling")
-		sidebar
 		section#main.main.page-section
 			game-board
+		sidebar#sidebar.sidebar
+		github-corner-link#github-link(href="https://github.com/JZumun/nonochill-v2")
 </template>
 
 <script>
@@ -14,6 +15,8 @@ import { ACTION_ANCHOR_COLOR, ACTION_REVERSE_COLOR } from "store/actions";
 
 import Sidebar from "components/app/Sidebar.vue";
 import GameBoard from "components/game/GameBoard.vue";
+import GithubCornerLink from "components/app/GithubCornerLink.vue";
+
 import TitleScreen from "components/mixins/titleScreen";
 
 export default {
@@ -41,7 +44,8 @@ export default {
 	},
 	components: {
 		Sidebar,
-		GameBoard
+		GameBoard,
+		GithubCornerLink
 	},
 	mixins: [TitleScreen]
 };
@@ -51,14 +55,20 @@ export default {
 .whole {
 	display:grid;
   	grid-template-columns:var(--sidebar-width) 1fr;
+		grid-template-areas: "sidebar game";
   	height:100vh;
   	text-transform: lowercase;
 }
 
+.sidebar {
+	grid-area: sidebar;
+}
 .main {
 	--margin: 2em;
 	--game-width-restraint: calc(100vw - (var(--sidebar-width) + 2*var(--margin)));
 	--game-height-restraint: calc(100vh - 2*var(--margin));
+
+	grid-area: game;
 
 	background-color: var(--translucent-white);
 	padding:2em;
@@ -72,43 +82,6 @@ export default {
 	justify-self: center;
 	align-self: center;
 	display:flex;
-}
-
-.title-card {
-	display:grid;
-	align-content: center;
-	justify-content:center;
-	width:100%;
-}
-
-.title-card h1 {
-	font-size:10vmin;
-	width:100%;
-	text-align:center;
-	color: var(--light-accent);
-	margin:0;
-	position:relative;
-	z-index:1;
-	padding:0.5em;
-	border:1px solid;
-}
-.title-card span {
-	color: var(--dark-accent);
-	position:relative;
-	padding:0.65em 0.25em;
-	background:var(--translucent-white);
-	margin:0 -0.175em;
-	z-index:-1;
-}
-
-.title-card sup {
-	font-weight:bold;
-	font-size:0.5em;
-	color: var(--dim-accent);
-}
-
-cite:before {
-	content: " - "
 }
 
 .hidden {
