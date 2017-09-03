@@ -4,16 +4,16 @@ import { SET_TILE, STAGE_MOVE, COMMIT_MOVES,
 	ANCHOR_COLOR, UNANCHOR_COLOR, REVERSE_COLOR,
 	UPDATE_RULES, UNDO_MOVE, REDO_MOVE } from "./mutations";
 
-import debounce from "debounce";
+import debounce from "throttle-debounce/debounce";
 import incrementColor from "utils/game/IncrementColor";
 import generateRule from "utils/game/GenerateRule";
 import { count } from "utils/ArrayUtils";
 
 import modes, { isCreatorMode } from "./values/modes";
 
-const commitStagedMoves = debounce(function (commit) {
+const commitStagedMoves = debounce(500, function (commit) {
 	commit(COMMIT_MOVES);
-}, 500);
+});
 
 export const ACTION_SET_TILE = "action:set-tile";
 export const ACTION_TOGGLE_TILE = "action:toggle-tile";

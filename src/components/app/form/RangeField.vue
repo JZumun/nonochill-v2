@@ -21,6 +21,7 @@
 
 <script>
 	import FormField from "./FormField.vue";
+	import debounce from "throttle-debounce/debounce";
 
 	export default {
 		components: { FormField },
@@ -44,8 +45,14 @@
 		},
 		data () {
 			return {
-				innerValue: this.value
+				innerValue: this.value,
+				snapValue: debounce(150, function () {
+					this.innerValue = this.value;
+				})
 			};
+		},
+		watch: {
+			value () { this.snapValue(); }
 		},
 		methods: {
 			updateRange (input) {
@@ -55,9 +62,6 @@
 				this.innerValue = value;
 				const roundedValue = Math.round(value / this.step) * this.step;
 				this.$emit("input", roundedValue);
-			},
-			snapValue () {
-				this.innerValue = this.value;
 			}
 		}
 	};

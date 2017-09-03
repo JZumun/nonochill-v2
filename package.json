@@ -8,14 +8,14 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-		"lint": "eslint ./src --ext .js --ext .vue",
-		"lint-fix": "eslint ./src --ext .js --ext .vue --fix"
+    "lint": "eslint ./src --ext .js --ext .vue",
+    "lint-fix": "eslint ./src --ext .js --ext .vue --fix"
   },
   "dependencies": {
-    "debounce": "^1.0.2",
     "jwerty": "^0.3.2",
     "pug": "^2.0.0-rc.3",
     "pug-loader": "^2.3.0",
+    "throttle-debounce": "^1.0.1",
     "vue": "^2.3.3",
     "vuex": "^2.3.1"
   },
