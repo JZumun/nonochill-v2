@@ -7,6 +7,7 @@
 			create-game
 		sidebar-section(title="Options", :closed="!section[2]" @toggle="toggle(2)" :disabled="mode == 0")
 			game-options
+		slot
 </template>
 
 <script>
@@ -39,14 +40,14 @@
 	};
 </script>
 
-<style>
+<style scoped>
 	.sidebar {
 		background-color:var(--dark-accent);
 		color:var(--translucent-white);
 		overflow-y:auto;
+		display:flex;
+		flex-direction:column;
 	}
-
-	.sidebar *+* { margin-top:0.5rem; }
 
 	.game-title {
 		font-size:1.5em;

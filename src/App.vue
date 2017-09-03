@@ -3,6 +3,13 @@
 		section#main.main.page-section
 			game-board
 		sidebar#sidebar.sidebar
+			footer
+				| Created by&nbsp;
+				a.author(href="https://github.com/JZumun")
+					img(src="https://avatars3.githubusercontent.com/u/10479613")
+					| JZumun
+				| &nbsp;using #[a(href="https://vuejs.org/") Vue JS].
+				| Hosted on #[a(href="https://github.com/JZumun/nonochill-v2") Github].
 		github-corner-link#github-link(href="https://github.com/JZumun/nonochill-v2")
 </template>
 
@@ -88,9 +95,30 @@ export default {
 	display:none !important;
 }
 
+footer {
+	font-size:0.5em;
+	opacity: 0.5;
+	padding:2em;
+	margin-top:auto;
+	text-align:center;
+}
+footer img {
+	width:2em;
+	vertical-align: middle;
+	border-radius:50%;
+	margin-right:0.5ch;
+}
+
+.author {
+	white-space: nowrap;
+}
+
 @media all and (max-width:800px) {
 	.whole {
-		display:block;
+		width:100%;
+		grid-template-columns: 100%;
+		grid-template-rows: 1fr 1fr;
+		grid-template-areas: "game" "sidebar";
 	}
 	.page-section {
 		width:100%;
@@ -101,6 +129,11 @@ export default {
 		height: calc(100vw - 2em);
 		margin:1em auto;
 		padding:0.5em;
+	}
+
+	.sidebar {
+		max-height:none;
+		height:100%;
 	}
 }
 </style>

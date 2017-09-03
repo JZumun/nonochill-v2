@@ -13,7 +13,6 @@
 <script>
 	export default {
 		props: {
-			id: Object,
 			width: Number,
 			clues: Array,
 			vertical: {

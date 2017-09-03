@@ -27,8 +27,11 @@
 	};
 </script>
 
-<style scoped>
+<style>
+
+	.sidebar-section-container:not(:first-of-type) { margin-top:0.5em; }
 	.sidebar-section { padding:1em; margin-top:0; }
+	.sidebar-section *+* { margin-top:0.5rem; }
 
 	.closed { display:none }
 	.disabled { opacity:0.5 }
