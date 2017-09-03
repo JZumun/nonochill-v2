@@ -82,7 +82,7 @@ export default {
 	},
 
 	[RESET_BOARD] (state) {
-		state.board = clearBoard(state.size);
+		state.board = clearBoard(state.board.length);
 		clearHistory(state);
 	},
 	[UPDATE_RULES] (state, rules) {

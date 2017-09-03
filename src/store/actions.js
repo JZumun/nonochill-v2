@@ -21,13 +21,16 @@ export const ACTION_START_GAME = "action:start-game";
 export const ACTION_START_EDITOR = "action:start-editor";
 export const ACTION_ANCHOR_COLOR = "action:anchor-color";
 export const ACTION_REVERSE_COLOR = "action:reverse-color";
+export const ACTION_CREATOR_UPDATE_RULES = "action:rules-match-board";
 
 export default {
 	[ACTION_SET_TILE] ({ commit }, payload) {
-		commit(SET_TILE, payload);
-		commit(STAGE_MOVE, payload);
+		if (payload.next !== payload.curr) {
+			commit(SET_TILE, payload);
+			commit(STAGE_MOVE, payload);
 
-		commitStagedMoves(commit);
+			commitStagedMoves(commit);
+		}
 	},
 	[ACTION_TOGGLE_TILE] ({ commit, dispatch, state }, tile) {
 		const curr = state.board[tile.x][tile.y];
@@ -39,12 +42,11 @@ export default {
 			next = next === 1 ? state.colorAnchor : next;
 		}
 
-		if (next !== curr) {
-			dispatch(ACTION_SET_TILE, {
-				tile, curr, next
-			});
-		}
+		dispatch(ACTION_SET_TILE, { tile, curr, next });
+		dispatch(ACTION_CREATOR_UPDATE_RULES);
+	},
 
+	[ACTION_CREATOR_UPDATE_RULES] ({ commit, state }) {
 		if (isCreatorMode(state.mode)) {
 			commit(UPDATE_RULES, {
 				row: state.board.map(row => generateRule(row)),
