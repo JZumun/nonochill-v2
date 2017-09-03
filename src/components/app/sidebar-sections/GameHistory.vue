@@ -7,16 +7,16 @@
 </template>
 
 <script>
-	import { mapState, mapMutations } from "vuex";
-	import { UNDO_MOVE, REDO_MOVE } from "store/mutations";
+	import { mapState, mapActions } from "vuex";
+	import { ACTION_UNDO_MOVE, ACTION_REDO_MOVE } from "store/actions";
 	export default {
 		computed: mapState({
 			past: state => state.history.past,
 			future: state => state.history.future
 		}),
-		methods: mapMutations({
-			undo: UNDO_MOVE,
-			redo: REDO_MOVE
+		methods: mapActions({
+			undo: ACTION_UNDO_MOVE,
+			redo: ACTION_REDO_MOVE
 		})
 	};
 </script>
