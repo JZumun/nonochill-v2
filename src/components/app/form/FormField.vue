@@ -12,7 +12,7 @@
 	};
 </script>
 
-<style scoped>
+<style>
 .form-field {
 	position:relative;
 	display:grid;
@@ -26,7 +26,7 @@
 	margin-top:0;
 }
 
-.label {
+.form-field .label {
 	display:block;
 }
 </style>

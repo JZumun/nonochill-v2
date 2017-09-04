@@ -1,6 +1,6 @@
 <template lang='pug'>
 	form-field(:name="name", class="form-range")
-		input.range(
+		input.input-range(
 				type="range"
 				:min="min"
 				:max="max"
@@ -9,7 +9,7 @@
 				@input="updateRange($event.target.value)"
 				@mouseup="snapValue"
 		)
-		input.text.input(
+		input.input-text.input(
 				type="number"
 				:value="prettyValue"
 				:min="min",
@@ -67,38 +67,38 @@
 	};
 </script>
 
-<style scoped>
+<style>
 	.form-field.form-range {
 		display:grid;
 		grid-template-columns: 5.5ch 1fr 6ch;
 		grid-gap:0.5em;
 		margin-right:-0.5em;
 	}
-	.range {
+	.input-range {
 		width:100%;
 	}
 
-	.text {
+	.input-text {
 		border:0;
 		text-align:left;
 		padding-left:0.5em;
 	}
 
-	input[type=range] {
+	.input-range {
 		-webkit-appearance: none; /* Hides the slider so that custom slider can be made */
 		width: 100%; /* Specific width is required for Firefox. */
 		background: transparent; /* Otherwise white in Chrome */
 	}
 
-	input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-}
+	.input-range::-webkit-slider-thumb {
+		-webkit-appearance: none;
+	}
 
-input[type=range]:focus {
-  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
-}
+	.input-range:focus {
+		outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+	}
 
-input[type=range]::-webkit-slider-thumb {
+.input-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 1em;
   width: 1em;
@@ -107,7 +107,7 @@ input[type=range]::-webkit-slider-thumb {
   cursor: pointer;
   margin-top: -0.25em;
 }
-input[type=range]::-moz-range-thumb {
+.input-range::-moz-range-thumb {
 	height: 1em;
 	width: 1em;
 	border-radius: 50%;
@@ -118,7 +118,7 @@ input[type=range]::-moz-range-thumb {
 	border:0;
 }
 
-input[type=range]::-webkit-slider-runnable-track {
+.input-range::-webkit-slider-runnable-track {
   width: 100%;
   height: 0.5em;
 	border-radius:0.5em;
@@ -126,7 +126,7 @@ input[type=range]::-webkit-slider-runnable-track {
   background: var(--dim-accent);
 }
 
-input[type=range]::-moz-range-track {
+.input-range::-moz-range-track {
 	width: 100%;
 	height: 0.5em;
 	border-radius:0.5em;
@@ -134,33 +134,33 @@ input[type=range]::-moz-range-track {
 	background: var(--dim-accent);
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+.input-text::-webkit-inner-spin-button,
+.input-text::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type=number] {
+.input-text {
     -moz-appearance:textfield;
 }
 
 @media all and (max-width:800px) {
-	input[type=range] {
+	.input-range {
 		margin: 0.5em 0;
 	}
-	input[type=range]::-webkit-slider-thumb {
+	.input-range::-webkit-slider-thumb {
 	  height: 2em;
 	  width: 2em;
 		margin-top:-0.5em;
 	}
-	input[type=range]::-moz-range-thumb {
+	.input-range::-moz-range-thumb {
 		height: 2em;
 		width: 2em;
 		margin-top:-0.5em;
 	}
-	input[type=range]::-webkit-slider-runnable-track {
+	.input-range::-webkit-slider-runnable-track {
 		height:1em;
 	}
-	input[type=range]::-moz-range-track {
+	.input-range::-moz-range-track {
 		height:1em;
 	}
 }

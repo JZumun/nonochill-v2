@@ -1,6 +1,7 @@
 var path = require("path");
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var PrerenderSpaPlugin = require("prerender-spa-plugin");
 
 module.exports = {
 	entry: "./src/main.js",
@@ -73,6 +74,7 @@ if (process.env.NODE_ENV === "production") {
 		}),
 		new webpack.LoaderOptionsPlugin({
 			minimize: true
-		})
+		}),
+		new PrerenderSpaPlugin(path.join(__dirname), ["/"])
 	]);
 }

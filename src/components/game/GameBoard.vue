@@ -88,8 +88,8 @@
 	--fill-scale:0.6;
 	--cross-scale:0.2;
 	--board-gap:1px;
-	--board-size:1;
-	--clue-size:1;
+	--board-size:17;
+	--clue-size:17;
 	position:relative;
 	display:grid;
 	grid-template-rows: 1fr 2fr;
