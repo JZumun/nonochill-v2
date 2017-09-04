@@ -28,7 +28,7 @@
 	};
 </script>
 
-<style scoped>
+<style>
 	.clues {
 		position:relative;
 		margin:0;
@@ -42,25 +42,26 @@
 		justify-items: center;
 	}
 
-	[data-state="2"] { color:var(--state-2); }
-	[data-state="3"] { color:var(--state-3); }
-	[data-state="4"] { color:var(--state-4); }
-	[data-state="5"] { color:var(--state-5); }
-	.vertical {
+	.clue[data-state="2"] { color:var(--state-2); }
+	.clue[data-state="3"] { color:var(--state-3); }
+	.clue[data-state="4"] { color:var(--state-4); }
+	.clue[data-state="5"] { color:var(--state-5); }
+
+	.clues.vertical {
 		grid-template-rows: repeat(var(--clue-size),1fr);
 		grid-template-columns: 1fr;
 	}
-	.horizontal {
+	.clues.horizontal {
 		grid-template-rows: 1fr;
 		grid-template-columns: repeat(var(--clue-size),1fr);
 	}
 
-	.horizontal.sparse:before {
+	.clues.horizontal.sparse:before {
 		content:"";
 		grid-column: span var(--clue-gap,1);
 	}
 
-	.vertical.sparse:before {
+	.clues.vertical.sparse:before {
 		content:"";
 		grid-row: span var(--clue-gap,1);
 	}
@@ -76,13 +77,13 @@
 		--long-side: 500%;
 		--offset: calc(-1*var(--board-gap));
 	}
-	.vertical:nth-of-type(5n+5):not(:last-child)::after {
+	.clues.vertical:nth-of-type(5n+5):not(:last-child)::after {
 		width: var(--short-side);
 		height: var(--long-side);
 		top: 0;
 		right: var(--offset);
 	}
-	.horizontal:nth-of-type(5n+5):not(:last-child)::after {
+	.clues.horizontal:nth-of-type(5n+5):not(:last-child)::after {
 		height: var(--short-side);
 		width: var(--long-side);
 		left: 0;

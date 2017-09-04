@@ -18,8 +18,8 @@
 	};
 </script>
 
-<style scoped>
-	svg {
+<style>
+	.github-corner svg {
 		fill:#151513;
 		color:#fff;
 		fill: var(--dark-accent);

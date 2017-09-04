@@ -1,7 +1,7 @@
 <template lang="pug">
 	fieldset
 		legend History
-		div.buttons
+		div.history-buttons
 			button(:disabled="past.length == 0" @click="undo") Undo
 			button(:disabled="future.length == 0" @click="redo") Redo
 </template>
@@ -21,13 +21,13 @@
 	};
 </script>
 
-<style scoped>
-	.buttons {
+<style>
+	.history-buttons {
 		display:grid;
 		grid-gap:0.5em;
 		grid-auto-flow: column;
 	}
-	button {
+	.history-buttons button {
 		margin-top:0;
 		display:inline-block;
 	}

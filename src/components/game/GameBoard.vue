@@ -83,7 +83,7 @@
 	};
 </script>
 
-<style scoped>
+<style>
 .board-game {
 	--fill-scale:0.6;
 	--cross-scale:0.2;

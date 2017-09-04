@@ -1,6 +1,6 @@
 <template lang="pug">
 	div.sidebar-section-container(:class="{disabled}")
-		h2.header( @click="toggleHidden" v-text="title")
+		h2.sidebar-section-header( @click="toggleHidden" v-text="title")
 		section.sidebar-section( :class="{closed: reallyClosed}" )
 			slot
 </template>
@@ -28,14 +28,13 @@
 </script>
 
 <style>
-
 	.sidebar-section-container:not(:first-of-type) { margin-top:0.5em; }
 	.sidebar-section { padding:1em; margin-top:0; }
 	.sidebar-section *+* { margin-top:0.5rem; }
 
-	.closed { display:none }
-	.disabled { opacity:0.5 }
-	.header {
+	.sidebar-section.closed { display:none }
+	.sidebar-section-container.disabled { opacity:0.5 }
+	.sidebar-section-header {
 		font-size:1em;
 		background: var(--light-accent);
 		color: var(--dark-accent);
@@ -44,7 +43,7 @@
 		text-align:center;
 		cursor:pointer;
 	}
-	.disabled .header {
+	.disabled .sidebar-section-header {
 		cursor:default;
 	}
 </style>

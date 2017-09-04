@@ -1,8 +1,8 @@
 <template lang="pug">
 	fieldset
 		legend Color Scheme
-		ul
-			li( v-for="color,i in colors" :style="`--color:${color}`" :class="{highlighted: i+1 == anchor}")
+		ul.color-scheme
+			li.color-box( v-for="color,i in colors" :style="`--color:${color}`" :class="{highlighted: i+1 == anchor}")
 				label
 					span(v-text="i+1")
 					input(type="color" :value="colors[i]" @change="changeColors({index: i,value: $event.target.value})")
@@ -25,15 +25,15 @@
 	};
 </script>
 
-<style scoped>
-	ul {
+<style>
+	.color-scheme {
 		display: grid;
 		margin:0; padding:0;
 		grid-template-columns: repeat(auto-fit,minmax(2em,1fr));
 		grid-gap:0.25em;
 	}
 
-	li {
+	.color-box {
 		--background-color: var(--dark-accent);
 		display:block;
 		width:100%;
@@ -46,18 +46,18 @@
 		cursor:pointer;
 	}
 
-	li:hover {
+	.color-box:hover {
 		opacity:0.5;
 	}
 
-	label {
+	.color-box label {
 		display:flex;
 		height:100%;
 		align-items: center;
 		cursor:pointer;
 	}
 
-	input {
+	.color-box input {
 		border:0;
 		background:0;
 		margin:0;
@@ -67,7 +67,7 @@
 		cursor:pointer;
 	}
 
-	span {
+	.color-box span {
 		display:block;
 		color: var(--dim-accent);
 		background: var(--dark-accent);
@@ -75,11 +75,7 @@
 		height:100%;
 	}
 
-	button {
-		cursor:pointer;
-	}
-
-	.highlighted {
+	.color-box.highlighted {
 		box-shadow: inset 0 0 0 2px var(--background-color), 0 0 0 1px var(--light-accent);
 	}
 </style>

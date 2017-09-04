@@ -40,7 +40,7 @@
 	};
 </script>
 
-<style scoped>
+<style>
 	.sidebar {
 		background-color:var(--dark-accent);
 		color:var(--translucent-white);
@@ -49,7 +49,7 @@
 		flex-direction:column;
 	}
 
-	.game-title {
+	.sidebar .game-title {
 		font-size:1.5em;
 		padding:0.5em;
 		text-align:center;
@@ -57,7 +57,7 @@
 		background: var(--dark-accent);
 		color:var(--translucent-white);
 	}
-	.game-title sup {
+	.sidebar .game-title sup {
 		font-size:0.5em;
 		font-weight:bold;
 	}
