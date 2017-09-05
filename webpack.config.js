@@ -2,6 +2,7 @@ var path = require("path");
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var PrerenderSpaPlugin = require("prerender-spa-plugin");
+var pretty = require("pretty");
 
 module.exports = {
 	entry: "./src/main.js",
@@ -62,6 +63,13 @@ if (process.env.NODE_ENV === "production") {
 				NODE_ENV: "\"production\""
 			}
 		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: "vendor",
+			filename: "vendor.js",
+			minChunks: function (module) {
+				return module.context && module.context.indexOf("node_modules") !== -1;
+			}
+		}),
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new webpack.optimize.UglifyJsPlugin({
 			sourceMap: true,
@@ -72,6 +80,14 @@ if (process.env.NODE_ENV === "production") {
 		new webpack.LoaderOptionsPlugin({
 			minimize: true
 		}),
-		new PrerenderSpaPlugin(path.join(__dirname), ["/"])
+		new PrerenderSpaPlugin(path.join(__dirname), ["/"], {
+			postProcessHtml ({ html }) {
+				return pretty(html.replace(/\s*<!--\s*-->\s*/g, ""), {
+					ocd: true,
+					"indent_with_tabs": true,
+					"indent_inner_html": false
+				});
+			}
+		})
 	]);
 }
