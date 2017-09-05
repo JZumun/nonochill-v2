@@ -14,10 +14,10 @@
 	import { CHANGE_COLOR, RESET_COLORS } from "store/mutations";
 
 	export default {
-		computed: Object.assign({},
-			mapState({ anchor: "colorAnchor" }),
-			mapGetters({ colors: "colorsUsed" })
-		),
+		computed: {
+			...mapState({ anchor: "colorAnchor" }),
+			...mapGetters({ colors: "colorsUsed" })
+		},
 		methods: mapMutations({
 			changeColors: CHANGE_COLOR,
 			resetColors: RESET_COLORS

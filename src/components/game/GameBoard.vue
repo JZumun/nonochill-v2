@@ -51,7 +51,7 @@
 				highlight: {}
 			};
 		},
-		computed: Object.assign({
+		computed: {
 			solved () {
 				return {
 					row: this.rows.map((row, i) => sameRules(computedRule(row), this.rules.row[i])),
@@ -61,25 +61,27 @@
 			win () {
 				return (filteredLength(this.solved.column) === this.size) &&
 						(filteredLength(this.solved.row) === this.size);
-			}
-		}, mapState({
-			board: "board",
-			rules: "rules",
-			size: ({ board }) => board.length,
-			rows: "board",
-			columns: ({ board }) => count(board.length).map(col => board.map(row => row[col]))
-		})),
+			},
+			...mapState({
+				board: "board",
+				rules: "rules",
+				size: ({ board }) => board.length,
+				rows: "board",
+				columns: ({ board }) => count(board.length).map(col => board.map(row => row[col]))
+			})
+		},
 		watch: {
 			win (val) { if (val) this.$emit("win"); }
 		},
-		methods: Object.assign({
+		methods: {
 			enterTile (tile, e) {
 				this.setHighlight(tile);
 				if (e.buttons === 1) { this.toggle(tile); }
-			}
-		}, mapActions({
-			toggle: ACTION_TOGGLE_TILE
-		}))
+			},
+			...mapActions({
+				toggle: ACTION_TOGGLE_TILE
+			})
+		}
 	};
 </script>
 
