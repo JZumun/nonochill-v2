@@ -1,5 +1,5 @@
 <template lang="pug">
-	div#app.whole(:style="colorStyling")
+	div#app.whole(:style="colorStyling" v-hotkey="keymap")
 		section#main.main.page-section
 			game-board
 		sidebar#sidebar.sidebar
@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { jwerty } from "jwerty";
-
 import { mapState, mapActions } from "vuex";
 import store from "store/Store";
 import { ACTION_ANCHOR_COLOR, ACTION_REVERSE_COLOR } from "store/actions";
@@ -29,26 +27,39 @@ import TitleScreen from "components/mixins/titleScreen";
 export default {
 	store,
 	name: "app",
-	computed: mapState({
-		reverse: "colorReverse",
-		anchor: "colorAnchor",
-		maxColor: "colorNum",
-		board: "board",
-		state: "mode",
-		colorStyling: ({ colorScheme }) => `${colorScheme.map((color, index) => {
-			return `--state-${index + 1}:${color};`;
-		}).join("")}`
-	}),
+	computed: {
+		...mapState({
+			reverse: "colorReverse",
+			anchor: "colorAnchor",
+			maxColor: "colorNum",
+			board: "board",
+			state: "mode",
+			colorStyling: ({ colorScheme }) => `${colorScheme.map((color, index) => {
+				return `--state-${index + 1}:${color};`;
+			}).join("")}`
+		}),
+		keymap () {
+			const colorAnchoring = {
+				keydown: e => this.anchorColor(e.keyCode - 48),
+				keyup: e => this.anchorColor(null)
+			};
+			return {
+				1: colorAnchoring,
+				2: colorAnchoring,
+				3: colorAnchoring,
+				4: colorAnchoring,
+				5: colorAnchoring,
+				"`": {
+					keydown: e => this.reverseColor(true),
+					keyup: e => this.reverseColor(false)
+				}
+			};
+		}
+	},
 	methods: mapActions({
 		anchorColor: ACTION_ANCHOR_COLOR,
 		reverseColor: ACTION_REVERSE_COLOR
 	}),
-	created () {
-		window.addEventListener("keydown", jwerty.event("[1-5]", e => this.anchorColor(e.keyCode - 48)));
-		window.addEventListener("keyup", jwerty.event("[1-5]", e => this.anchorColor(null)));
-		window.addEventListener("keydown", jwerty.event("`", e => this.reverseColor(true)));
-		window.addEventListener("keyup", jwerty.event("`", e => this.reverseColor(false)));
-	},
 	components: {
 		Sidebar,
 		GameBoard,
