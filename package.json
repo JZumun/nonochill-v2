@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "throttle-debounce": "^1.0.1",
+    "v-hotkey": "^0.2.0",
     "vue": "^2.3.3",
     "vuex": "^2.3.1"
   },
@@ -31,7 +32,6 @@
     "prerender-spa-plugin": "^2.1.0",
     "pretty": "^2.0.0",
     "pug": "^2.0.0-rc.3",
-    "v-hotkey": "git+ssh://git@github.com:JZumun/v-hotkey.git",
     "vue-loader": "^13.0.4",
     "vue-template-compiler": "^2.3.3",
     "webpack": "^3.5.5",

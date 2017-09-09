@@ -49,14 +49,17 @@ module.exports = {
 	performance: {
 		hints: false
 	},
-	devtool: "#eval-source-map"
+	devtool: "#eval-source-map",
+	plugins: [
+		new webpack.NamedModulesPlugin()
+	]
 };
 
 if (process.env.NODE_ENV === "production") {
 	module.exports.devtool = "#source-map";
 	// http://vue-loader.vuejs.org/en/workflow/production.html
 	module.exports.module.rules[0].options.extractCSS = true;
-	module.exports.plugins = (module.exports.plugins || []).concat([
+	module.exports.plugins = [
 		new ExtractTextPlugin("app.css"),
 		new webpack.DefinePlugin({
 			"process.env": {
@@ -89,5 +92,5 @@ if (process.env.NODE_ENV === "production") {
 				});
 			}
 		})
-	]);
+	];
 }

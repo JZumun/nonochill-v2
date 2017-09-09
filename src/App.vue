@@ -14,59 +14,70 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import store from "store/Store";
-import { ACTION_ANCHOR_COLOR, ACTION_REVERSE_COLOR } from "store/actions";
+	import { mapState, mapActions, mapMutations } from "vuex";
+	import store from "store/Store";
+	import { ACTION_ANCHOR_COLOR, ACTION_REVERSE_COLOR, ACTION_UNDO_MOVE, ACTION_REDO_MOVE } from "store/actions";
+	import { RESET_BOARD } from "store/mutations";
 
-import Sidebar from "components/app/Sidebar.vue";
-import GameBoard from "components/game/GameBoard.vue";
-import GithubCornerLink from "components/app/GithubCornerLink.vue";
+	import Sidebar from "components/app/Sidebar.vue";
+	import GameBoard from "components/game/GameBoard.vue";
+	import GithubCornerLink from "components/app/GithubCornerLink.vue";
 
-import TitleScreen from "components/mixins/titleScreen";
+	import TitleScreen from "components/mixins/titleScreen";
 
-export default {
-	store,
-	name: "app",
-	computed: {
-		...mapState({
-			reverse: "colorReverse",
-			anchor: "colorAnchor",
-			maxColor: "colorNum",
-			board: "board",
-			state: "mode",
-			colorStyling: ({ colorScheme }) => `${colorScheme.map((color, index) => {
-				return `--state-${index + 1}:${color};`;
-			}).join("")}`
-		}),
-		keymap () {
-			const colorAnchoring = {
-				keydown: e => this.anchorColor(e.keyCode - 48),
-				keyup: e => this.anchorColor(null)
-			};
-			return {
-				1: colorAnchoring,
-				2: colorAnchoring,
-				3: colorAnchoring,
-				4: colorAnchoring,
-				5: colorAnchoring,
-				"`": {
-					keydown: e => this.reverseColor(true),
-					keyup: e => this.reverseColor(false)
-				}
-			};
-		}
-	},
-	methods: mapActions({
-		anchorColor: ACTION_ANCHOR_COLOR,
-		reverseColor: ACTION_REVERSE_COLOR
-	}),
-	components: {
-		Sidebar,
-		GameBoard,
-		GithubCornerLink
-	},
-	mixins: [TitleScreen]
-};
+	const preventDefault = fn => e => { e.preventDefault(); fn(e); };
+	const assignTo = (map = {}, thing) => el => { map[el] = thing; };
+
+	export default {
+		store,
+		name: "app",
+		computed: {
+			...mapState({
+				reverse: "colorReverse",
+				anchor: "colorAnchor",
+				maxColor: "colorNum",
+				board: "board",
+				state: "mode",
+				colorStyling: ({ colorScheme }) => `${colorScheme.map((color, index) => {
+					return `--state-${index + 1}:${color};`;
+				}).join("")}`
+			}),
+			keymap () {
+				const keyMap = {
+					"`": {
+						keydown: e => this.reverseColor(true),
+						keyup: e => this.reverseColor(false)
+					}
+				};
+				[1, 2, 3, 4, 5].forEach(assignTo(keyMap, {
+					keydown: e => this.anchorColor(e.keyCode - 48),
+					keyup: e => this.anchorColor(null)
+				}));
+				["ctrl+z", "meta+z"].forEach(assignTo(keyMap, preventDefault(this.undo)));
+				["ctrl+shift+z", "meta+shift+z"].forEach(assignTo(keyMap, preventDefault(this.redo)));
+				["ctrl+c", "meta+c"].forEach(assignTo(keyMap, preventDefault(this.clear)));
+
+				return keyMap;
+			}
+		},
+		methods: {
+			...mapActions({
+				anchorColor: ACTION_ANCHOR_COLOR,
+				reverseColor: ACTION_REVERSE_COLOR,
+				undo: ACTION_UNDO_MOVE,
+				redo: ACTION_REDO_MOVE
+			}),
+			...mapMutations({
+				clear: RESET_BOARD
+			})
+		},
+		components: {
+			Sidebar,
+			GameBoard,
+			GithubCornerLink
+		},
+		mixins: [TitleScreen]
+	};
 </script>
 
 <style>

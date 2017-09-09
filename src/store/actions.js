@@ -83,13 +83,17 @@ export default {
 		if (state.colorReverse !== value) commit(REVERSE_COLOR, value);
 	},
 
-	[ACTION_UNDO_MOVE] ({ commit, dispatch }, payload) {
-		commit(UNDO_MOVE, payload);
+	[ACTION_UNDO_MOVE] ({ commit, dispatch, state: { history: { past }}}, payload) {
+		if (past.length) {
+			commit(UNDO_MOVE, payload);
+		}
 		dispatch(ACTION_CREATOR_UPDATE_RULES);
 	},
 
-	[ACTION_REDO_MOVE] ({ commit, dispatch }, payload) {
-		commit(REDO_MOVE, payload);
+	[ACTION_REDO_MOVE] ({ commit, dispatch, state: { history: { future }}}, payload) {
+		if (future.length) {
+			commit(REDO_MOVE, payload);
+		}
 		dispatch(ACTION_CREATOR_UPDATE_RULES);
 	}
 };
