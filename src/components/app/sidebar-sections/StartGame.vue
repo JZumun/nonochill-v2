@@ -7,7 +7,7 @@
 				range-field( name="Colors" :min="1" :max="5" v-model.number="colors" )
 				range-field( name="Density" :min="0.6" :max="0.95" :step="0.05" v-model.number="density" )
 				.buttons.
-					#[button( @click.prevent="randomize") Randomize]
+					#[button.secondary( @click.prevent="randomize") Randomize]
 					#[button Start New Game]
 		form(@submit.prevent="startWithCode")
 			fieldset

@@ -68,11 +68,15 @@
 	}
 
 	.color-box span {
-		display:block;
+		display:none;
 		color: var(--dim-accent);
 		background: var(--dark-accent);
 		padding:0.25em;
 		height:100%;
+	}
+
+	.shortcuts .color-box span {
+		display: block;
 	}
 
 	.color-box.highlighted {

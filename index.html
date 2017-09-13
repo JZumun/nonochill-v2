@@ -38,7 +38,7 @@
 									<input type="number" min="0.6" max="0.95" step="0.05" class="input-text input">
 								</label>
 								<div class="buttons">
-									<button>Randomize</button>
+									<button class="secondary">Randomize</button>
 									<button>Start New Game</button>
 								</div>
 							</fieldset>
@@ -78,7 +78,7 @@
 			<div class="sidebar-section-container">
 				<h2 class="sidebar-section-header">Options</h2>
 				<section class="sidebar-section closed">
-					<div id="game-options">
+					<div id="game-options" class="">
 						<fieldset>
 							<legend>Color Scheme</legend>
 							<ul class="color-scheme">
@@ -103,19 +103,20 @@
 						<fieldset>
 							<legend>History</legend>
 							<div class="history-buttons">
-								<button disabled="disabled">Undo</button>
-								<button disabled="disabled">Redo</button>
+								<button disabled="disabled" data-shortcut="ctrl+z">Undo</button>
+								<button disabled="disabled" data-shortcut="ctrl+shift+z">Redo</button>
+								<button data-shortcut="ctrl+c" class="secondary restart-level">Restart Level</button>
 							</div>
-						</fieldset>
-						<fieldset>
-							<legend>board</legend>
-							<small>clearing the board will also reset your history.</small>
-							<button>Clear Board</button>
 						</fieldset>
 						<fieldset>
 							<legend>Level Code</legend>
 							<small>copy this code to share this level with others.</small>
 							<textarea readonly="readonly" onclick="this.focus();this.select()" rows="8"></textarea>
+						</fieldset>
+						<fieldset>
+							<legend>Other</legend>
+							<label>
+								<input type="checkbox">Toggle Shortcut Guide</label>
 						</fieldset>
 					</div>
 				</section>

@@ -70,6 +70,11 @@ a:hover, button:hover {
 .button.attach {
 	border-left-width:0;
 }
+.secondary {
+	background: var(--background-color);
+	color: var(--dim-accent);
+	border: 0;
+}
 :focus {
 	outline:none;
 }

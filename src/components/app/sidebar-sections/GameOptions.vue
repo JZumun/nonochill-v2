@@ -1,33 +1,48 @@
 <template lang="pug">
-	#game-options
+	#game-options( :class="{shortcuts}" )
 		color-scheme
 		game-history
-		fieldset
-			legend board
-			small clearing the board will also reset your history.
-			button(@click="clear") Clear Board
 		fieldset
 			legend Level Code
 			small copy this code to share this level with others.
 			textarea(v-model="code" readonly onclick="this.focus();this.select()" rows="8")
+		fieldset
+			legend Other
+			label
+				input(type="checkbox" v-model="shortcuts")
+				| Toggle Shortcut Guide
 </template>
 
 <script>
 	import ColorScheme from "./ColorScheme.vue";
 	import GameHistory from "./GameHistory.vue";
 
-	import { mapGetters, mapMutations } from "vuex";
-	import { RESET_BOARD } from "store/mutations";
+	import { mapGetters } from "vuex";
 
 	export default {
 		components: { GameHistory, ColorScheme },
 		data () {
 			return {
 				disabled: true,
-				closed: true
+				closed: true,
+				shortcuts: false
 			};
 		},
-		computed: mapGetters({ code: "serialization" }),
-		methods: mapMutations({ clear: RESET_BOARD })
+		computed: mapGetters({ code: "serialization" })
 	};
 </script>
+
+<style>
+	.shortcuts [data-shortcut] {
+		position:relative;
+	}
+	.shortcuts [data-shortcut]:after {
+		content: attr(data-shortcut);
+		background: var(--dark-accent);
+		border: 1px solid var(--dim-accent);
+		display: block;
+		padding: 0.25em;
+		font-size:0.5em;
+		width:100%;
+	}
+</style>
