@@ -1,5 +1,5 @@
 <template lang="pug">
-	.board-game( :style="`--board-size:${size};--clue-size:${size};`" )
+	.board-game( :style="`--board-size:${size};--clue-size:${size};`" v-hotkey="keymap" )
 		#section-clues-vertical.vertical.clue-list( @mouseleave="clearHighlight" )
 			game-clue-list(
 				v-for="clues, y in rules.column" :key="y"
@@ -25,7 +25,7 @@
 					:state="board[x][y]"
 					:class="{highlighted: isHighlighted({x,y})}"
 					@mouseenter.native="enterTile({x,y},$event)"
-					@mousedown.native="toggle({x,y})"
+						@mousedown.native="setTile({x,y})"
 				)
 </template>
 
@@ -34,8 +34,15 @@
 	import GameTile from "./GameTile.vue";
 	import GameClueList from "./GameClueList.vue";
 
-	import { mapState, mapActions } from "vuex";
-	import { ACTION_TOGGLE_TILE } from "store/actions";
+	import { mapState, mapActions, mapMutations } from "vuex";
+	import {
+		ACTION_TOGGLE_TILE,
+		ACTION_UNDO_MOVE,
+		ACTION_REDO_MOVE,
+		ACTION_ANCHOR_COLOR,
+		ACTION_REVERSE_COLOR
+	} from "store/actions";
+	import { RESET_BOARD } from "store/mutations";
 
 	import { count, sameArrays, filteredLength } from "utils/ArrayUtils";
 	import computedRule from "utils/game/GenerateRule";
@@ -43,15 +50,46 @@
 	const sameRule = (x, y) => x.val === y.val && x.count === y.count;
 	const sameRules = (a, b) => sameArrays(a, b, sameRule);
 
+	const preventDefault = fn => e => {
+		e.preventDefault();
+		fn(e);
+	};
+	const assignTo = (map = {}, thing) => el => {
+		map[el] = thing;
+	};
+
 	export default {
 		mixins: [highlighter],
 		components: { GameTile, GameClueList },
 		data () {
 			return {
-				highlight: {}
+				highlight: {},
+				activeTile: { x: 0, y: 0 }
 			};
 		},
 		computed: {
+			keymap () {
+				const map = {
+					"`": {
+						keydown: e => this.reverseColor(true),
+						keyup: e => this.reverseColor(false)
+					},
+					up: e => this.moveActiveTile({ dx: -1 }),
+					down: e => this.moveActiveTile({ dx: 1 }),
+					left: e => this.moveActiveTile({ dy: -1 }),
+					right: e => this.moveActiveTile({ dy: 1 }),
+					enter: e => this.toggle(this.activeTile)
+				};
+				[1, 2, 3, 4, 5].forEach(assignTo(map, {
+					keydown: e => this.anchorColor(e.keyCode - 48),
+					keyup: e => this.anchorColor(null)
+				}));
+				["ctrl+z", "meta+z"].forEach(assignTo(map, preventDefault(this.undo)));
+				["ctrl+shift+z", "meta+shift+z"].forEach(assignTo(map, preventDefault(this.redo)));
+				["ctrl+c", "meta+c"].forEach(assignTo(map, preventDefault(this.clear)));
+
+				return map;
+			},
 			solved () {
 				return {
 					row: this.rows.map((row, i) => sameRules(computedRule(row), this.rules.row[i])),
@@ -71,15 +109,40 @@
 			})
 		},
 		watch: {
-			win (val) { if (val) this.$emit("win"); }
+			win (val) {
+				if (val) this.$emit("win");
+			},
+			activeTile (val) {
+				this.setHighlight(val);
+			}
 		},
 		methods: {
 			enterTile (tile, e) {
 				this.setHighlight(tile);
-				if (e.buttons === 1) { this.toggle(tile); }
+				if (e.buttons === 1) {
+					this.setTile(tile);
+				}
+			},
+			moveActiveTile ({ dx = 0, dy = 0 } = 0) {
+				const size = this.board.length;
+				const x = Math.max(0, Math.min(size - 1, this.activeTile.x + dx));
+				const y = Math.max(0, Math.min(size - 1, this.activeTile.y + dy));
+
+				this.activeTile = { x, y };
+			},
+			setTile (tile) {
+				this.activeTile = tile;
+				this.toggle(tile);
 			},
 			...mapActions({
-				toggle: ACTION_TOGGLE_TILE
+				toggle: ACTION_TOGGLE_TILE,
+				undo: ACTION_UNDO_MOVE,
+				redo: ACTION_REDO_MOVE,
+				anchorColor: ACTION_ANCHOR_COLOR,
+				reverseColor: ACTION_REVERSE_COLOR
+			}),
+			...mapMutations({
+				clear: RESET_BOARD
 			})
 		}
 	};
