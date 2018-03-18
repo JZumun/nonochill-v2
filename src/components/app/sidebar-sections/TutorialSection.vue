@@ -169,6 +169,24 @@ export default {
 					}
 				},
 				{
+					element: "#section-clues-vertical .clues:nth-of-type(3)",
+					popover: {
+						title: "Third Column",
+						description: `If we've done everything correctly so far, then the third row should already be greyed out.
+							Nice!`
+					}
+				},
+				{
+					element: "#section-board-game",
+					popover: {
+						title: "Third Column",
+						description: "Mark the empty spaces with an X, because we're now sure that nothing should be put in them."
+					},
+					action () {
+						this.highlightColumn(2);
+					}
+				},
+				{
 					element: "#section-clues-vertical .clues:nth-of-type(1)",
 					popover: {
 						title: "First Column",
@@ -182,8 +200,8 @@ export default {
 					popover: {
 						title: "First Column",
 						description: `We've already filled up some cells in the first column. To complete the clue, we should add a
-							black cell on the first column, third row (so that it isn't next to the existing black cell),
-							and mark the first column,second row as empty.`
+							black cell on the third row (so that it isn't next to the existing black cell),
+							and mark the second row as empty.`
 					},
 					action () {
 						this.highlightColumn(0);
@@ -194,7 +212,8 @@ export default {
 					popover: {
 						title: "Fourth Column",
 						description: `This clue states that there is one black cell on its own,
-							and then two consecutive black cells.`
+							and then two consecutive black cells.`,
+						position: "left"
 					}
 				},
 				{
@@ -209,24 +228,6 @@ export default {
 					}
 				},
 				{
-					element: "#section-clues-vertical .clues:nth-of-type(3)",
-					popover: {
-						title: "Third Column",
-						description: `If we've done everything correctly so far, then the third row should already be greyed out.
-							Nice!`
-					}
-				},
-				{
-					element: "#section-board-game",
-					popover: {
-						title: "Third Column",
-						description: "Mark the empty spaces on the third column with an X, because we're now sure that nothing should be put in them."
-					},
-					action () {
-						this.highlightColumn(2);
-					}
-				},
-				{
 					element: "#main",
 					popover: {
 						title: "The End",
@@ -238,7 +239,6 @@ export default {
 	},
 	methods: {
 		setTile (x, y, val) {
-			console.log(x, y, val);
 			return this.$store.dispatch(ACTION_SET_TILE, { tile: { x, y }, curr: val ? 0 : 1, next: val });
 		},
 		setTiles (list) {
