@@ -3,6 +3,7 @@
 		h1.game-title NonoChill#[sup v.2]
 		sidebar-section(title="Play" :closed="!section[0]" @toggle="toggle(0)")
 			start-game
+			tutorial-section
 		sidebar-section(title="Level Editor" :closed="!section[1]" @toggle="toggle(1)")
 			create-game
 		sidebar-section(title="Options", :closed="!section[2]" @toggle="toggle(2)" :disabled="mode == 0")
@@ -15,12 +16,13 @@
 	import StartGame from "./sidebar-sections/StartGame.vue";
 	import CreateGame from "./sidebar-sections/CreateGame.vue";
 	import GameOptions from "./sidebar-sections/GameOptions.vue";
+	import TutorialSection from "./sidebar-sections/TutorialSection.vue";
 
 	import { mapState } from "vuex";
 	import modes from "store/values/modes";
 
 	export default {
-		components: { SidebarSection, StartGame, GameOptions, CreateGame },
+		components: { SidebarSection, StartGame, GameOptions, CreateGame, TutorialSection },
 		computed: mapState(["mode"]),
 		watch: {
 			mode (val) {
