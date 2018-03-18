@@ -14,7 +14,7 @@
 </template>
 
 <script>
-	import {mapState} from "vuex";
+	import { mapState } from "vuex";
 	import store from "store/Store";
 
 	import Sidebar from "components/app/Sidebar.vue";
@@ -32,7 +32,7 @@
 			maxColor: "colorNum",
 			board: "board",
 			state: "mode",
-			colorStyling: ({colorScheme}) => `${colorScheme.map((color, index) => {
+			colorStyling: ({ colorScheme }) => `${colorScheme.map((color, index) => {
 				return `--state-${index + 1}:${color};`;
 			}).join("")}`
 		}),

@@ -8,6 +8,7 @@ import debounce from "throttle-debounce/debounce";
 import incrementColor from "utils/game/IncrementColor";
 import generateRule from "utils/game/GenerateRule";
 import { count } from "utils/ArrayUtils";
+import { deserialize } from "utils/game/Serializer";
 
 import modes, { isCreatorMode } from "./values/modes";
 
@@ -62,6 +63,19 @@ export default {
 	},
 
 	[ACTION_START_GAME] ({ commit }, payload) {
+		if (typeof payload === "string") {
+			const options = deserialize(payload);
+			payload = {
+				size: options.width,
+				rules: {
+					row: options.row,
+					column: options.column
+				},
+				colors: options.colors,
+				scheme: options.colorScheme
+			};
+		}
+
 		commit(CHANGE_MODE, modes.GAME_SETUP);
 		commit(START_GAME, payload);
 
