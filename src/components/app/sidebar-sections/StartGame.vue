@@ -9,9 +9,13 @@
 				.buttons.
 					#[button.secondary( @click.prevent="randomize") Randomize]
 					#[button Start New Game]
+		form(@submit.prevent="startFromStorage")
+			fieldset
+				legend Load From Save
+				button Load Game
 		form(@submit.prevent="startWithCode")
 			fieldset
-				legend Load Game
+				legend Load From Code
 				small paste code below
 				textarea(v-model="code" spellcheck="false" onclick="this.focus();this.select()" rows="5")
 				button Load
@@ -24,7 +28,7 @@
 	import generateRule from "utils/game/GenerateRule";
 	import { deserialize } from "utils/game/Serializer";
 
-	import { ACTION_START_GAME } from "store/actions";
+	import { ACTION_START_GAME, ACTION_LOAD_GAME } from "store/actions";
 	import { count } from "utils/ArrayUtils";
 	import { random } from "utils/RandomUtils";
 
@@ -74,6 +78,9 @@
 					scheme: options.colorScheme
 				});
 				this.code = "";
+			},
+			startFromStorage () {
+				this.$store.dispatch(ACTION_LOAD_GAME);
 			}
 		}
 	};

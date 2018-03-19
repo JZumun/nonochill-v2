@@ -2,7 +2,8 @@ import Vue from "vue";
 import { SET_TILE, STAGE_MOVE, COMMIT_MOVES,
 	START_GAME, START_EDITOR, CHANGE_MODE,
 	ANCHOR_COLOR, UNANCHOR_COLOR, REVERSE_COLOR,
-	UPDATE_RULES, UNDO_MOVE, REDO_MOVE } from "./mutations";
+	UPDATE_RULES, UNDO_MOVE, REDO_MOVE,
+	SET_BOARD } from "./mutations";
 
 import debounce from "throttle-debounce/debounce";
 import incrementColor from "utils/game/IncrementColor";
@@ -29,6 +30,9 @@ export const ACTION_UNDO_MOVE = "action:undo-move";
 export const ACTION_REDO_MOVE = "action:redo-move";
 
 export const ACTION_CREATOR_UPDATE_RULES = "action:rules-match-board";
+
+export const ACTION_SAVE_GAME = "action:save-game";
+export const ACTION_LOAD_GAME = "action:load-game";
 
 export default {
 	[ACTION_SET_TILE] ({ commit }, payload) {
@@ -109,5 +113,18 @@ export default {
 			commit(REDO_MOVE, payload);
 		}
 		dispatch(ACTION_CREATOR_UPDATE_RULES);
+	},
+
+	[ACTION_SAVE_GAME] ({ commit, state, getters }) {
+		if (typeof Storage !== undefined) {
+			window.localStorage.setItem("serialization", getters.serialization);
+			window.localStorage.setItem("board", JSON.stringify(state.board));
+		}
+	},
+	[ACTION_LOAD_GAME] ({ commit, dispatch, state }) {
+		if (typeof Storage !== undefined) {
+			dispatch(ACTION_START_GAME, window.localStorage.serialization);
+			Vue.nextTick(_ => commit(SET_BOARD, JSON.parse(window.localStorage.board)));
+		}
 	}
 };

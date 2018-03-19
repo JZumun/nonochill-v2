@@ -1,5 +1,6 @@
 <template lang="pug">
 	#game-options( :class="{shortcuts}" )
+		save-game
 		color-scheme
 		game-history
 		fieldset
@@ -14,13 +15,14 @@
 </template>
 
 <script>
+	import SaveGame from "./SaveGame.vue";
 	import ColorScheme from "./ColorScheme.vue";
 	import GameHistory from "./GameHistory.vue";
 
 	import { mapGetters } from "vuex";
 
 	export default {
-		components: { GameHistory, ColorScheme },
+		components: { GameHistory, ColorScheme, SaveGame },
 		data () {
 			return {
 				disabled: true,

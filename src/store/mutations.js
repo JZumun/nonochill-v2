@@ -12,6 +12,7 @@ export const START_GAME = "start-game";
 export const START_EDITOR = "start-editor";
 
 export const RESET_BOARD = "reset-board";
+export const SET_BOARD = "set-board";
 export const SET_TILE = "set-tile";
 export const UPDATE_RULES = "update-rules";
 
@@ -83,6 +84,10 @@ export default {
 
 	[RESET_BOARD] (state) {
 		state.board = clearBoard(state.board.length);
+		clearHistory(state);
+	},
+	[SET_BOARD] (state, newBoard) {
+		state.board = newBoard;
 		clearHistory(state);
 	},
 	[UPDATE_RULES] (state, rules) {

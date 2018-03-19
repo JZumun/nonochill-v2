@@ -17,7 +17,6 @@
 	import CreateGame from "./sidebar-sections/CreateGame.vue";
 	import GameOptions from "./sidebar-sections/GameOptions.vue";
 	import TutorialSection from "./sidebar-sections/TutorialSection.vue";
-
 	import { mapState } from "vuex";
 	import modes from "store/values/modes";
 
