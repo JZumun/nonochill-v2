@@ -7,12 +7,505 @@
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300" rel="stylesheet">
 	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="dist/app.css">
+	<link rel="stylesheet" href="dist/vendor.css">
+	<link rel="stylesheet" href="dist/main.css">
 </head>
 <body>
 	<div id="app" class="whole">
 		<section id="main" class="main page-section">
-			<div class="board-game"></div>
+			<div class="board-game">
+				<div id="section-clues-vertical" class="vertical clue-list">
+					<ul class="clues sparse vertical solved"></ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="3" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">3</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="3" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="2" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="3" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="2" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="2" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="2" class="clue">1</li>
+						<li data-state="2" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="2" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="1" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="2" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="1" class="clue">1</li>
+						<li data-state="2" class="clue">2</li>
+						<li data-state="2" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="2" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="2" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="1" class="clue">1</li>
+						<li data-state="3" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="2" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="3" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved">
+						<li data-state="3" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse vertical solved"></ul>
+				</div>
+				<div id="section-clues-horizontal" class="horizontal clue-list">
+					<ul class="clues sparse horizontal solved"></ul>
+					<ul class="clues sparse horizontal solved">
+						<li data-state="3" class="clue">1</li>
+						<li data-state="2" class="clue">1</li>
+						<li data-state="2" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="2" class="clue">1</li>
+						<li data-state="2" class="clue">1</li>
+						<li data-state="3" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse horizontal solved"></ul>
+					<ul class="clues sparse horizontal solved">
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">3</li>
+					</ul>
+					<ul class="clues sparse horizontal solved">
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse horizontal solved">
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+					</ul>
+					<ul class="clues sparse horizontal solved"></ul>
+					<ul class="clues sparse horizontal solved">
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse horizontal solved">
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse horizontal solved">
+						<li data-state="1" class="clue">3</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="1" class="clue">2</li>
+						<li data-state="1" class="clue">2</li>
+					</ul>
+					<ul class="clues sparse horizontal solved"></ul>
+					<ul class="clues sparse horizontal solved">
+						<li data-state="2" class="clue">1</li>
+						<li data-state="2" class="clue">1</li>
+						<li data-state="2" class="clue">2</li>
+					</ul>
+					<ul class="clues sparse horizontal solved">
+						<li data-state="2" class="clue">1</li>
+						<li data-state="2" class="clue">2</li>
+					</ul>
+					<ul class="clues sparse horizontal solved"></ul>
+					<ul class="clues sparse horizontal solved">
+						<li data-state="3" class="clue">1</li>
+						<li data-state="3" class="clue">1</li>
+						<li data-state="2" class="clue">1</li>
+						<li data-state="1" class="clue">1</li>
+						<li data-state="2" class="clue">1</li>
+						<li data-state="3" class="clue">1</li>
+						<li data-state="3" class="clue">1</li>
+					</ul>
+					<ul class="clues sparse horizontal solved"></ul>
+					<ul class="clues sparse horizontal solved"></ul>
+				</div>
+				<div id="section-board-game" class="board win">
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="3" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="3" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="3" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="3" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="1" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="2" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="3" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="3" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+					<div class="game-row">
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+						<div data-state="0" class="game-tile"></div>
+					</div>
+				</div>
+			</div>
 		</section>
 		<section id="sidebar" class="sidebar page-section sidebar">
 			<h1 class="game-title">NonoChill
@@ -43,12 +536,27 @@
 								</div>
 							</fieldset>
 						</form>
+						<form disabled="disabled">
+							<fieldset>
+								<legend>Load From Save</legend>
+								<small>There is currently no saved game.</small>
+							</fieldset>
+						</form>
 						<form>
 							<fieldset>
-								<legend>Load Game</legend>
+								<legend>Load From Code</legend>
 								<small>paste code below</small>
 								<textarea spellcheck="false" onclick="this.focus();this.select()" rows="5"></textarea>
 								<button>Load</button>
+							</fieldset>
+						</form>
+					</div>
+					<div id="tutorial">
+						<form>
+							<fieldset>
+								<legend>Tutorial</legend>
+								<small>This tutorial will teach you the basics of solving nonograms.</small>
+								<button>Play Tutorial</button>
 							</fieldset>
 						</form>
 					</div>
@@ -79,6 +587,11 @@
 				<h2 class="sidebar-section-header">Options</h2>
 				<section class="sidebar-section closed">
 					<div id="game-options" class="">
+						<fieldset data-v-f2d1a520="" class="save-game">
+							<legend data-v-f2d1a520="">Save Game</legend>
+							<small data-v-f2d1a520="">Save the current state of the game. You can load this later using "Load From Save" in the play section.</small>
+							<button data-v-f2d1a520="">Save Game</button>
+						</fieldset>
 						<fieldset>
 							<legend>Color Scheme</legend>
 							<ul class="color-scheme">
@@ -105,7 +618,7 @@
 							<div class="history-buttons">
 								<button disabled="disabled" data-shortcut="ctrl+z">Undo</button>
 								<button disabled="disabled" data-shortcut="ctrl+shift+z">Redo</button>
-								<button data-shortcut="ctrl+c" class="secondary restart-level">Restart Level</button>
+								<button class="secondary restart-level">Restart Level</button>
 							</div>
 						</fieldset>
 						<fieldset>
@@ -124,7 +637,9 @@
 			<footer>Created by&nbsp;
 				<a href="https://github.com/JZumun" class="author">
 					<img src="https://avatars3.githubusercontent.com/u/10479613">JZumun</a>&nbsp;using
-				<a href="https://vuejs.org/">Vue JS</a>. Hosted on
+				<a href="https://vuejs.org/">Vue JS</a>.
+				<br> Background images from
+				<a href="https://unsplash.com/">Unsplash</a>. Hosted on
 				<a href="https://github.com/JZumun/nonochill-v2">Github</a>.</footer>
 		</section>
 		<a href="https://github.com/JZumun/nonochill-v2" aria-label="View source on Github" class="github-corner" id="github-link" style="position: absolute; top: 0px; border: 0px; right: 0px;">

@@ -37,8 +37,11 @@ body {
 	margin:0;
 	padding:0;
 
+	background-image: linear-gradient(var(--background), var(--background)), url(https://source.unsplash.com/random/?abstract);
+	background-size: cover;
 	background-repeat:no-repeat;
 	background-color: var(--background);
+	background-blend-mode: overlay, darken;
 }
 
 a {

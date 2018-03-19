@@ -66,8 +66,9 @@ if (process.env.NODE_ENV === "production") {
 	module.exports.devtool = "#source-map";
 	// http://vue-loader.vuejs.org/en/workflow/production.html
 	module.exports.module.rules[0].options.extractCSS = true;
+	module.exports.module.rules[3].use = ExtractTextPlugin.extract({ fallback: "style-loader", use: ["css-loader"] }); ;
 	module.exports.plugins = [
-		new ExtractTextPlugin("app.css"),
+		new ExtractTextPlugin("[name].css"),
 		new webpack.DefinePlugin({
 			"process.env": {
 				NODE_ENV: "\"production\""

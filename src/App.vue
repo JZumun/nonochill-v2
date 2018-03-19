@@ -9,6 +9,7 @@
 					img(src="https://avatars3.githubusercontent.com/u/10479613")
 					| JZumun
 				| &nbsp;using #[a(href="https://vuejs.org/") Vue JS].
+				| #[br] Background images from #[a(href="https://unsplash.com/") Unsplash].
 				| Hosted on #[a(href="https://github.com/JZumun/nonochill-v2") Github].
 		github-corner-link#github-link(href="https://github.com/JZumun/nonochill-v2")
 </template>
