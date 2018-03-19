@@ -67,8 +67,8 @@ export default {
 				{
 					element: "#section-board-game",
 					popover: {
-						title: "Board Cell",
-						description: `Clicking on a cell cycles it through its states.`
+						title: "Clicking on a cell cycles it through its states.",
+						description: `A cell can be empty, filled with color (black, pink, etc.), or intentionally marked empty (X)`
 					},
 					action () {
 						this.setTiles([
@@ -79,24 +79,34 @@ export default {
 							[0, 0, 1],
 							[0, 1, 1],
 							[0, 2, 1],
-							[0, 3, 1]
+							[0, 3, 1],
+							[1, 0, 2],
+							[1, 1, -1]
 						]);
+					}
+				},
+				{
+					element: "#section-clues-vertical",
+					popover: {
+						title: "Each row and column has a corresponding clue.",
+						description: `A clue is a list of numbers that say how many cells in that row or column have that color
+							and in what order they appear (from top to bottom or left to right)`
 					}
 				},
 				{
 					element: "#section-clues-horizontal",
 					popover: {
-						title: "Clues",
-						description: `Each clue describes how a row or column should be filled out. If a clue is greyed out,
-							it means that that row or column has already been solved.`
+						title: "If a clue is greyed out, it means the row or column is 'solved'.",
+						description: `Once all the clues are solved, then you've solved the puzzle!`
 					}
 				},
 				{
 					element: "#main",
 					stageBackground: "var(--background)",
 					popover: {
-						title: "Winning",
-						description: `Fill up the board until all the clues are solved.`
+						title: "The End",
+						description: `Try solving the provided puzzle. If you're up to the challenge, create a new puzzle in the
+							Play section in the sidebar.`
 					}
 				}
 			]
