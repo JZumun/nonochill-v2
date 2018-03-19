@@ -145,4 +145,11 @@ export default {
 #driver-popover-item, #driver-popover-item * {
 	font-family: inherit !important;
 }
+div#driver-popover-item .driver-popover-footer button {
+	border: 0;
+	background: var(--light-accent);
+	color: white;
+	text-shadow: none;
+	border-radius: 0;
+}
 </style>
