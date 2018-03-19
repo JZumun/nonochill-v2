@@ -9,10 +9,11 @@
 				.buttons.
 					#[button.secondary( @click.prevent="randomize") Randomize]
 					#[button Start New Game]
-		form(@submit.prevent="startFromStorage")
+		form(@submit.prevent="startFromStorage", :disabled="!hasSavedGame")
 			fieldset
 				legend Load From Save
-				button Load Game
+				button(v-if="hasSavedGame") Load Game
+				small(v-else) There is currently no saved game.
 		form(@submit.prevent="startWithCode")
 			fieldset
 				legend Load From Code
@@ -28,6 +29,7 @@
 	import generateRule from "utils/game/GenerateRule";
 	import { deserialize } from "utils/game/Serializer";
 
+	import { mapGetters } from "vuex";
 	import { ACTION_START_GAME, ACTION_LOAD_GAME } from "store/actions";
 	import { count } from "utils/ArrayUtils";
 	import { random } from "utils/RandomUtils";
@@ -43,6 +45,7 @@
 				closed: false
 			};
 		},
+		computed: mapGetters(["hasSavedGame"]),
 		methods: {
 			randomize () {
 				this.size = random(5, 20);

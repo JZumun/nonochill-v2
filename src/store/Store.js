@@ -36,7 +36,8 @@ const getters = {
 		row: rules.row,
 		colorScheme
 	}),
-	colorsUsed: ({ colorNum, colorScheme }) => colorScheme.slice(0, colorNum)
+	colorsUsed: ({ colorNum, colorScheme }) => colorScheme.slice(0, colorNum),
+	hasSavedGame: () => typeof Storage !== "undefined" && window.localStorage.board != null
 };
 
 export default new Vuex.Store({
