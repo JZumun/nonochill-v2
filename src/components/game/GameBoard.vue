@@ -86,7 +86,6 @@
 				}));
 				["ctrl+z", "meta+z"].forEach(assignTo(map, preventDefault(this.undo)));
 				["ctrl+shift+z", "meta+shift+z"].forEach(assignTo(map, preventDefault(this.redo)));
-				["ctrl+c", "meta+c"].forEach(assignTo(map, preventDefault(this.clear)));
 
 				return map;
 			},

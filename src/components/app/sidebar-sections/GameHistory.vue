@@ -4,7 +4,7 @@
 		div.history-buttons
 			button(:disabled="past.length == 0" @click="undo" data-shortcut="ctrl+z") Undo
 			button(:disabled="future.length == 0" @click="redo" data-shortcut="ctrl+shift+z") Redo
-			button.secondary.restart-level(@click="clear" data-shortcut="ctrl+c" ) Restart Level
+			button.secondary.restart-level(@click="clear") Restart Level
 </template>
 
 <script>
