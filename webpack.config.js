@@ -58,7 +58,12 @@ module.exports = {
 	},
 	devtool: "#eval-source-map",
 	plugins: [
-		new webpack.NamedModulesPlugin()
+		new webpack.NamedModulesPlugin(),
+		new webpack.DefinePlugin({
+			"process.env": {
+          API_URL: JSON.stringify("http://localhost:8080/")
+        }
+		})
 	]
 };
 
@@ -71,7 +76,8 @@ if (process.env.NODE_ENV === "production") {
 		new ExtractTextPlugin("[name].css"),
 		new webpack.DefinePlugin({
 			"process.env": {
-				NODE_ENV: "\"production\""
+				NODE_ENV: "\"production\"",
+				API_URL: JSON.stringify("https://nono2-server.herokuapp.com/")
 			}
 		}),
 		new webpack.optimize.CommonsChunkPlugin({

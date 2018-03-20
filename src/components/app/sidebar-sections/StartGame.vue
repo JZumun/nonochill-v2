@@ -65,21 +65,7 @@
 				});
 			},
 			startWithCode () {
-				let options;
-				try {
-					options = deserialize(this.code);
-				} catch (e) {
-					this.code = "FAULTY CODE";
-				}
-				this.$store.dispatch(ACTION_START_GAME, {
-					size: options.width,
-					rules: {
-						row: options.row,
-						column: options.column
-					},
-					colors: options.colors,
-					scheme: options.colorScheme
-				});
+				this.$store.dispatch(ACTION_START_GAME, this.code);
 				this.code = "";
 			},
 			startFromStorage () {

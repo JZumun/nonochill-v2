@@ -6,7 +6,8 @@
 		fieldset
 			legend Level Code
 			small copy this code to share this level with others.
-			textarea(v-model="code" readonly onclick="this.focus();this.select()" rows="8")
+			button(@click="generateShortCode", v-if="!shortCode") Generate ShortCode
+			textarea(v-if="shortCode != null" v-text="shortCode" readonly onclick="this.focus();this.select()" rows="1")
 		fieldset
 			legend Other
 			label
@@ -25,6 +26,7 @@
 
 	import { mapGetters, mapState } from "vuex";
 	import { SHOW_FLOATING_OPTIONS } from "store/mutations";
+	import { ACTION_GENERATE_SHORTCODE } from "store/actions/shortcode";
 
 	export default {
 		components: { GameHistory, ColorScheme, SaveGame },
@@ -38,11 +40,16 @@
 		},
 		computed: {
 			...mapGetters({ code: "serialization" }),
-			...mapState({ floatingOptions: "showFloatingOptions" })
+			...mapState({ floatingOptions: "showFloatingOptions", shortCode: "shortCode" })
 		},
 		watch: {
 			showFloats (newValue, oldValue) {
 				this.$store.commit(SHOW_FLOATING_OPTIONS, newValue);
+			}
+		},
+		methods: {
+			generateShortCode() {
+				this.$store.dispatch(ACTION_GENERATE_SHORTCODE);
 			}
 		}
 	};

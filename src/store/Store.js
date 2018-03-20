@@ -16,6 +16,7 @@ const state = {
 	colorNum: 3,
 	colorAnchor: null,
 	colorReverse: false,
+	shortCode: null,
 	board: [],
 	rules: {
 		column: [],

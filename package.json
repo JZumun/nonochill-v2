@@ -12,6 +12,8 @@
     "lint-fix": "eslint ./src --ext .js --ext .vue --fix"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^5.0.1",
     "driver.js": "^0.3.4",
     "throttle-debounce": "^1.0.1",
     "v-hotkey": "^0.2.0",
