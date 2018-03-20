@@ -112,6 +112,7 @@ footer img {
 		grid-template-areas: "game" "sidebar";
 	}
 	.page-section {
+		height: 100%;
 		width:100%;
 	}
 	.main {
@@ -119,6 +120,8 @@ footer img {
 		height: calc(100vw - 2em);
 		margin:1em auto;
 		padding:0.5em;
+		max-width: 100%;
+		max-height: 100%;
 	}
 
 	.sidebar {
