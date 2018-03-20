@@ -6,7 +6,7 @@
 		fieldset
 			legend Level Code
 			small copy this code to share this level with others.
-			button(@click="generateShortCode", v-if="!shortCode") Generate ShortCode
+			button(@click="generateShortCode", v-if="!shortCode") Generate Level Code
 			textarea(v-if="shortCode != null" v-text="shortCode" readonly onclick="this.focus();this.select()" rows="1")
 		fieldset
 			legend Other
@@ -25,7 +25,7 @@
 	import GameHistory from "./GameHistory.vue";
 
 	import { mapGetters, mapState } from "vuex";
-	import { SHOW_FLOATING_OPTIONS } from "store/mutations";
+	import { SHOW_FLOATING_OPTIONS, SET_SHORTID } from "store/mutations";
 	import { ACTION_GENERATE_SHORTCODE } from "store/actions/shortcode";
 
 	export default {
@@ -45,6 +45,9 @@
 		watch: {
 			showFloats (newValue, oldValue) {
 				this.$store.commit(SHOW_FLOATING_OPTIONS, newValue);
+			},
+			code (oldValue, newValue) {
+				this.$store.commit(SET_SHORTID, null);
 			}
 		},
 		methods: {
