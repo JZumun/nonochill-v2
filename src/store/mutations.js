@@ -26,6 +26,8 @@ export const UNANCHOR_COLOR = "unanchor-color";
 
 export const REVERSE_COLOR = "reverse-color";
 
+export const SHOW_FLOATING_OPTIONS = "show-floating-options";
+
 const invertMove = move => ({
 	undone: true,
 	tile: move.tile,
@@ -124,5 +126,9 @@ export default {
 	},
 	[REVERSE_COLOR] (state, value) {
 		state.colorReverse = value;
+	},
+
+	[SHOW_FLOATING_OPTIONS] (state, value) {
+		state.showFloatingOptions = value;
 	}
 };

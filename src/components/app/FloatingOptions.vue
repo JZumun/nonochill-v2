@@ -1,0 +1,109 @@
+<template lang="pug">
+	fieldset.floating-options(v-if="visible")
+		legend Options
+		fieldset.floating-option(v-if="colors.length > 1")
+			legend Toggle Color
+			ul.toggle-colors
+				li.toggle-color(
+					v-for="color,i in colors",
+					:style="`--color:${color}`",
+					:class="{highlighted: i+1 == anchor}",
+					@click="anchorColor(i+1)"
+				)
+				li.toggle-color.reset(
+					style="--color:transparent",
+					@click="anchorColor(null)"
+				)
+		game-history.floating-option
+		save-game.floating-option
+</template>
+
+<script>
+import GameHistory from "components/app/sidebar-sections/GameHistory.vue";
+import SaveGame from "components/app/sidebar-sections/SaveGame.vue";
+import { mapState, mapGetters, mapActions } from "vuex";
+import { ACTION_ANCHOR_COLOR } from "store/actions";
+import { SHOW_FLOATING_OPTIONS } from "store/mutations";
+
+export default {
+	beforeMount () {
+		this.$store.commit(SHOW_FLOATING_OPTIONS, window.document.body.clientWidth <= 800);
+	},
+	computed: {
+		...mapState({ anchor: "colorAnchor", mode: "mode", show: "showFloatingOptions" }),
+		...mapGetters({ colors: "colorsUsed" }),
+		visible () {
+			return (this.mode == 2.5 || this.mode == 1.5) && this.show;
+		}
+	},
+	methods: {
+		...mapActions({
+			anchorColor: ACTION_ANCHOR_COLOR
+		})
+	},
+	components: { GameHistory, SaveGame }
+};
+</script>
+
+<style>
+	.floating-options {
+		font-size: 2vmin;
+	}
+
+	.floating-option, .floating-options {
+		border-color: var(--translucent-white);
+		color: var(--dim-accent);
+	}
+
+	.floating-options legend {
+		font-size: 0.75em;
+	}
+
+	.toggle-colors {
+		display: grid;
+		margin:0; padding:0;
+		grid-template-columns: repeat(auto-fit,minmax(2.25em,max-content));
+		grid-gap:0.25em;
+	}
+
+	.toggle-color {
+		--background-color: var(--translucent-white);
+		display:block;
+		width:100%;
+		height:2em;
+		margin:0;
+		border:1px solid var(--translucent-white);
+		position:relative;
+		cursor:pointer;
+		padding: 2px;
+	}
+	.toggle-color:before {
+		content: "";
+		display: block;
+		height: 100%;
+		width: 100%;
+		background-color: var(--color);
+	}
+	.toggle-color.reset:before {
+		content: "reset";
+		line-height: 1.5em;
+		margin: 0 0.25em;
+	}
+
+	.toggle-color.highlighted {
+		background: var(--light-accent);
+		box-shadow: 0 0 0 1px var(--light-accent);
+	}
+
+	.floating-option button {
+		color: white;
+	}
+
+	.floating-option .restart-level {
+		display:none;
+	}
+
+	.floating-option small {
+		display: none !important;
+	}
+</style>

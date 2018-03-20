@@ -11,6 +11,7 @@ import { serialize } from "utils/game/Serializer";
 Vue.use(Vuex);
 const state = {
 	mode: mode.INIT,
+	showFloatingOptions: true,
 	colorScheme: [...colors],
 	colorNum: 3,
 	colorAnchor: null,

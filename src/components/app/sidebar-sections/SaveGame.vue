@@ -29,15 +29,15 @@ export default {
 };
 </script>
 
-<style scoped>
-	small {
+<style>
+	.save-game small {
 		display: block;
 		margin-top: 0;
 	}
-	button {
+	.save-game button {
 		float: left;
 	}
-	.saved {
+	.save-game .saved {
 		float: left;
 		margin-left: 0.5em;
 		margin-top: 1em;

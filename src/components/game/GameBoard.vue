@@ -27,6 +27,8 @@
 					@mouseenter.native="enterTile({x,y},$event)"
 						@mousedown.native="setTile({x,y})"
 				)
+		#section-miscellaneous.misc-section
+			slot
 </template>
 
 <script>
@@ -202,5 +204,11 @@
 
 .clues.solved {
 	background-color:rgba(255,255,255,0.125);
+}
+
+.misc-section {
+	grid-area: corner;
+	padding-right: 1em;
+	padding-bottom: 1em;
 }
 </style>

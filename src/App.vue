@@ -2,6 +2,7 @@
 	div#app.whole(:style="colorStyling")
 		section#main.main.page-section
 			game-board
+				floating-options
 		sidebar#sidebar.sidebar
 			footer
 				| Created by&nbsp;
@@ -21,6 +22,7 @@
 	import Sidebar from "components/app/Sidebar.vue";
 	import GameBoard from "components/game/GameBoard.vue";
 	import GithubCornerLink from "components/app/GithubCornerLink.vue";
+	import FloatingOptions from "components/app/FloatingOptions.vue";
 
 	import TitleScreen from "components/mixins/titleScreen";
 
@@ -40,7 +42,8 @@
 		components: {
 			Sidebar,
 			GameBoard,
-			GithubCornerLink
+			GithubCornerLink,
+			FloatingOptions
 		},
 		mixins: [TitleScreen]
 	};
@@ -110,7 +113,6 @@ footer img {
 	}
 	.page-section {
 		width:100%;
-		max-height:100%;
 	}
 	.main {
 		width: calc(100vw - 2em);
