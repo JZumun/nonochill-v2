@@ -1,6 +1,5 @@
 <template lang="pug">
-	fieldset.floating-options(v-if="visible")
-		legend Options
+	.floating-options(v-if="visible")
 		fieldset.floating-option(v-if="colors.length > 1")
 			legend Toggle Color
 			ul.toggle-colors
@@ -15,7 +14,6 @@
 					@click="anchorColor(null)"
 				)
 		game-history.floating-option
-		save-game.floating-option
 </template>
 
 <script>
@@ -47,7 +45,7 @@ export default {
 
 <style>
 	.floating-options {
-		font-size: 2vmin;
+		font-size: 3vmin;
 	}
 
 	.floating-option, .floating-options {
@@ -62,7 +60,7 @@ export default {
 	.toggle-colors {
 		display: grid;
 		margin:0; padding:0;
-		grid-template-columns: repeat(auto-fit,minmax(2.25em,max-content));
+		grid-template-columns: repeat(auto-fit,minmax(2.25em,1fr));
 		grid-gap:0.25em;
 	}
 
@@ -83,6 +81,9 @@ export default {
 		height: 100%;
 		width: 100%;
 		background-color: var(--color);
+	}
+	.toggle-color.reset {
+		border: 0;
 	}
 	.toggle-color.reset:before {
 		content: "reset";
