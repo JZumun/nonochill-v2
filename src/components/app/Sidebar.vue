@@ -14,7 +14,7 @@
 <script>
 	import SidebarSection from "./sidebar-sections/SidebarSection.vue";
 	import StartGame from "./sidebar-sections/StartGame.vue";
-	import CreateGame from "./sidebar-sections/CreateGame.vue";
+	import CreateGame from "./sidebar-sections/StartEditor.vue";
 	import GameOptions from "./sidebar-sections/GameOptions.vue";
 	import TutorialSection from "./sidebar-sections/TutorialSection.vue";
 	import { mapState } from "vuex";

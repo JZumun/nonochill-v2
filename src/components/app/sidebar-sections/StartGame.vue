@@ -8,7 +8,7 @@
 				range-field( name="Density" :min="0.6" :max="0.95" :step="0.05" v-model.number="density" )
 				.buttons.
 					#[button.secondary( @click.prevent="randomize") Randomize]
-					#[button Start New Game]
+					#[button Start New Game] 
 		form(@submit.prevent="startFromStorage", :disabled="!hasSavedGame")
 			fieldset
 				legend Load From Save

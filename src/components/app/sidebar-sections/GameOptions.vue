@@ -16,10 +16,10 @@
 </template>
 
 <script>
-	import ShareGame from "./ShareGame.vue";
-	import SaveGame from "./SaveGame.vue";
-	import ColorScheme from "./ColorScheme.vue";
-	import GameHistory from "./GameHistory.vue";
+	import ShareGame from "./options/ShareGame.vue";
+	import SaveGame from "./options/SaveGame.vue";
+	import ColorScheme from "./options/ColorScheme.vue";
+	import GameHistory from "./options/GameHistory.vue";
 
 	import { SHOW_FLOATING_OPTIONS } from "store/mutations";
 	import { mapState } from "vuex";

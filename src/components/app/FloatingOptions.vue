@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import GameHistory from "components/app/sidebar-sections/GameHistory.vue";
-import SaveGame from "components/app/sidebar-sections/SaveGame.vue";
+import GameHistory from "components/app/sidebar-sections/options/GameHistory.vue";
+import SaveGame from "components/app/sidebar-sections/options/SaveGame.vue";
 import { mapState, mapGetters, mapActions } from "vuex";
 import { ACTION_ANCHOR_COLOR } from "store/actions";
 import { SHOW_FLOATING_OPTIONS } from "store/mutations";
