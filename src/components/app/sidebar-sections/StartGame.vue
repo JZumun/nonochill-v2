@@ -29,8 +29,9 @@
 	import generateRule from "utils/game/GenerateRule";
 	import { deserialize } from "utils/game/Serializer";
 
-	import { mapGetters } from "vuex";
-	import { ACTION_START_GAME, ACTION_LOAD_GAME } from "store/actions";
+	import { mapState } from "vuex";
+	import { ACTION_START_GAME } from "store/actions";
+	import { ACTION_LOAD_GAME } from "store/modules/localsave";
 	import { count } from "utils/ArrayUtils";
 	import { random } from "utils/RandomUtils";
 
@@ -45,7 +46,7 @@
 				closed: false
 			};
 		},
-		computed: mapGetters(["hasSavedGame"]),
+		computed: mapState({ hasSavedGame: state => state.localSave.hasSavedGame }),
 		methods: {
 			randomize () {
 				this.size = random(5, 20);

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { ACTION_SAVE_GAME } from "store/actions";
+import { ACTION_SAVE_GAME } from "store/modules/localsave";
 export default {
 	data () {
 		return {
@@ -17,13 +17,13 @@ export default {
 	methods: {
 		save () {
 			this.saved = false;
-			this.$store.dispatch(ACTION_SAVE_GAME);
-			this.$nextTick(_ => {
-				this.saved = true;
-				window.setTimeout(_ => {
-					this.saved = false;
-				}, 5000);
-			});
+			this.$store.dispatch(ACTION_SAVE_GAME)
+				.then(_ => {
+					this.saved = true;
+					window.setTimeout(_ => {
+						this.saved = false;
+					}, 5000);
+				})
 		}
 	}
 };

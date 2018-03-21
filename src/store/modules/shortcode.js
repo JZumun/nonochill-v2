@@ -28,7 +28,7 @@ const processResponse = (
 export const ACTION_GENERATE_SHORTCODE = "action:short-code:generate";
 export const ACTION_LOAD_FROM_SHORTCODE = "action:short-code:load";
 export const CLEAR_SHORTCODE = "mutation:short-code:clear";
-const SET_SHORT_CODE = "mutation:short-code:set";
+export const SET_SHORT_CODE = "mutation:short-code:set";
 
 export default {
 		state: {

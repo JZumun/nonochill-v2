@@ -33,9 +33,6 @@ export const ACTION_REDO_MOVE = "action:redo-move";
 
 export const ACTION_CREATOR_UPDATE_RULES = "action:rules-match-board";
 
-export const ACTION_SAVE_GAME = "action:save-game";
-export const ACTION_LOAD_GAME = "action:load-game";
-
 export default {
 	[ACTION_SET_TILE] ({ commit }, payload) {
 		if (payload.next !== payload.curr) {
@@ -121,18 +118,5 @@ export default {
 			commit(REDO_MOVE, payload);
 		}
 		dispatch(ACTION_CREATOR_UPDATE_RULES);
-	},
-
-	[ACTION_SAVE_GAME] ({ commit, state, getters }) {
-		if (typeof Storage !== undefined) {
-			window.localStorage.setItem("serialization", getters.serialization);
-			window.localStorage.setItem("board", JSON.stringify(state.board));
-		}
-	},
-	[ACTION_LOAD_GAME] ({ commit, dispatch, state }) {
-		if (typeof Storage !== undefined) {
-			dispatch(ACTION_START_GAME, window.localStorage.serialization);
-			Vue.nextTick(_ => commit(SET_BOARD, JSON.parse(window.localStorage.board)));
-		}
 	}
 };

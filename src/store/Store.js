@@ -37,13 +37,14 @@ const getters = {
 		row: rules.row,
 		colorScheme
 	}),
-	colorsUsed: ({ colorNum, colorScheme }) => colorScheme.slice(0, colorNum),
-	hasSavedGame: () => typeof Storage !== "undefined" && window.localStorage.board != null
+	colorsUsed: ({ colorNum, colorScheme }) => colorScheme.slice(0, colorNum)
 };
 
 import shortCode from "store/modules/shortcode";
+import localSave from "store/modules/localsave";
 const modules = {
-	shortCode
+	shortCode,
+	localSave
 }
 
 export default new Vuex.Store({
