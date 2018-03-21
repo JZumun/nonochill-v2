@@ -1,5 +1,7 @@
 <template lang="pug">
-	span.loading-symbol(v-if="display")
+	span.loading-symbol-container
+		.loading-symbol(v-if="display && !error")
+		small.loading-symbol-error(v-if="error", v-text="error")
 </template>
 
 <script>
@@ -8,15 +10,21 @@ export default {
 		display: {
 			type: Boolean,
 			default: false
+		},
+		error: {
+			type: String,
+			default: null
 		}
 	}
 }
 </script>
 
 <style>
+	.loading-symbol-container {
+		margin-left: 0.25em;
+	}
 	.loading-symbol {
 		display:inline-block;
-		margin-left: 0.25em;
 		height:1em;
 		width: 1em;
 		border: 2px solid var(--dim-accent);

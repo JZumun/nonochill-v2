@@ -8,7 +8,7 @@
 				range-field( name="Density" :min="0.6" :max="0.95" :step="0.05" v-model.number="density" )
 				.buttons.
 					#[button.secondary( @click.prevent="randomize") Randomize]
-					#[button Start New Game] 
+					#[button Start New Game]
 		form(@submit.prevent="startFromStorage", :disabled="!hasSavedGame")
 			fieldset
 				legend Load From Save
@@ -21,7 +21,7 @@
 				textarea(v-model="code" spellcheck="false" onclick="this.focus();this.select()" rows="5")
 				.buttons
 					button Load
-					loading-symbol(:display="loadGameLoading")
+					loading-symbol(:display="loadGameLoading", :error="loadGameErrorMessage")
 </template>
 
 <script>
@@ -51,7 +51,8 @@
 		},
 		computed: mapState({
 			hasSavedGame: state => state.localSave.hasSavedGame,
-			loadGameLoading: state => state.shortCode.loading
+			loadGameLoading: state => state.shortCode.loading,
+			loadGameErrorMessage: state => state.shortCode.errorMessage
 		}),
 		methods: {
 			randomize () {
