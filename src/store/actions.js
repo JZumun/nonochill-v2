@@ -3,9 +3,9 @@ import { SET_TILE, STAGE_MOVE, COMMIT_MOVES,
 	START_GAME, START_EDITOR, CHANGE_MODE,
 	ANCHOR_COLOR, UNANCHOR_COLOR, REVERSE_COLOR,
 	UPDATE_RULES, UNDO_MOVE, REDO_MOVE,
-	SET_BOARD, SET_SHORTID } from "./mutations";
+	SET_BOARD } from "./mutations";
 
-import { ACTION_LOAD_FROM_SHORTCODE } from "store/actions/shortcode";
+import { ACTION_LOAD_FROM_SHORTCODE, CLEAR_SHORTCODE } from "store/modules/shortcode";
 
 import debounce from "throttle-debounce/debounce";
 import incrementColor from "utils/game/IncrementColor";
@@ -14,8 +14,6 @@ import { count } from "utils/ArrayUtils";
 import { deserialize } from "utils/game/Serializer";
 
 import modes, { isCreatorMode } from "./values/modes";
-
-import shortCodeActions from "store/actions/shortcode";
 
 const commitStagedMoves = debounce(500, function (commit) {
 	commit(COMMIT_MOVES);
@@ -88,14 +86,14 @@ export default {
 			}
 		}
 
-		commit(SET_SHORTID, null);
+		commit(CLEAR_SHORTCODE);
 		commit(CHANGE_MODE, modes.GAME_SETUP);
 		commit(START_GAME, payload);
 
 		Vue.nextTick(_ => commit(CHANGE_MODE, modes.GAME_READY));
 	},
 	[ACTION_START_EDITOR] ({ commit }, payload) {
-		commit(SET_SHORTID, null);
+		commit(CLEAR_SHORTCODE);
 		commit(CHANGE_MODE, modes.CREATOR);
 		commit(START_EDITOR, payload);
 
@@ -136,6 +134,5 @@ export default {
 			dispatch(ACTION_START_GAME, window.localStorage.serialization);
 			Vue.nextTick(_ => commit(SET_BOARD, JSON.parse(window.localStorage.board)));
 		}
-	},
-	...shortCodeActions
+	}
 };

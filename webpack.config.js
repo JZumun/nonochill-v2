@@ -4,6 +4,8 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var PrerenderSpaPlugin = require("prerender-spa-plugin");
 var pretty = require("pretty");
 
+require("dotenv").config();
+
 module.exports = {
 	entry: "./src/main.js",
 	output: {
@@ -61,7 +63,7 @@ module.exports = {
 		new webpack.NamedModulesPlugin(),
 		new webpack.DefinePlugin({
 			"process.env": {
-          API_URL: JSON.stringify("http://localhost:8080/")
+          API_URL: JSON.stringify(process.env.API_URL || "http://localhost:8081/")
         }
 		})
 	]
@@ -77,7 +79,7 @@ if (process.env.NODE_ENV === "production") {
 		new webpack.DefinePlugin({
 			"process.env": {
 				NODE_ENV: "\"production\"",
-				API_URL: JSON.stringify("https://nono2-server.herokuapp.com/")
+				API_URL: JSON.stringify(process.env.PROD_API_URL)
 			}
 		}),
 		new webpack.optimize.CommonsChunkPlugin({

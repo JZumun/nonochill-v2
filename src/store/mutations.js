@@ -28,8 +28,6 @@ export const REVERSE_COLOR = "reverse-color";
 
 export const SHOW_FLOATING_OPTIONS = "show-floating-options";
 
-export const SET_SHORTID = "set-shortid";
-
 const invertMove = move => ({
 	undone: true,
 	tile: move.tile,
@@ -132,9 +130,5 @@ export default {
 
 	[SHOW_FLOATING_OPTIONS] (state, value) {
 		state.showFloatingOptions = value;
-	},
-
-	[SET_SHORTID] (state, value) {
-		state.shortCode = value;
 	}
 };

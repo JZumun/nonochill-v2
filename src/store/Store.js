@@ -16,7 +16,6 @@ const state = {
 	colorNum: 3,
 	colorAnchor: null,
 	colorReverse: false,
-	shortCode: null,
 	board: [],
 	rules: {
 		column: [],
@@ -42,7 +41,13 @@ const getters = {
 	hasSavedGame: () => typeof Storage !== "undefined" && window.localStorage.board != null
 };
 
+import shortCode from "store/modules/shortcode";
+const modules = {
+	shortCode
+}
+
 export default new Vuex.Store({
+	modules,
 	state,
 	getters,
 	mutations,

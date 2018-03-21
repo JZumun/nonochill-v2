@@ -25,8 +25,8 @@
 	import GameHistory from "./GameHistory.vue";
 
 	import { mapGetters, mapState } from "vuex";
-	import { SHOW_FLOATING_OPTIONS, SET_SHORTID } from "store/mutations";
-	import { ACTION_GENERATE_SHORTCODE } from "store/actions/shortcode";
+	import { SHOW_FLOATING_OPTIONS } from "store/mutations";
+	import { ACTION_GENERATE_SHORTCODE, CLEAR_SHORTCODE } from "store/modules/shortcode";
 
 	export default {
 		components: { GameHistory, ColorScheme, SaveGame },
@@ -40,14 +40,14 @@
 		},
 		computed: {
 			...mapGetters({ code: "serialization" }),
-			...mapState({ floatingOptions: "showFloatingOptions", shortCode: "shortCode" })
+			...mapState({ floatingOptions: "showFloatingOptions", shortCode: state => state.shortCode.code })
 		},
 		watch: {
 			showFloats (newValue, oldValue) {
 				this.$store.commit(SHOW_FLOATING_OPTIONS, newValue);
 			},
 			code (oldValue, newValue) {
-				this.$store.commit(SET_SHORTID, null);
+				this.$store.commit(CLEAR_SHORTCODE);
 			}
 		},
 		methods: {
