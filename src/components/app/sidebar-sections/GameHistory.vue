@@ -9,7 +9,7 @@
 
 <script>
 	import { mapState, mapActions, mapMutations } from "vuex";
-	import { ACTION_UNDO_MOVE, ACTION_REDO_MOVE } from "store/actions";
+	import { ACTION_UNDO_MOVE, ACTION_REDO_MOVE } from "store/modules/history";
 	import { RESET_BOARD } from "store/mutations";
 	export default {
 		computed: mapState({

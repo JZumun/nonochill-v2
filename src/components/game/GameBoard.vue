@@ -39,11 +39,13 @@
 	import { mapState, mapActions, mapMutations } from "vuex";
 	import {
 		ACTION_TOGGLE_TILE,
-		ACTION_UNDO_MOVE,
-		ACTION_REDO_MOVE,
 		ACTION_ANCHOR_COLOR,
 		ACTION_REVERSE_COLOR
 	} from "store/actions";
+	import {
+		ACTION_UNDO_MOVE,
+		ACTION_REDO_MOVE
+	} from "store/modules/history";
 	import { RESET_BOARD } from "store/mutations";
 
 	import { count, sameArrays, filteredLength } from "utils/ArrayUtils";

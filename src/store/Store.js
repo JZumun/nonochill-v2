@@ -20,11 +20,6 @@ const state = {
 	rules: {
 		column: [],
 		row: []
-	},
-	history: {
-		staged: [],
-		past: [],
-		future: []
 	}
 };
 
@@ -42,9 +37,11 @@ const getters = {
 
 import shortCode from "store/modules/shortcode";
 import localSave from "store/modules/localsave";
+import history from "store/modules/history";
 const modules = {
 	shortCode,
-	localSave
+	localSave,
+	history
 }
 
 export default new Vuex.Store({
