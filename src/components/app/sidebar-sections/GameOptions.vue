@@ -3,11 +3,7 @@
 		save-game
 		color-scheme
 		game-history
-		fieldset
-			legend Level Code
-			small copy this code to share this level with others.
-			button(@click="generateShortCode", v-if="!shortCode") Generate Level Code
-			textarea(v-if="shortCode != null" v-text="shortCode" readonly onclick="this.focus();this.select()" rows="1")
+		share-game
 		fieldset
 			legend Other
 			label
@@ -20,16 +16,16 @@
 </template>
 
 <script>
+	import ShareGame from "./ShareGame.vue";
 	import SaveGame from "./SaveGame.vue";
 	import ColorScheme from "./ColorScheme.vue";
 	import GameHistory from "./GameHistory.vue";
 
-	import { mapGetters, mapState } from "vuex";
 	import { SHOW_FLOATING_OPTIONS } from "store/mutations";
-	import { ACTION_GENERATE_SHORTCODE, CLEAR_SHORTCODE } from "store/modules/shortcode";
+	import { mapState } from "vuex";
 
 	export default {
-		components: { GameHistory, ColorScheme, SaveGame },
+		components: { GameHistory, ColorScheme, SaveGame, ShareGame },
 		data () {
 			return {
 				disabled: true,
@@ -39,20 +35,13 @@
 			};
 		},
 		computed: {
-			...mapGetters({ code: "serialization" }),
-			...mapState({ floatingOptions: "showFloatingOptions", shortCode: state => state.shortCode.code })
+			...mapState({
+				floatingOptions: "showFloatingOptions"
+			})
 		},
 		watch: {
 			showFloats (newValue, oldValue) {
 				this.$store.commit(SHOW_FLOATING_OPTIONS, newValue);
-			},
-			code (oldValue, newValue) {
-				this.$store.commit(CLEAR_SHORTCODE);
-			}
-		},
-		methods: {
-			generateShortCode() {
-				this.$store.dispatch(ACTION_GENERATE_SHORTCODE);
 			}
 		}
 	};

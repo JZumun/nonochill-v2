@@ -19,11 +19,14 @@
 				legend Load From Code
 				small paste code below
 				textarea(v-model="code" spellcheck="false" onclick="this.focus();this.select()" rows="5")
-				button Load
+				.buttons
+					button Load
+					loading-symbol(:display="loadGameLoading")
 </template>
 
 <script>
 	import RangeField from "components/app/form/RangeField.vue";
+	import LoadingSymbol from "components/app/symbols/Loading.vue";
 
 	import generateGame from "utils/game/GenerateGame";
 	import generateRule from "utils/game/GenerateRule";
@@ -36,7 +39,7 @@
 	import { random } from "utils/RandomUtils";
 
 	export default {
-		components: { RangeField },
+		components: { RangeField, LoadingSymbol },
 		data () {
 			return {
 				size: random(5, 20),
@@ -46,7 +49,10 @@
 				closed: false
 			};
 		},
-		computed: mapState({ hasSavedGame: state => state.localSave.hasSavedGame }),
+		computed: mapState({
+			hasSavedGame: state => state.localSave.hasSavedGame,
+			loadGameLoading: state => state.shortCode.loading
+		}),
 		methods: {
 			randomize () {
 				this.size = random(5, 20);

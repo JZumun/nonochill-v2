@@ -29,10 +29,12 @@ export const ACTION_GENERATE_SHORTCODE = "action:short-code:generate";
 export const ACTION_LOAD_FROM_SHORTCODE = "action:short-code:load";
 export const CLEAR_SHORTCODE = "mutation:short-code:clear";
 export const SET_SHORT_CODE = "mutation:short-code:set";
+const SET_LOADING = "mutation:short-code:loading-signal";
 
 export default {
 		state: {
-			code: null
+			code: null,
+			loading: false
 		},
 		mutations: {
 			[SET_SHORT_CODE] (state, value) {
@@ -40,21 +42,30 @@ export default {
 			},
 			[CLEAR_SHORTCODE] (state) {
 				state.code = null;
+			},
+			[SET_LOADING] (state, value) {
+				state.loading = value;
 			}
 		},
 		actions: {
 			[ACTION_GENERATE_SHORTCODE] ({commit, getters}) {
-				sendPayload({
-					game: getters.serialization
-				}).then(processResponse(data => {
-					commit(SET_SHORT_CODE, data.id)
-				})).catch(e => console.error(e));
+				commit(SET_LOADING, true);
+				return sendPayload({
+						game: getters.serialization
+					})
+					.then(processResponse(data => {
+						commit(SET_SHORT_CODE, data.id)
+					}))
+					.catch(e => console.error(e))
+					.then(_=>commit(SET_LOADING, false));
 			},
 			[ACTION_LOAD_FROM_SHORTCODE] ({dispatch, commit}, code) {
-				axios.get(`${API_URL}/${code}`)
-					.then(processResponse(data => dispatch(ACTION_START_GAME, data.game)))
-					.then(() => commit(SET_SHORT_CODE, code))
-					.catch(e => console.error(e));
+				commit(SET_LOADING, true);
+				return axios.get(`${API_URL}/${code}`)
+								.then(processResponse(data => dispatch(ACTION_START_GAME, data.game)))
+								.then(() => commit(SET_SHORT_CODE, code))
+								.catch(e => console.error(e))
+								.then(_ => commit(SET_LOADING, false));
 			}
 		}
 }
