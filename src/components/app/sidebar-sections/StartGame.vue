@@ -62,6 +62,7 @@
 					})
 				} else {
 					this.$router.push(`/game/${this.code}`);
+					this.code = "";
 				}
 			}
 		}
