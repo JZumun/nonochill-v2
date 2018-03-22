@@ -7,10 +7,10 @@
 			range-field( name="Density" :min="0.6" :max="0.95" :step="0.05" :value="density", @input="setDensity" )
 			.buttons.
 				#[button.secondary( @click.prevent="randomize") Randomize]
-				#[force-router-link(to="game") Start New Game]
+				#[force-router-link(to="/game") Start New Game]
 		fieldset
 			legend Load From Save
-			force-router-link(v-if="hasSavedGame", to="game/saved") Load Game
+			force-router-link(v-if="hasSavedGame", to="/game/saved") Load Game
 			small(v-else) There is currently no saved game.
 		fieldset
 			legend Load From Code

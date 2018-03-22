@@ -4,7 +4,7 @@
 			legend Options
 			range-field( name="Size" :min="2" :max="20" :value="size" @input="setSize")
 			range-field( name="Colors" :min="1" :max="5" :value="colors" @input="setColors")
-			force-router-link(to="editor") Start Editor
+			force-router-link(to="/editor") Start Editor
 </template>
 
 <script>
