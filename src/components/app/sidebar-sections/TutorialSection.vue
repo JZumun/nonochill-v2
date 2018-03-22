@@ -4,14 +4,16 @@
 			fieldset
 				legend Tutorial
 				small This tutorial will teach you the basics of solving nonograms.
-				button Play Tutorial
+				force-router-link(to="game") Play Tutorial
 </template>
 
 <script>
 import Driver from "driver.js";
 import "driver.js/dist/driver.min.css";
 import { ACTION_START_GAME, ACTION_SET_TILE } from "store/actions";
+import ForceRouterLink from "components/app/ForceRouterLink.vue";
 export default {
+	components: {ForceRouterLink},
 	data () {
 		return {
 			game: "NC8vNC8vMi8vW1t7MSwxfXsxLDF9ezIsMX1dfFt7MSwyfXsyLDF9XXxbezEsMX17MSwxfV18W3sxLDF9ezEsMn1dXS8vW1t7MSw0fV18W3sxLDF9XXxbezEsMX17MSwxfV18W3syLDJ9ezEsMn1dXS8vIzNhMWEyZj8jQTM2NThDPyNlN2NiZGQ/I2ZmNzE4Nz8jOGRiMGUx",
@@ -57,7 +59,7 @@ export default {
 				},
 				{
 					stageBackground: "var(--background)",
-					element: "#main",
+					element: ".main-game-board",
 					popover: {
 						title: "The Board",
 						description: `Nonograms are a puzzle that's made up of a grid of cells,
@@ -102,7 +104,7 @@ export default {
 					}
 				},
 				{
-					element: "#main",
+					element: ".main-game-board",
 					stageBackground: "var(--background)",
 					popover: {
 						title: "The End",

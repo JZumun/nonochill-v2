@@ -1,5 +1,5 @@
 import debounce from "throttle-debounce/debounce";
-import { ACTION_SET_TILE, ACTION_CREATOR_UPDATE_RULES } from "store/actions";
+import { ACTION_SET_TILE } from "store/actions";
 import { SET_TILES } from "store/mutations";
 
 const invertMove = move => ({
@@ -72,7 +72,6 @@ export default {
 				const move = getters.lastMove;
 				commit(SET_TILES, move);
 				commit(UNDO_MOVE, move);
-				dispatch(ACTION_CREATOR_UPDATE_RULES);
 			}
 
 		},
@@ -81,7 +80,6 @@ export default {
 				const move = getters.nextMove;
 				commit(SET_TILES, move);
 				commit(REDO_MOVE, move);
-				dispatch(ACTION_CREATOR_UPDATE_RULES);
 			}
 		}
 	}

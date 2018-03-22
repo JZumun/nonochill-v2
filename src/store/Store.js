@@ -38,11 +38,17 @@ import shortCode from "store/modules/shortcode";
 import localSave from "store/modules/localsave";
 import history from "store/modules/history";
 import floatingOptions from "store/modules/floatingOptions";
+
+import start from "store/modules/StartOptions";
 const modules = {
 	shortCode,
 	localSave,
 	history,
-	floatingOptions
+	floatingOptions,
+	options: {
+		namespaced: true,
+		modules: { start, editor: start }
+	}
 }
 
 export default new Vuex.Store({

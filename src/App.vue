@@ -1,8 +1,7 @@
 <template lang="pug">
 	div#app.whole(:style="colorStyling")
 		section#main.main.page-section
-			game-board
-				floating-options
+				router-view
 		sidebar#sidebar.sidebar
 			footer
 				| Created by&nbsp;
@@ -16,15 +15,13 @@
 </template>
 
 <script>
-	import { mapState } from "vuex";
+	import { mapState, mapGetters } from "vuex";
 	import store from "store/Store";
 
 	import Sidebar from "components/app/Sidebar.vue";
 	import GameBoard from "components/game/GameBoard.vue";
 	import GithubCornerLink from "components/app/GithubCornerLink.vue";
 	import FloatingOptions from "components/app/FloatingOptions.vue";
-
-	import TitleScreen from "components/mixins/titleScreen";
 
 	export default {
 		store,
@@ -44,8 +41,7 @@
 			GameBoard,
 			GithubCornerLink,
 			FloatingOptions
-		},
-		mixins: [TitleScreen]
+		}
 	};
 </script>
 
@@ -59,14 +55,17 @@
 }
 
 .sidebar {
+	grid-area: game;
 	grid-area: sidebar;
 }
 .main {
+	display: grid;
+}
+.main-game-board {
 	--margin: 2em;
 	--game-width-restraint: calc(100vw - (var(--sidebar-width) + 2*var(--margin)));
 	--game-height-restraint: calc(100vh - 2*var(--margin));
 
-	grid-area: game;
 
 	background-color: var(--translucent-white);
 	padding:2em;
@@ -115,7 +114,7 @@ footer img {
 		height: 100%;
 		width:100%;
 	}
-	.main {
+	.main-game-board {
 		width: calc(100vw - 2em);
 		height: calc(100vw - 2em);
 		margin:1em auto;

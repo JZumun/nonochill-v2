@@ -42,16 +42,13 @@ export default {
 		}
 
 		dispatch(ACTION_SET_TILE, { tile, curr, next });
-		dispatch(ACTION_CREATOR_UPDATE_RULES);
 	},
 
 	[ACTION_CREATOR_UPDATE_RULES] ({ commit, state }) {
-		if (isCreatorMode(state.mode)) {
-			commit(UPDATE_RULES, {
-				row: state.board.map(row => generateRule(row)),
-				column: count(state.board.length).map(col => generateRule(state.board.map(row => row[col])))
-			});
-		}
+		commit(UPDATE_RULES, {
+			row: state.board.map(row => generateRule(row)),
+			column: count(state.board.length).map(col => generateRule(state.board.map(row => row[col])))
+		});
 	},
 
 	[ACTION_START_GAME] ({ commit, dispatch }, payload) {
