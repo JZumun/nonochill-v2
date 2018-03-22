@@ -41,7 +41,7 @@ body {
 	background-size: cover;
 	background-repeat:no-repeat;
 	background-color: var(--background);
-	background-blend-mode: overlay, darken;
+	background-blend-mode: overlay;
 }
 
 a {
