@@ -11,7 +11,6 @@ import { serialize } from "utils/game/Serializer";
 Vue.use(Vuex);
 const state = {
 	mode: mode.INIT,
-	showFloatingOptions: true,
 	colorScheme: [...colors],
 	colorNum: 3,
 	colorAnchor: null,
@@ -38,10 +37,12 @@ const getters = {
 import shortCode from "store/modules/shortcode";
 import localSave from "store/modules/localsave";
 import history from "store/modules/history";
+import floatingOptions from "store/modules/floatingOptions";
 const modules = {
 	shortCode,
 	localSave,
-	history
+	history,
+	floatingOptions
 }
 
 export default new Vuex.Store({

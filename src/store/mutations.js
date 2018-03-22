@@ -23,7 +23,7 @@ export const UNANCHOR_COLOR = "unanchor-color";
 
 export const REVERSE_COLOR = "reverse-color";
 
-export const SHOW_FLOATING_OPTIONS = "show-floating-options";
+
 
 const updateBoard = (oldBoard, moves) => moves.reduce((board, { tile: { x, y }, next }) => {
 	board[x][y] = next;
@@ -93,9 +93,5 @@ export default {
 	},
 	[REVERSE_COLOR] (state, value) {
 		state.colorReverse = value;
-	},
-
-	[SHOW_FLOATING_OPTIONS] (state, value) {
-		state.showFloatingOptions = value;
 	}
 };

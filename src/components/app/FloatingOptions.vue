@@ -21,14 +21,14 @@ import GameHistory from "components/app/sidebar-sections/options/GameHistory.vue
 import SaveGame from "components/app/sidebar-sections/options/SaveGame.vue";
 import { mapState, mapGetters, mapActions } from "vuex";
 import { ACTION_ANCHOR_COLOR } from "store/actions";
-import { SHOW_FLOATING_OPTIONS } from "store/mutations";
+import { SHOW_FLOATING_OPTIONS } from "store/modules/floatingOptions";
 
 export default {
 	beforeMount () {
 		this.$store.commit(SHOW_FLOATING_OPTIONS, window.document.body.clientWidth <= 800);
 	},
 	computed: {
-		...mapState({ anchor: "colorAnchor", mode: "mode", show: "showFloatingOptions" }),
+		...mapState({ anchor: "colorAnchor", mode: "mode", show: state => state.floatingOptions.show }),
 		...mapGetters({ colors: "colorsUsed" }),
 		visible () {
 			return (this.mode == 2.5 || this.mode == 1.5) && this.show;

@@ -11,7 +11,7 @@
 				| Toggle Shortcut Guide
 			br
 			label
-				input(type="checkbox" v-model="showFloats")
+				input(type="checkbox" :value="showFloatingOptions", @change="toggleFloatingOptions($event.target.checked)")
 				| Toggle Floating Options
 </template>
 
@@ -21,8 +21,8 @@
 	import ColorScheme from "./options/ColorScheme.vue";
 	import GameHistory from "./options/GameHistory.vue";
 
-	import { SHOW_FLOATING_OPTIONS } from "store/mutations";
-	import { mapState } from "vuex";
+	import { SHOW_FLOATING_OPTIONS } from "store/modules/floatingOptions";
+	import { mapState, mapMutations } from "vuex";
 
 	export default {
 		components: { GameHistory, ColorScheme, SaveGame, ShareGame },
@@ -30,19 +30,18 @@
 			return {
 				disabled: true,
 				closed: true,
-				shortcuts: false,
-				showFloats: this.floatingOptions
+				shortcuts: false
 			};
 		},
 		computed: {
 			...mapState({
-				floatingOptions: "showFloatingOptions"
+				showFloatingOptions: state => state.floatingOptions.show
 			})
 		},
-		watch: {
-			showFloats (newValue, oldValue) {
-				this.$store.commit(SHOW_FLOATING_OPTIONS, newValue);
-			}
+		methods: {
+			...mapMutations({
+				toggleFloatingOptions: SHOW_FLOATING_OPTIONS
+			})
 		}
 	};
 </script>
