@@ -1,10 +1,8 @@
 import originalColors from "./values/colors";
-import modes from "./values/modes";
 
 import { square, count } from "utils/ArrayUtils";
 import { clearHistory } from "store/modules/history";
 
-export const CHANGE_MODE = "change-mode";
 export const CHANGE_COLORS = "change-colors";
 export const CHANGE_COLOR = "change-color";
 export const RESET_COLORS = "reset-colors";
@@ -37,7 +35,6 @@ export default {
 		state.rules = rules;
 		state.colorScheme = scheme;
 		state.colorNum = colors;
-		state.mode = modes.GAME_SETUP;
 		state.board = board;
 		clearHistory(state);
 	},
@@ -51,9 +48,6 @@ export default {
 
 		state.board = clearBoard(size);
 		clearHistory(state);
-	},
-	[CHANGE_MODE] (state, mode) {
-		state.mode = mode;
 	},
 
 	[CHANGE_COLORS] (state, colors) {

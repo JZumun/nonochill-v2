@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import mode from "./values/modes";
 import colors from "./values/colors";
 import mutations from "./mutations";
 import actions from "./actions";
@@ -10,7 +9,6 @@ import { serialize } from "utils/game/Serializer";
 
 Vue.use(Vuex);
 const state = {
-	mode: mode.INIT,
 	colorScheme: [...colors],
 	colorNum: 3,
 	colorAnchor: null,

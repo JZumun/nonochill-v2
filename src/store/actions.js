@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { SET_TILE,
-	START_GAME, START_EDITOR, CHANGE_MODE,
+	START_GAME, START_EDITOR,
 	ANCHOR_COLOR, UNANCHOR_COLOR, REVERSE_COLOR,
 	UPDATE_RULES,
 	SET_BOARD } from "./mutations";
@@ -12,7 +12,6 @@ import generateRule from "utils/game/GenerateRule";
 import { count } from "utils/ArrayUtils";
 import { deserialize } from "utils/game/Serializer";
 
-import modes, { isCreatorMode } from "./values/modes";
 
 export const ACTION_SET_TILE = "action:set-tile";
 export const ACTION_TOGGLE_TILE = "action:toggle-tile";
@@ -70,17 +69,13 @@ export default {
 		}
 
 		commit(CLEAR_SHORTCODE);
-		commit(CHANGE_MODE, modes.GAME_SETUP);
 		commit(START_GAME, payload);
 
-		Vue.nextTick(_ => commit(CHANGE_MODE, modes.GAME_READY));
 	},
 	[ACTION_START_EDITOR] ({ commit }, payload) {
 		commit(CLEAR_SHORTCODE);
-		commit(CHANGE_MODE, modes.CREATOR);
 		commit(START_EDITOR, payload);
 
-		Vue.nextTick(_ => commit(CHANGE_MODE, modes.CREATOR_READY));
 	},
 
 	[ACTION_ANCHOR_COLOR] ({ commit, state }, value) {

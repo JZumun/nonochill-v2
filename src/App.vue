@@ -31,7 +31,6 @@
 			anchor: "colorAnchor",
 			maxColor: "colorNum",
 			board: "board",
-			state: "mode",
 			colorStyling: ({ colorScheme }) => `${colorScheme.map((color, index) => {
 				return `--state-${index + 1}:${color};`;
 			}).join("")}`

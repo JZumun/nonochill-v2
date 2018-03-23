@@ -18,8 +18,6 @@
 	import FloatingOptions from "components/app/FloatingOptions.vue";
 
 	import { mapState, mapActions, mapMutations } from "vuex";
-	import {ACTION_TOGGLE_TILE} from "store/actions";
-
 	export default {
 		mixins: [gameKeyMap],
 		components: { GameBoard, FloatingOptions, LoadingSymbol },
@@ -33,7 +31,7 @@
 			}),
 		},
 		methods: {
-			...mapActions({toggle: ACTION_TOGGLE_TILE})
+			...mapActions({toggle: "action:toggle-tile"})
 		}
 	}
 </script>

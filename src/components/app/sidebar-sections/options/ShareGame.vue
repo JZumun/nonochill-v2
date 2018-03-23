@@ -43,7 +43,6 @@ fieldset
 				this.$store.commit(CLEAR_SHORTCODE);
 			},
 			shortCode (val) {
-				console.log(val);
 				this.url = window.document.URL;
 			}
 		}

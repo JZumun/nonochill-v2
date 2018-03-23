@@ -11,7 +11,6 @@
 		},
 		methods: {
 			route() {
-				console.log("hello");
 				this.$router.push(`${random(1,5)}`,_=>this.$router.replace(this.to))
 
 			}

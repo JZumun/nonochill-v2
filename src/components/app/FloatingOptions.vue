@@ -1,5 +1,5 @@
 <template lang="pug">
-	.floating-options(v-if="visible")
+	.floating-options(v-if="show")
 		fieldset.floating-option(v-if="colors.length > 1")
 			legend Toggle Color
 			ul.toggle-colors
@@ -28,11 +28,8 @@ export default {
 		this.$store.commit(SHOW_FLOATING_OPTIONS, window.document.body.clientWidth <= 800);
 	},
 	computed: {
-		...mapState({ anchor: "colorAnchor", mode: "mode", show: state => state.floatingOptions.show }),
+		...mapState({ anchor: "colorAnchor", show: state => state.floatingOptions.show }),
 		...mapGetters({ colors: "colorsUsed" }),
-		visible () {
-			return (this.mode == 2.5 || this.mode == 1.5) && this.show;
-		}
 	},
 	methods: {
 		...mapActions({

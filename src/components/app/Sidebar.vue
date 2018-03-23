@@ -6,7 +6,7 @@
 			tutorial-section
 		sidebar-section(title="Level Editor" :closed="!section[1]" @toggle="toggle(1)")
 			create-game
-		sidebar-section(title="Options", :closed="!section[2]" @toggle="toggle(2)" :disabled="mode == 0")
+		sidebar-section(title="Options", :closed="!section[2]" @toggle="toggle(2)")
 			game-options
 		slot
 </template>
@@ -17,25 +17,26 @@
 	import CreateGame from "./sidebar-sections/StartEditor.vue";
 	import GameOptions from "./sidebar-sections/GameOptions.vue";
 	import TutorialSection from "./sidebar-sections/TutorialSection.vue";
-	import { mapState } from "vuex";
-	import modes from "store/values/modes";
+
+	const init = Object.freeze([true, false, false]);
+	const active = Object.freeze([false, false, true]);
+	const initOrActive = path => path === "/" ? init : active;
 
 	export default {
 		components: { SidebarSection, StartGame, GameOptions, CreateGame, TutorialSection },
-		computed: mapState(["mode"]),
-		watch: {
-			mode (val) {
-				if (val === modes.INIT) { this.section = [true, false, false]; } else { this.section = [false, false, true]; }
-			}
-		},
 		data () {
 			return {
-				section: [true, false, false]
+				section: initOrActive(this.$route.path)
 			};
 		},
 		methods: {
 			toggle (section) {
 				this.section = this.section.map((val, i) => i === section ? !val : false);
+			}
+		},
+		watch: {
+			'$route' (to, from) {
+				this.section =  initOrActive(this.$route.path);
 			}
 		}
 	};
