@@ -5,7 +5,10 @@ fieldset
 	.buttons(v-if="!shortCode")
 		button(@click="generateShortCode" :disabled="savingGame") Generate Level Code
 		loading-symbol(:display="savingGame")
-	textarea(v-if="shortCode != null" v-text="shortCode" readonly onclick="this.focus();this.select()" rows="1")
+	.code-area(v-if="shortCode != null")
+		textarea(v-text="shortCode" readonly onclick="this.focus();this.select()" rows="1")
+		small or copy this link:
+		textarea(v-text="url" readonly onclick="this.focus();this.select()" rows="2" style="white-space:nowrap")
 </template>
 
 <script>
@@ -16,6 +19,11 @@ fieldset
 
 	export default {
 		components: { LoadingSymbol },
+		data() {
+			return {
+				url: window.document.URL
+			}
+		},
 		computed: {
 			...mapGetters({
 				code: "serialization"
@@ -33,6 +41,10 @@ fieldset
 		watch: {
 			code (oldValue, newValue) {
 				this.$store.commit(CLEAR_SHORTCODE);
+			},
+			shortCode (val) {
+				console.log(val);
+				this.url = window.document.URL;
 			}
 		}
 	}
