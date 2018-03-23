@@ -42,15 +42,21 @@
 	const sameRule = (x, y) => x.val === y.val && x.count === y.count;
 	const sameRules = (a, b) => sameArrays(a, b, sameRule);
 
+	const frozenArray = (...contents) => Object.freeze([ ...contents ]);
+	export const EMPTY_GAME = Object.freeze({
+		board: frozenArray( frozenArray(0) ),
+		rules: Object.freeze({
+			row: frozenArray(frozenArray()),
+			column: frozenArray( frozenArray() )
+		})
+	})
+
 	export default {
 		mixins: [highlighter],
 		components: { GameTile, GameClueList },
 		props: {
-			board: { type: Array, default: _ =>([])},
-			rules: { type: Object, default: _ =>({
-				row: [],
-				columns: []
-			})},
+			board: { type: Array, default: _ =>EMPTY_GAME.board },
+			rules: { type: Object, default: _ => EMPTY_GAME.rules },
 			activeTile: { type: Object, default: _ =>({ x:0, y:0 }) }
 		},
 		data() {

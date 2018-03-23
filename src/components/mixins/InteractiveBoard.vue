@@ -8,7 +8,8 @@
 			v-if="ready"
 		)
 		floating-options
-	loading-symbol(v-else, :display="true")
+	game-board(v-else)
+		loading-symbol.loarding-game-symbol( :display="true", size="2em")
 </template>
 
 <script>
@@ -35,3 +36,14 @@
 		}
 	}
 </script>
+
+<style>
+	.loading-symbol-container.loarding-game-symbol {
+    position: absolute;
+    top: 66.66%;
+    left: 66.66%;
+    Z-INDEX: 2;
+    margin-top: -1em;
+    margin-left: -1em;
+	}
+</style>
