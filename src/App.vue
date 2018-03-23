@@ -78,7 +78,7 @@
 
 	justify-self: center;
 	align-self: center;
-	display:flex;
+	display:grid;
 }
 
 .hidden {

@@ -41,13 +41,16 @@
 					size: this.size,
 					colors: this.colors,
 					rules
-				})
+				}).then(_ => this.ready = true);
 			},
 			startFromStorage() {
-				this.$store.dispatch(ACTION_LOAD_GAME);
+				this.$store.dispatch(ACTION_LOAD_GAME)
+					.then(_ => this.ready = true);
+
 			},
 			startFromCode() {
-				this.$store.dispatch(ACTION_START_GAME, this.id);
+				this.$store.dispatch(ACTION_START_GAME, this.id)
+					.then(_ => this.ready = true);
 			}
 		}
 	}

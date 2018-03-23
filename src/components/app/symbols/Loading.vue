@@ -1,6 +1,6 @@
 <template lang="pug">
 	span.loading-symbol-container
-		.loading-symbol(v-if="display && !error")
+		.loading-symbol(v-if="display && !error", :style="`--size:${size}; --thickness:${thickness}`")
 		small.loading-symbol-error(v-if="error", v-text="error")
 </template>
 
@@ -14,6 +14,14 @@ export default {
 		error: {
 			type: String,
 			default: null
+		},
+		size: {
+			type: String,
+			default: "1em"
+		},
+		thickness: {
+			type: String,
+			default: "2px"
 		}
 	}
 }
@@ -22,12 +30,14 @@ export default {
 <style>
 	.loading-symbol-container {
 		margin-left: 0.25em;
+		align-self: center;
+		justify-self: center;
 	}
 	.loading-symbol {
 		display:inline-block;
-		height:1em;
-		width: 1em;
-		border: 2px solid var(--dim-accent);
+		height:var(--size, 1em);
+		width: var(--size, 1em);
+		border: var(--thickness, 2px) solid var(--dim-accent);
 		border-top-color: var(--light-accent, currentColor);
 		border-radius: 50%;
 		animation: spin 0.5s linear infinite

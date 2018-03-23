@@ -16,7 +16,7 @@
 				this.$store.dispatch(ACTION_START_EDITOR, {
 					size: this.size,
 					colors: this.colors
-				});
+				}).then(_ => this.ready = true);
 			}
 		},
 		watch: {
