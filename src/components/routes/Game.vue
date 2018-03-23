@@ -2,6 +2,7 @@
 	import interactiveBoard from "../mixins/InteractiveBoard.vue";
 	import { mapState } from "vuex";
 	import { ACTION_START_GAME } from "store/actions";
+	import { ACTION_LOAD_FROM_SHORTCODE } from "store/modules/shortcode";
 	import { ACTION_LOAD_GAME } from "store/modules/localsave";
 
 	import { count } from "utils/ArrayUtils";
@@ -24,7 +25,15 @@
 		},
 		mixins: [interactiveBoard],
 		computed: {
-			...mapState("options/start", ["size", "density", "colors"])
+			...mapState("options/start", ["size", "density", "colors"]),
+			...mapState({ shortCode: state => state.shortCode.code })
+		},
+		watch: {
+			shortCode(value) {
+				if (value != null) {
+					this.$router.replace(`/game/${value}`);
+				}
+			}
 		},
 		methods: {
 			start() {
@@ -49,7 +58,11 @@
 
 			},
 			startFromCode() {
-				this.$store.dispatch(ACTION_START_GAME, this.id)
+				if (this.id === this.$store.state.shortCode.code) {
+					console.log("Same route");
+					this.ready = true;
+				}
+				this.$store.dispatch(ACTION_LOAD_FROM_SHORTCODE, this.id)
 					.then(_ => this.ready = true);
 			}
 		}

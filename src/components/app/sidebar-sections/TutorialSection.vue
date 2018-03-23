@@ -10,7 +10,7 @@
 <script>
 import Driver from "driver.js";
 import "driver.js/dist/driver.min.css";
-import { ACTION_START_GAME, ACTION_SET_TILE } from "store/actions";
+import { ACTION_START_GAME_FROM_LONGCODE, ACTION_SET_TILE } from "store/actions";
 import ForceRouterLink from "components/app/ForceRouterLink.vue";
 export default {
 	components: {ForceRouterLink},
@@ -127,7 +127,7 @@ export default {
 		},
 		start () {
 			this.step = 0;
-			this.$store.dispatch(ACTION_START_GAME, this.game);
+			this.$store.dispatch(ACTION_START_GAME_FROM_LONGCODE, this.game);
 			this.$nextTick(function () {
 				this.driver.defineSteps(this.steps);
 				this.driver.start();

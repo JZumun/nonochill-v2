@@ -9,8 +9,16 @@
 		},
 		mixins: [interactiveBoard],
 		computed: {
-			...mapState("options/editor", ["size", "colors"])
+			...mapState("options/editor", ["size", "colors"]),
+			...mapState({ shortCode: state => state.shortCode.code })
 		},
+		// watch: {
+		// 	shortCode(value) {
+		// 		if (value != null) {
+		// 			this.$router.replace(`/editor/${value}`);
+		// 		}
+		// 	}
+		// },
 		methods: {
 			start() {
 				this.$store.dispatch(ACTION_START_EDITOR, {

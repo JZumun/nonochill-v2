@@ -17,6 +17,7 @@
 	import GameBoard from "components/game/GameBoard.vue";
 	import LoadingSymbol from "components/app/symbols/Loading.vue";
 	import FloatingOptions from "components/app/FloatingOptions.vue";
+	import { ACTION_TOGGLE_TILE } from "store/actions";
 
 	import { mapState, mapActions, mapMutations } from "vuex";
 	export default {
@@ -32,7 +33,7 @@
 			}),
 		},
 		methods: {
-			...mapActions({toggle: "action:toggle-tile"})
+			...mapActions({toggle: ACTION_TOGGLE_TILE})
 		}
 	}
 </script>

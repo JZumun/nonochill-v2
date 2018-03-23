@@ -29,7 +29,7 @@
 	import { deserialize } from "utils/game/Serializer";
 
 	import { mapState, mapMutations } from "vuex";
-	import { ACTION_START_GAME } from "store/actions";
+	import { ACTION_START_GAME_FROM_LONGCODE } from "store/actions";
 	import { ACTION_LOAD_GAME } from "store/modules/localsave";
 
 	export default {
@@ -56,7 +56,7 @@
 				if (this.code.length > 20) {
 					this.$router.push("game", _ => {
 						this.$nextTick(_ => this.$nextTick(_ => {
-							this.$store.dispatch(ACTION_START_GAME, this.code);
+							this.$store.dispatch(ACTION_START_GAME_FROM_LONGCODE, this.code);
 							this.code = "";
 						}))
 					})

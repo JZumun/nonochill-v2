@@ -1,7 +1,6 @@
 import originalColors from "./values/colors";
 
 import { square, count } from "utils/ArrayUtils";
-import { clearHistory } from "store/modules/history";
 
 export const CHANGE_COLORS = "change-colors";
 export const CHANGE_COLOR = "change-color";
@@ -36,7 +35,6 @@ export default {
 		state.colorScheme = scheme;
 		state.colorNum = colors;
 		state.board = board;
-		clearHistory(state);
 	},
 	[START_EDITOR] (state, { size, colors, scheme = originalColors.slice() }) {
 		state.colorScheme = scheme;
@@ -47,7 +45,6 @@ export default {
 		};
 
 		state.board = clearBoard(size);
-		clearHistory(state);
 	},
 
 	[CHANGE_COLORS] (state, colors) {
@@ -62,11 +59,9 @@ export default {
 
 	[RESET_BOARD] (state) {
 		state.board = clearBoard(state.board.length);
-		clearHistory(state);
 	},
 	[SET_BOARD] (state, newBoard) {
 		state.board = newBoard;
-		clearHistory(state);
 	},
 	[UPDATE_RULES] (state, rules) {
 		state.rules = rules;

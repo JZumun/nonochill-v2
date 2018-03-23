@@ -1,7 +1,6 @@
 import Vue from "vue";
 import axios from "axios";
-import { ACTION_START_GAME } from "store/actions";
-import router from "router/router";
+import { ACTION_START_GAME_FROM_LONGCODE } from "store/actions";
 
 const API_URL = process.env.API_URL;
 console.log(`API_URL set to ${API_URL}`);
@@ -61,9 +60,7 @@ export default {
 				return sendPayload({
 						data: {game: getters.serialization}
 					})
-					.then(processResponse(data => {
-						router.replace(`/game/${data.id}`, _ => commit(SET_SHORT_CODE, data.id));
-					}))
+					.then(processResponse(data => commit(SET_SHORT_CODE, data.id)))
 					.catch(e => commit(SET_ERROR, e.message))
 					.then(_=>commit(SET_LOADING, false));
 			},
@@ -76,7 +73,7 @@ export default {
 				return sendPayload({
 					url: `${API_URL}/${code}`,
 					method: "get"
-				}).then(processResponse(data => dispatch(ACTION_START_GAME, data.game).then(() => commit(SET_SHORT_CODE, code))))
+				}).then(processResponse(data => dispatch(ACTION_START_GAME_FROM_LONGCODE, data.game).then(() => commit(SET_SHORT_CODE, code))))
 					.catch(e => commit(SET_ERROR, e.message))
 					.then(_ => commit(SET_LOADING, false));
 			}

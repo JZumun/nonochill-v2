@@ -21,7 +21,7 @@ fieldset
 		components: { LoadingSymbol },
 		data() {
 			return {
-				url: window.document.URL
+				url: window.location.origin
 			}
 		},
 		computed: {
@@ -43,7 +43,7 @@ fieldset
 				this.$store.commit(CLEAR_SHORTCODE);
 			},
 			shortCode (val) {
-				this.url = window.document.URL;
+				this.url = window.location.origin + "#/game/" + val;
 			}
 		}
 	}

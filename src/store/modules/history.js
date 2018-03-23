@@ -1,6 +1,6 @@
 import debounce from "throttle-debounce/debounce";
 import { ACTION_SET_TILE } from "store/actions";
-import { SET_TILES } from "store/mutations";
+import { SET_TILES, START_GAME, START_EDITOR, SET_BOARD, RESET_BOARD } from "store/mutations";
 
 const invertMove = move => ({
 	undone: true,
@@ -19,12 +19,10 @@ export const CLEAR_HISTORY = "mutations:history:clear";
 export const ACTION_UNDO_MOVE = "action:history:undo";
 export const ACTION_REDO_MOVE = "action:history:redo";
 
-export const clearHistory = state => {
-	state.history = {
-		past: [],
-		future: [],
-		staged: []
-	};
+const clearHistory = state => {
+	state.past = [];
+	state.staged = [];
+	state.future = [];
 }
 
 const commitStagedMoves = debounce(500, commit => commit(COMMIT_MOVES))
@@ -56,11 +54,11 @@ export default {
 			state.past.push(moves);
 			state.future.pop();
 		},
-		[CLEAR_HISTORY](state) {
-			state.past = [];
-			state.future = [];
-			state.staged = [];
-		}
+		[CLEAR_HISTORY]: clearHistory,
+		[START_GAME]: clearHistory,
+		[START_EDITOR]: clearHistory,
+		[RESET_BOARD]: clearHistory,
+		[SET_BOARD]: clearHistory
 	},
 	actions: {
 		[ACTION_SET_TILE] ({ commit }, payload) {

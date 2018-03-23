@@ -4,6 +4,9 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var PrerenderSpaPlugin = require("prerender-spa-plugin");
 var pretty = require("pretty");
 
+
+const CircularDependencyPlugin = require('circular-dependency-plugin')
+
 require("dotenv").config();
 
 module.exports = {
@@ -65,6 +68,14 @@ module.exports = {
 			"process.env": {
           API_URL: JSON.stringify(process.env.API_URL || "http://localhost:8081/")
         }
+		}),
+		new CircularDependencyPlugin({
+			// exclude detection of files based on a RegExp
+			exclude: /node_modules/,
+			// add errors to webpack instead of warnings
+			failOnError: true,
+			// set the current working directory for displaying module paths
+			cwd: process.cwd(),
 		})
 	]
 };

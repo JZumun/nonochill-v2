@@ -5,8 +5,6 @@ import { SET_TILE,
 	UPDATE_RULES,
 	SET_BOARD } from "./mutations";
 
-import { ACTION_LOAD_FROM_SHORTCODE, CLEAR_SHORTCODE } from "store/modules/shortcode";
-
 import incrementColor from "utils/game/IncrementColor";
 import generateRule from "utils/game/GenerateRule";
 import { count } from "utils/ArrayUtils";
@@ -17,6 +15,7 @@ export const ACTION_SET_TILE = "action:set-tile";
 export const ACTION_TOGGLE_TILE = "action:toggle-tile";
 
 export const ACTION_START_GAME = "action:start-game";
+export const ACTION_START_GAME_FROM_LONGCODE = "action:start-game-longcode";
 export const ACTION_START_EDITOR = "action:start-editor";
 
 export const ACTION_ANCHOR_COLOR = "action:anchor-color";
@@ -49,33 +48,24 @@ export default {
 			column: count(state.board.length).map(col => generateRule(state.board.map(row => row[col])))
 		});
 	},
-
+	[ACTION_START_GAME_FROM_LONGCODE] ({dispatch}, payload) {
+		const options = deserialize(payload);
+		payload = {
+			size: options.width,
+			rules: {
+				row: options.row,
+				column: options.column
+			},
+			colors: options.colors,
+			scheme: options.colorScheme
+		};
+		dispatch(ACTION_START_GAME, payload);
+	},
 	[ACTION_START_GAME] ({ commit, dispatch }, payload) {
-		if (typeof payload === "string") {
-			try {
-				const options = deserialize(payload);
-				payload = {
-					size: options.width,
-					rules: {
-						row: options.row,
-						column: options.column
-					},
-					colors: options.colors,
-					scheme: options.colorScheme
-				};
-			} catch (e) {
-				return dispatch(ACTION_LOAD_FROM_SHORTCODE, payload);
-			}
-		}
-
-		commit(CLEAR_SHORTCODE);
 		commit(START_GAME, payload);
-
 	},
 	[ACTION_START_EDITOR] ({ commit }, payload) {
-		commit(CLEAR_SHORTCODE);
 		commit(START_EDITOR, payload);
-
 	},
 
 	[ACTION_ANCHOR_COLOR] ({ commit, state }, value) {
