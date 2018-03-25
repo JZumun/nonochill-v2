@@ -4,7 +4,7 @@
 			fieldset
 				legend Tutorial
 				small This tutorial will teach you the basics of solving nonograms.
-				force-router-link(to="game") Play Tutorial
+				force-router-link(to="/game") Play Tutorial
 </template>
 
 <script>

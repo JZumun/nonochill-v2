@@ -7,7 +7,8 @@
 <script>
 	export default {
 		props: {
-			state: Number
+			state: Number,
+			default: 0
 		},
 		computed: {
 			hasData () { return this.$slots.default; }

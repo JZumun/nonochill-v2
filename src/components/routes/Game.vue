@@ -10,6 +10,8 @@
 	import generateGame from "utils/game/GenerateGame";
 	import generateRule from "utils/game/GenerateRule";
 
+	const readyOrNot = context => _ => (context.loadingErrorMessage || (context.ready = true));
+
 	export default {
 		props: {
 			saved: {
@@ -22,9 +24,17 @@
 			}
 		},
 		mixins: [interactiveBoard, routeMixin],
+		data() {
+			return {
+				errorMessage: null
+			}
+		},
 		computed: {
 			...mapState("options/start", ["size", "density", "colors"]),
-			...mapState({ shortCode: state => state.shortCode.code })
+			...mapState({
+					shortCode: state => state.shortCode.code ,
+					loadingErrorMessage: state => state.shortCode.errorMessage
+				})
 		},
 		watch: {
 			shortCode(value) {
@@ -50,20 +60,26 @@
 					size: this.size,
 					colors: this.colors,
 					rules
-				}).then(_ => this.ready = true);
+				}).then(readyOrNot(this));
 			},
 			startFromStorage() {
 				this.$store.dispatch(ACTION_LOAD_GAME)
-					.then(_ => this.ready = true);
+					.then(readyOrNot(this));
 
 			},
 			startFromCode() {
 				if (this.id === this.$store.state.shortCode.code) {
 					console.log("Same route");
-					this.ready = true;
+					readyOrNot(this)
 				}
 				this.$store.dispatch(ACTION_LOAD_FROM_SHORTCODE, this.id)
-					.then(_ => this.ready = true);
+					.then(readyOrNot(this));
+			}
+		},
+		watch: {
+			loadingErrorMessage(val) {
+				if (val == null) this.errorMessage = null;
+				else this.errorMessage = "Unable to load game: "+val;
 			}
 		}
 	}

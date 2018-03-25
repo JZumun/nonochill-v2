@@ -18,7 +18,7 @@
 			:class="{solved: solved.row[x], highlighted: isHighlighted({x})}"
 			@mouseenter.native="setHighlight({x})"
 		)
-	#section-board-game.board( @mouseleave="clearHighlight", :class="{win}")
+	#section-board-game.board(v-if="!hasContents" @mouseleave="clearHighlight", :class="{win}")
 		.game-row(v-for="row,x in board" v-bind:key="x")
 			game-tile(
 				v-for="tile,y in row" key="`${x}-${y}`"
@@ -27,6 +27,10 @@
 				@mouseenter.native="enterTile({x,y},$event)"
 					@mousedown.native="setTile({x,y})"
 			)
+	#section-contents.board(v-else)
+		game-tile
+			slot(name="contents")
+
 	#section-miscellaneous.misc-section
 		slot
 </template>
@@ -62,7 +66,7 @@
 			rules: {
 				type: Object,
 				default: _ => EMPTY_GAME.rules,
-				validator: val => val.row instanceof Array && val.column instanceof Array 
+				validator: val => val.row instanceof Array && val.column instanceof Array
 			},
 			activeTile: { type: Object, default: _ =>({ x:0, y:0 }) }
 		},
@@ -84,7 +88,8 @@
 			win () {
 				return (filteredLength(this.solved.column) === this.size) &&
 						(filteredLength(this.solved.row) === this.size);
-			}
+			},
+			hasContents() { return this.$slots.contents }
 		},
 		watch: {
 			win(val) { if (val) { this.$emit("win") } },

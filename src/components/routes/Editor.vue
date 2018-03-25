@@ -8,7 +8,10 @@
 		mixins: [interactiveBoard, routeMixin],
 		computed: {
 			...mapState("options/editor", ["size", "colors"]),
-			...mapState({ shortCode: state => state.shortCode.code })
+			...mapState({
+					shortCode: state => state.shortCode.code,
+					errorMessage: state => state.shortCode.errorMessage
+				})
 		},
 		// watch: {
 		// 	shortCode(value) {

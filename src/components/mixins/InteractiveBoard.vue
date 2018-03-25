@@ -9,7 +9,7 @@
 		)
 		floating-options
 	game-board(v-else)
-		loading-symbol.loarding-game-symbol( :display="true", size="2em")
+		loading-symbol.loarding-game-symbol( slot="contents" :display="true", size="2em", :error="errorMessage")
 </template>
 
 <script>
@@ -37,14 +37,3 @@
 		}
 	}
 </script>
-
-<style>
-	.loading-symbol-container.loarding-game-symbol {
-    position: absolute;
-    top: 66.66%;
-    left: 66.66%;
-    Z-INDEX: 2;
-    margin-top: -1em;
-    margin-left: -1em;
-	}
-</style>
