@@ -8,8 +8,7 @@
 			v-if="ready"
 		)
 		floating-options
-	game-board(v-else)
-		loading-symbol.loarding-game-symbol( slot="contents" :display="true", size="2em", :error="errorMessage")
+	loading-symbol.loarding-game-symbol( v-else slot="contents" :display="true", size="2em", :error="errorMessage")
 </template>
 
 <script>
