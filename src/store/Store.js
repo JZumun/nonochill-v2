@@ -13,6 +13,7 @@ const state = {
 	colorNum: 3,
 	colorAnchor: null,
 	colorReverse: false,
+	disableCrossed: false,
 	board: [],
 	rules: {
 		column: [],

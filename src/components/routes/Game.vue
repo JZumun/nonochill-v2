@@ -1,5 +1,6 @@
 <script>
 	import interactiveBoard from "../mixins/InteractiveBoard.vue";
+	import routeMixin from "../mixins/routeMixin";
 	import { mapState } from "vuex";
 	import { ACTION_START_GAME } from "store/actions";
 	import { ACTION_LOAD_FROM_SHORTCODE } from "store/modules/shortcode";
@@ -10,9 +11,6 @@
 	import generateRule from "utils/game/GenerateRule";
 
 	export default {
-		beforeRouteEnter (to, from, next) {
-			next(vm =>vm.start());
-		},
 		props: {
 			saved: {
 				type: Boolean,
@@ -23,7 +21,7 @@
 				default: null
 			}
 		},
-		mixins: [interactiveBoard],
+		mixins: [interactiveBoard, routeMixin],
 		computed: {
 			...mapState("options/start", ["size", "density", "colors"]),
 			...mapState({ shortCode: state => state.shortCode.code })
@@ -36,7 +34,9 @@
 			}
 		},
 		methods: {
-			start() {
+			load() {
+				this.ready = false;
+
 				if (this.saved) { return this.startFromStorage() }
 				if (this.id !== null) { return this.startFromCode() }
 

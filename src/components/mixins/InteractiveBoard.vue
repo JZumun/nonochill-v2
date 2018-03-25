@@ -24,7 +24,7 @@
 		mixins: [gameKeyMap],
 		components: { GameBoard, FloatingOptions, LoadingSymbol },
 		data() {
-			return { ready: false }
+			return { ready: true }
 		},
 		computed: {
 			...mapState({

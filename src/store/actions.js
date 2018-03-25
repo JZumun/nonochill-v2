@@ -33,9 +33,9 @@ export default {
 		const curr = state.board[tile.x][tile.y];
 		let next;
 		if (!state.colorAnchor) {
-			next = incrementColor(curr, state.colorNum, state.colorReverse);
+			next = incrementColor(curr, state.colorNum, state.colorReverse, state.disableCrossed ? 0 : -1);
 		} else {
-			next = incrementColor(curr === state.colorAnchor ? 1 : curr > 0 ? 0 : curr, 1, state.colorReverse);
+			next = incrementColor(curr === state.colorAnchor ? 1 : curr > 0 ? 0 : curr, 1, state.colorReverse,  state.disableCrossed ? 0 : -1);
 			next = next === 1 ? state.colorAnchor : next;
 		}
 

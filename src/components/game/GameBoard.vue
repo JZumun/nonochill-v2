@@ -55,8 +55,15 @@
 		mixins: [highlighter],
 		components: { GameTile, GameClueList },
 		props: {
-			board: { type: Array, default: _ =>EMPTY_GAME.board },
-			rules: { type: Object, default: _ => EMPTY_GAME.rules },
+			board: {
+				type: Array,
+				default: _ =>EMPTY_GAME.board
+			},
+			rules: {
+				type: Object,
+				default: _ => EMPTY_GAME.rules,
+				validator: val => val.row instanceof Array && val.column instanceof Array 
+			},
 			activeTile: { type: Object, default: _ =>({ x:0, y:0 }) }
 		},
 		data() {
