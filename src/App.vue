@@ -59,6 +59,7 @@
 }
 .main {
 	display: grid;
+	background: var(--translucent-background);
 }
 .main-game-board {
 	--margin: 2em;
