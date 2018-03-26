@@ -6,7 +6,7 @@
 html {
 	--translucent-white: rgba(255,255,255,0.85);
 	--background: #574656;
-	--translucent-background: rgba(87, 70, 86, 0.9);
+	--translucent-background: rgba(87, 70, 86, 0.5);
 	--dark-accent: #3a1a2f;
 	--dim-accent: #86657B;
 	--light-accent: #ca8aaf;
@@ -38,7 +38,7 @@ body {
 	margin:0;
 	padding:0;
 
-	background-image: url(https://source.unsplash.com/random/?abstract);
+	background-image: url(https://source.unsplash.com/random/?purple);
 	background-size: cover;
 	background-repeat:no-repeat;
 	background-color: var(--background);
