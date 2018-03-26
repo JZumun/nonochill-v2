@@ -1,4 +1,4 @@
-import { ACTION_START_GAME } from "store/actions";
+import { ACTION_START_GAME_FROM_LONGCODE } from "store/actions";
 import { SET_BOARD } from "store/mutations";
 import { SET_SHORT_CODE } from "./shortcode";
 
@@ -31,7 +31,7 @@ export default {
 		},
 		[ACTION_LOAD_GAME] ({dispatch, commit}) {
 			workWithStorage(storage => {
-				dispatch(ACTION_START_GAME, storage.serialization)
+				dispatch(ACTION_START_GAME_FROM_LONGCODE, storage.serialization)
 					.then(_ => {
 						commit(SET_BOARD, JSON.parse( storage.board ));
 						commit(SET_SHORT_CODE, JSON.parse( storage.code ));
