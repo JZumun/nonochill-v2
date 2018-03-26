@@ -7,8 +7,7 @@
 			:clues="clues"
 			:width="size"
 			:class="{solved: solved.column[y], highlighted: isHighlighted({y})}"
-			@mouseenter.native="setHighlight({y})"
-
+			 @mouseenter.native="setHighlight({y})"
 		)
 	#section-clues-horizontal.horizontal.clue-list( @mouseleave="clearHighlight" )
 		game-clue-list(
@@ -18,14 +17,14 @@
 			:class="{solved: solved.row[x], highlighted: isHighlighted({x})}"
 			@mouseenter.native="setHighlight({x})"
 		)
-	#section-board-game.board( @mouseleave="clearHighlight", :class="{win}")
+	#section-board-game.board( @mouseleave="clearHighlight", :class="{win}" )
 		.game-row(v-for="row,x in board" v-bind:key="x")
 			game-tile(
 				v-for="tile,y in row" key="`${x}-${y}`"
 				:state="board[x][y]"
 				:class="{highlighted: isHighlighted({x,y})}"
 				@mouseenter.native="enterTile({x,y},$event)"
-					@mousedown.native="setTile({x,y})"
+				@mousedown.native="setTile({x,y})"
 			)
 
 
@@ -34,6 +33,7 @@
 </template>
 
 <script>
+	import debounce from "throttle-debounce/debounce";
 	import highlighter from "../mixins/highlighter";
 	import GameTile from "./GameTile.vue";
 	import GameClueList from "./GameClueList.vue";
@@ -70,29 +70,38 @@
 		},
 		data() {
 			return {
-				highlight: {}
+				highlight: {},
+				solved: {
+					row: [],
+					column: []
+				},
+				win: false
 			}
 		},
 		computed: {
 			size() { return this.board.length },
 			rows() { return this.board },
 			columns() { return count(this.size).map(col => this.board.map(row => row[col])) },
-			solved () {
+		},
+		watch: {
+			win(val) { if (val) { this.$emit("win") } },
+			activeTile(val) { this.setHighlight(val) },
+			board: debounce(200, function(val) {
+				this.solved = this.computeSolved();
+				this.win = this.computeWin();
+			})
+		},
+		methods: {
+			computeSolved() {
 				return {
 					row: this.rows.map((row, i) => sameRules(computedRule(row), this.rules.row[i])),
 					column: this.columns.map((col, j) => sameRules(computedRule(col), this.rules.column[j]))
 				}
 			},
-			win () {
+			computeWin() {
 				return (filteredLength(this.solved.column) === this.size) &&
 						(filteredLength(this.solved.row) === this.size);
-			}
-		},
-		watch: {
-			win(val) { if (val) { this.$emit("win") } },
-			activeTile(val) { this.setHighlight(val) }
-		},
-		methods: {
+			},
 			enterTile(tile, e) {
 				this.setHighlight(tile);
 				if (e.buttons === 1) { this.setTile(tile) }
@@ -100,6 +109,10 @@
 			setTile(tile) {
 				this.$emit("toggle", tile);
 			}
+		},
+		created() {
+			this.solved = this.computeSolved();
+			this.win = this.computeWin();
 		}
 	}
 </script>
@@ -130,6 +143,7 @@
 	grid-area: game;
 	grid: repeat(var(--board-size),1fr) / 1fr;
 	grid-gap:var(--board-gap);
+	cursor: pointer;
 }
 .game-row {
 	display:grid;
@@ -153,6 +167,9 @@
 	--board-gap:0;
 }
 
+.game-tile, .clues {
+	will-change: background;
+}
 .game-tile.highlighted, .clues.highlighted {
 	background: var(--highlight-color) ;
 }
