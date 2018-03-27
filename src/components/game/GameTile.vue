@@ -31,6 +31,7 @@
 		display: flex;
     align-items: center;
     justify-content: center;
+		transition: background 0.1s;
 	}
 
 	.game-tile-contents {
@@ -87,11 +88,12 @@
 	}
 
 	.win .game-tile {
-		--scale-x:1;
-		--scale-y:1;
-		overflow:visible;
+		background: var(--bgcolor);
+		--scale-x: 0;
+		--scale-y: 0;
 	}
-	.win .game-tile[data-state="-1"] {
-		--bgcolor:transparent;
+	.win .game-tile[data-state="-1"],
+	.win .game-tile[data-state="0"] {
+		--bgcolor:white;
 	}
 </style>
