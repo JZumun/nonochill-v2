@@ -90,7 +90,8 @@ if (process.env.NODE_ENV === "production") {
 		new webpack.DefinePlugin({
 			"process.env": {
 				NODE_ENV: "\"production\"",
-				API_URL: JSON.stringify(process.env.PROD_API_URL)
+				API_URL: JSON.stringify(process.env.PROD_API_URL),
+				BASE: JSON.stringify(process.env.PROD_BASE)
 			}
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
