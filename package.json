@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "circular-dependency-plugin": "~4",
     "dotenv": "^5.0.1",
     "driver.js": "^0.3.4",
     "throttle-debounce": "^1.0.1",
@@ -28,6 +27,7 @@
     "babel-loader": "^6.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.5.1",
+    "circular-dependency-plugin": "~4",
     "cross-env": "^3.0.0",
     "css-loader": "^0.28.11",
     "eslint": "^4.5.0",
@@ -39,6 +39,7 @@
     "pretty": "^2.0.0",
     "pug": "^2.0.0-rc.3",
     "style-loader": "^0.20.3",
+    "svg-inline-loader": "^0.8.0",
     "vue-loader": "^13.0.4",
     "vue-template-compiler": "^2.3.3",
     "webpack": "^3.5.5",

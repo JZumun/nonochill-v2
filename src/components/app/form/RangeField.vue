@@ -10,6 +10,7 @@
 				@mouseup="snapValue"
 		)
 		input.input-text.input(
+				v-if="!simple"
 				type="number"
 				:value="prettyValue"
 				:min="min",
@@ -36,6 +37,10 @@
 			step: {
 				default: 1,
 				type: Number
+			},
+			simple: {
+				type: Boolean,
+				default: false
 			}
 		},
 		computed: {
@@ -76,6 +81,12 @@
 	}
 	.input-range {
 		width:100%;
+	}
+	.input-range:first-child {
+		grid-column-start: 1;
+	}
+	.input-range:last-child {
+		grid-column-end: 4;
 	}
 
 	.input-text {

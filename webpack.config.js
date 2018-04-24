@@ -13,7 +13,7 @@ module.exports = {
 	entry: "./src/main.js",
 	output: {
 		path: path.resolve(__dirname, "./dist"),
-		publicPath: "/dist/",
+		publicPath: "dist/",
 		filename: "build.js"
 	},
 	module: {
@@ -33,7 +33,7 @@ module.exports = {
 				exclude: /node_modules/
 			},
 			{
-				test: /\.(png|jpg|gif|svg)$/,
+				test: /\.(png|jpg|gif|mp3|aac|ogg)$/,
 				loader: "file-loader",
 				options: {
 					name: "[name].[ext]?[hash]"
@@ -45,6 +45,10 @@ module.exports = {
 					"style-loader",
 					"css-loader"
 				]
+			},
+			{
+				test: /\.svg$/,
+				loader: 'svg-inline-loader'
 			}
 		]
 	},
