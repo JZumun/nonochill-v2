@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	import audioSrc from "assets/escapism.mp3";
+	import audioSrc from "assets/sounds/escapism.mp3";
 	import volumeButton from "assets/volume.svg";
 	import volumeOffButton from "assets/volume-off.svg";
 	import RangeField from "components/app/form/RangeField.vue";

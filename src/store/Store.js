@@ -37,9 +37,11 @@ import shortCode from "store/modules/shortcode";
 import localSave from "store/modules/localsave";
 import history from "store/modules/history";
 import floatingOptions from "store/modules/floatingOptions";
+import soundManager from "store/modules/soundManager";
 
 import start from "store/modules/StartOptions";
 const modules = {
+	soundManager,
 	shortCode,
 	localSave,
 	history,
