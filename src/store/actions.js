@@ -17,6 +17,7 @@ export const ACTION_TOGGLE_TILE = "action:toggle-tile";
 export const ACTION_START_GAME = "action:start-game";
 export const ACTION_START_GAME_FROM_LONGCODE = "action:start-game-longcode";
 export const ACTION_START_EDITOR = "action:start-editor";
+export const ACTION_WIN_GAME = "action:win-game";
 
 export const ACTION_ANCHOR_COLOR = "action:anchor-color";
 export const ACTION_REVERSE_COLOR = "action:reverse-color";
