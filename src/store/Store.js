@@ -38,7 +38,7 @@ import localSave from "store/modules/localsave";
 import history from "store/modules/history";
 import floatingOptions from "store/modules/floatingOptions";
 import soundManager from "store/modules/soundManager";
-
+import puzzleList from "store/modules/puzzleList";
 import start from "store/modules/StartOptions";
 const modules = {
 	soundManager,
@@ -46,6 +46,7 @@ const modules = {
 	localSave,
 	history,
 	floatingOptions,
+	puzzles: puzzleList,
 	options: {
 		namespaced: true,
 		modules: { start, editor: start }

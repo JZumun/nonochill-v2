@@ -1,29 +1,7 @@
 import Vue from "vue";
 import axios from "axios";
 import { ACTION_START_GAME_FROM_LONGCODE } from "store/actions";
-
-const API_URL = process.env.API_URL;
-console.log(`API_URL set to ${API_URL}`);
-
-const sendPayload = (options) => axios({
-	method: "post",
-	url: API_URL,
-	responseType: "json",
-	validateStatus: status => status == 200 || status == 400,
-	headers: {
-		"Content-Type": "application/json"
-	},
-	...options
-})
-
-const processResponse = (
-		onSuccess,
-		onFailure=data=>{ throw new Error(data.reason) }
-	) => ({data}) => {
-		if (data.success) { return onSuccess(data) }
-		else { return onFailure(data) }
-}
-
+import api from "api/api";
 
 export const ACTION_GENERATE_SHORTCODE = "action:short-code:generate";
 export const ACTION_LOAD_FROM_SHORTCODE = "action:short-code:load";
@@ -57,10 +35,10 @@ export default {
 			[ACTION_GENERATE_SHORTCODE] ({commit, getters}) {
 				commit(SET_LOADING, true);
 				commit(SET_ERROR, null);
-				return sendPayload({
+				return api({
 						data: {game: getters.serialization}
 					})
-					.then(processResponse(data => commit(SET_SHORT_CODE, data.id)))
+					.then(data => commit(SET_SHORT_CODE, data.id))
 					.catch(e => commit(SET_ERROR, e.message))
 					.then(_=>commit(SET_LOADING, false));
 			},
@@ -70,10 +48,11 @@ export default {
 				}
 				commit(SET_LOADING, true);
 				commit(SET_ERROR, null);
-				return sendPayload({
-					url: `${API_URL}/${code}`,
+				return api({
+					url: `${code}`,
 					method: "get"
-				}).then(processResponse(data => dispatch(ACTION_START_GAME_FROM_LONGCODE, data.game).then(() => commit(SET_SHORT_CODE, code))))
+				}).then(data => dispatch(ACTION_START_GAME_FROM_LONGCODE, data.game))
+					.then(() => commit(SET_SHORT_CODE, code))
 					.catch(e => commit(SET_ERROR, e.message))
 					.then(_ => commit(SET_LOADING, false));
 			}

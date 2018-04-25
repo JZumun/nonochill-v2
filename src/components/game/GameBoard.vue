@@ -1,6 +1,6 @@
 <template lang="pug">
-.board-game( :style="`--board-size:${size};--clue-size:${size};`" )
-	#section-clues-vertical.vertical.clue-list( @mouseleave="clearHighlight" )
+.board-game( :style="`--board-size:${size};--clue-size:${size};`" :class="{simple}" )
+	#section-clues-vertical.vertical.clue-list( v-if="!simple" @mouseleave="clearHighlight" )
 		game-clue-list(
 			v-for="clues, y in rules.column" :key="y"
 			:vertical="true"
@@ -9,7 +9,7 @@
 			:class="{solved: solved.column[y], highlighted: isHighlighted({y})}"
 			 @mouseenter.native="setHighlight({y})"
 		)
-	#section-clues-horizontal.horizontal.clue-list( @mouseleave="clearHighlight" )
+	#section-clues-horizontal.horizontal.clue-list( v-if="!simple" @mouseleave="clearHighlight" )
 		game-clue-list(
 			v-for="clues, x in rules.row" :key="x"
 			:clues="clues"
@@ -28,7 +28,7 @@
 			)
 
 
-	#section-miscellaneous.misc-section
+	#section-miscellaneous.misc-section(v-if="!simple")
 		slot
 </template>
 
@@ -66,7 +66,11 @@
 				default: _ => EMPTY_GAME.rules,
 				validator: val => val.row instanceof Array && val.column instanceof Array
 			},
-			activeTile: { type: Object, default: _ =>({ x:0, y:0 }) }
+			activeTile: { type: Object, default: _ =>({ x:0, y:0 }) },
+			simple: {
+				type: Boolean,
+				default: false
+			}
 		},
 		data() {
 			return {
@@ -136,6 +140,11 @@
 	height: 100%;
 	width:100%;
 	overflow:hidden;
+}
+.board-game.simple {
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	grid-template-areas: "game"
 }
 
 .board {
