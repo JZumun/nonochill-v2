@@ -13,7 +13,7 @@
 			label
 				input(type="checkbox" :value="showFloatingOptions", @change="toggleFloatingOptions($event.target.checked)")
 				| Toggle Floating Options
-		background-music
+		sound-options
 </template>
 
 <script>
@@ -21,13 +21,13 @@
 	import SaveGame from "./options/SaveGame.vue";
 	import ColorScheme from "./options/ColorScheme.vue";
 	import GameHistory from "./options/GameHistory.vue";
-	import BackgroundMusic from "./options/BackgroundMusic.vue";
+	import SoundOptions from "./options/SoundOptions.vue";
 
 	import { SHOW_FLOATING_OPTIONS } from "store/modules/floatingOptions";
 	import { mapState, mapMutations } from "vuex";
 
 	export default {
-		components: { GameHistory, ColorScheme, SaveGame, ShareGame, BackgroundMusic },
+		components: { GameHistory, ColorScheme, SaveGame, ShareGame, SoundOptions },
 		data () {
 			return {
 				disabled: true,
