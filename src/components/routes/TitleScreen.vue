@@ -3,11 +3,17 @@
 		.title-screen-header
 			h1.title-screen-title NonoChill#[sup v.2]
 			p.title-screen-tag-line A Nonogram puzzle game written in Vue.
-		.puzzle-list
+		.puzzle-list.first-half
 			h2 Recent Community Puzzles
 			loading-symbol(v-if="loading || error", :display="loading", :error="errorMessage")
 			div.game-list(v-else)
-				router-link.game-item(v-for="game in games" v-if="game && game.id" key="game" :to="`/game/${game.id}`")
+				router-link.game-item(v-for="game in games.slice(0,5)" v-if="game && game.id" key="game" :to="`/game/${game.id}`")
+					game-card(v-bind="game")
+		.puzzle-list.second-half
+			h2 Recent Community Puzzles
+			loading-symbol(v-if="loading || error", :display="loading", :error="errorMessage")
+			div.game-list(v-else)
+				router-link.game-item(v-for="game in games.slice(5,10)" v-if="game && game.id" key="game" :to="`/game/${game.id}`")
 					game-card(v-bind="game")
 </template>
 
@@ -36,7 +42,8 @@
 
 <style>
 	.title-screen {
-		grid-template-rows: auto 1fr;
+		grid-template-rows: auto 1fr auto;
+		grid-gap: 1em;
 		color: var(--dim-accent);
 		font-size: 2vmin;
 		background: var(--translucent-white);
@@ -47,9 +54,15 @@
 		text-align:center;
 		background: var(--dark-accent);
 		padding: 1em;
+		grid-row: 2;
+		border-bottom: 1em solid var(--light-accent);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 	}
 	.title-screen-title {
-		font-size: 5vmin;
+		font-size: 7.5vmin;
 		margin:0;
 		font-weight: bold;
 		color: white;
@@ -70,12 +83,17 @@
 
 	.puzzle-list {
 		display: grid;
-		grid-template-rows: auto 1fr;
-		padding: 1em 0;
+		grid-template-rows: auto auto;
 	}
 	.puzzle-list h2 {
-		font-size: 0.75em;
+		font-size: 0;
 		text-align: center;
+		opacity: 0.5;
+		margin: 1em 0;
+
+	}
+	.puzzle-list.second-half h2 {
+		grid-row: 2;
 	}
 	.puzzle-list h2:before { content: "— " }
 	.puzzle-list h2:after { content: " —" }
@@ -84,7 +102,6 @@
 		display: grid;
 		grid-gap: 1em;
 		grid-template-columns: repeat(5, 1fr);
-		grid-template-rows: auto auto 1fr;
 		font-size: 0.75em;
 		justify-content: center;
 	}
