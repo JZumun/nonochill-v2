@@ -1,7 +1,13 @@
 <template lang="pug">
-	.game-tile( :data-state="state" )
-		.game-tile-contents( v-if="hasData" )
-			slot
+	svg.game-tile(
+			height="10" width="10"
+			viewBox="0 0 10 10"
+			:style="`--fill-color: var(--state-${state})`" )
+		path.tile-background(d="M0 0h10v10H0z")
+		transition(name="tile-fade")
+			path.fill-symbol(v-if="state >= 1" d="M2 2h6v6H2z")
+		transition(name="tile-fade")
+			path.cross-symbol(v-if="state === -1" d="M3.586 2.172L2.172 3.586 3.586 5 2.172 6.414l1.414 1.414L5 6.414l1.414 1.414 1.414-1.414L6.414 5l1.414-1.414-1.414-1.414L5 3.586 3.586 2.172z")
 </template>
 
 <script>
@@ -9,91 +15,35 @@
 		props: {
 			state: Number,
 			default: 0
-		},
-		computed: {
-			hasData () { return this.$slots.default; }
 		}
 	};
 </script>
 
 <style>
 	.game-tile {
-		position:relative;
-		--scale-x:0;
-		--scale-y:0;
-		--rotate:0deg;
-		--opacity:0;
-		--bgcolor:var(--translucent-white);
-		color: var(--dark-accent);
-		z-index:1;
-		background-color: white;
-		overflow: hidden;
-		display: flex;
-    align-items: center;
-    justify-content: center;
-		transition: background 0.1s;
-	}
-
-	.game-tile-contents {
-		position:relative;
-		z-index:2;
-	}
-
-	.game-tile:before, .game-tile:after {
-		transform: rotate(var(--rotate)) scaleX(var(--scale-x)) scaleY(var(--scale-y));
-		content:"";
-		display:block;
-		height:100%;
 		width:100%;
-		position:absolute;
-		top:0;
-		left:0;
-		opacity:var(--opacity);
-		background-color: var(--bgcolor);
-		z-index:0;
-		will-change:transform;
-		transition: opacity 0.1s, transform 0.1s;
+		height: auto;
 	}
 
-	.game-tile[data-state] {
-		--scale-x:var(--fill-scale,0.8);
-		--scale-y:var(--fill-scale,0.8);
-		--opacity:1;
-		--bgcolor:var(--state-1);
+	.fill-symbol, .cross-symbol {
+		transition: opacity 0.1s, fill 0.1s, transform 0.3s;
+		transform-origin: 50% 50%;
 	}
-	.game-tile[data-state="1"] {
-		color: var(--light-accent);
+	.fill-symbol {
+		fill: var(--fill-color, transparent);
 	}
-	.game-tile[data-state="0"] {
-		--scale-x:0;
-		--scale-y:0;
-		--opacity:0;
+	.cross-symbol {
+		fill: var(--gray-accent);
 	}
-	.game-tile[data-state="2"] { --bgcolor:var(--state-2); }
-	.game-tile[data-state="3"] { --bgcolor:var(--state-3); }
-	.game-tile[data-state="4"] { --bgcolor:var(--state-4); }
-	.game-tile[data-state="5"] { --bgcolor:var(--state-5); }
-
-	.game-tile[data-state="-1"] {
-		--scale-y:var(--fill-scale,0.8);
-		--scale-x:var(--cross-scale,0.2);
-		--bgcolor:var(--gray-accent);
-		--opacity:1;
-	}
-	.game-tile[data-state="-1"]:before {
-		--rotate:45deg;
-	}
-	.game-tile[data-state="-1"]:after {
-		--rotate:-45deg;
+	.tile-background {
+		fill: white;
+		transition: fill 0.1s;
 	}
 
-	.win .game-tile {
-		background: var(--bgcolor);
-		--scale-x: 0;
-		--scale-y: 0;
+	.tile-fade-enter, .tile-fade-leave-active {
+		opacity: 0;
 	}
-	.win .game-tile[data-state="-1"],
-	.win .game-tile[data-state="0"] {
-		--bgcolor:white;
-	}
+
+ 	.win .cross-symbol { transform: scale(0) }
+	.win .fill-symbol { transform: scale(2) }
 </style>
