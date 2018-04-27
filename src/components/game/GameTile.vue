@@ -27,6 +27,9 @@
 	.game-tile.highlighted .tile-background {
 		fill: var(--highlight-color);
 	}
+	.win .game-tile {
+		z-index: 1;
+	}
 
 	.fill-symbol, .cross-symbol {
 		transition: opacity 0.1s, fill 0.1s, transform 0.3s;

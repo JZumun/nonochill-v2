@@ -1,5 +1,13 @@
 <template lang="pug">
-	.game-card
+	.game-card(v-if="empty")
+		game-board.game-card-board(simple)
+		dl.game-card-details
+			dt &nbsp;
+			dd &nbsp;
+			dt &nbsp;
+			dd &nbsp;
+		.game-card-id &nbsp;
+	.game-card(v-else)
 		game-board.game-card-board(
 				:board="generateBoard(width, colors)"
 				:style="generateStyle(colorScheme)"
@@ -19,7 +27,13 @@
 
 	export default {
 		components: { GameBoard },
-		props: ["width", "colors", "colorScheme", "id"],
+		props: {
+			width: { type: Number, default: 1 },
+			colors: { type: Number, default: 1 },
+			colorScheme: { type: Array, default() { return [] } },
+			id: { type: String, default: null },
+			empty: { type: Boolean, default: false }
+		},
 		methods: {
 			generateBoard(width, colors) {
 				const size = Math.min(Math.ceil((width+1) / 5), 4);
