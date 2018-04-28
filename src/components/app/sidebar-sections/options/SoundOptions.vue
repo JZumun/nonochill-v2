@@ -3,7 +3,7 @@
 		legend Music
 		small Background Music
 		sound-field(
-			:muted="!musicPlaying",
+			:muted="musicMuted",
 			:volume="musicVolume"
 			@toggle="toggleMusic"
 			@volume="setMusicVolume"
@@ -20,19 +20,21 @@
 <script>
 	import SoundField from "components/app/form/SoundField.vue";
 	import { mapState, mapMutations } from "vuex";
-	import { SET_EFFECTS_VOLUME, SET_MUSIC_VOLUME, PLAY_MUSIC, MUTE_EFFECTS } from "store/modules/soundManager";
+	import { LOAD_FROM_LOCAL, SET_EFFECTS_VOLUME, SET_MUSIC_VOLUME, PLAY_MUSIC, MUTE_EFFECTS, MUTE_MUSIC } from "store/modules/soundManager";
 
 	export default {
 		components: {SoundField},
 		methods: {
 			...mapMutations({
 				playMusic: PLAY_MUSIC,
+				muteMusic: MUTE_MUSIC,
 				muteEffects: MUTE_EFFECTS,
 				setEffectsVolume: SET_EFFECTS_VOLUME,
-				setMusicVolume: SET_MUSIC_VOLUME
+				setMusicVolume: SET_MUSIC_VOLUME,
+				loadSettings: LOAD_FROM_LOCAL
 			}),
 			toggleMusic() {
-				this.playMusic( !this.musicPlaying );
+				this.muteMusic( !this.musicMuted );
 			},
 			toggleEffects() {
 				this.muteEffects( !this.effectsMuted );
@@ -41,11 +43,12 @@
 		computed: mapState({
 			effectsVolume: state => state.soundManager.effects.volume,
 			musicVolume: state => state.soundManager.music.volume,
-			musicPlaying: state => state.soundManager.music.playing,
+			musicMuted: state => state.soundManager.music.muted,
 			effectsMuted: state => state.soundManager.effects.muted
 		}),
 		mounted() {
 			if (window.Audio) {
+				this.loadSettings();
 				this.playMusic();
 			}
 		}

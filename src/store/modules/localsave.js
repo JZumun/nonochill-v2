@@ -2,10 +2,7 @@ import { ACTION_START_GAME_FROM_LONGCODE } from "store/actions";
 import { SET_BOARD } from "store/mutations";
 import { SET_SHORT_CODE } from "./shortcode";
 
-const workWithStorage = fn => {
-	if (typeof Storage !== undefined) { return fn(window.localStorage); }
-	return null;
-}
+import workWithStorage from "utils/Storage.js";
 
 const CHANGE_HAS_SAVED_GAME = "mutation:local-save:has";
 export const ACTION_SAVE_GAME = "action:local-save:save";
