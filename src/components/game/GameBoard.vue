@@ -139,6 +139,10 @@
 	;
 	width:100%;
 	overflow:hidden;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+ -moz-user-select: none;     /* Firefox all */
+ -ms-user-select: none;      /* IE 10+ */
+ user-select: none;
 }
 .board-game.simple {
 	grid-template-columns: 1fr;
