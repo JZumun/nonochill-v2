@@ -1,6 +1,6 @@
 <template lang="pug">
-.board-game( :style="`--board-size:${size};--clue-size:${size};`" :class="{simple}" )
-	#section-clues-vertical.vertical.clue-list( v-if="!simple" @mouseleave="clearHighlight" )
+.board-game( :style="`--board-size:${size};--clue-size:${size};`" )
+	#section-clues-vertical.vertical.clue-list( @mouseleave="clearHighlight" )
 		game-clue-list(
 			v-for="clues, y in rules.column" :key="y"
 			:vertical="true"
@@ -9,7 +9,7 @@
 			:class="{solved: solved.column[y], highlighted: isHighlighted({y})}"
 			 @mouseenter.native="setHighlight({y})"
 		)
-	#section-clues-horizontal.horizontal.clue-list( v-if="!simple" @mouseleave="clearHighlight" )
+	#section-clues-horizontal.horizontal.clue-list( @mouseleave="clearHighlight" )
 		game-clue-list(
 			v-for="clues, x in rules.row" :key="x"
 			:clues="clues"
@@ -33,7 +33,7 @@
 			)
 
 
-	#section-miscellaneous.misc-section(v-if="!simple")
+	#section-miscellaneous.misc-section
 		slot
 </template>
 
@@ -72,10 +72,6 @@
 				validator: val => val.row instanceof Array && val.column instanceof Array
 			},
 			activeTile: { type: Object, default: _ =>({ x:0, y:0 }) },
-			simple: {
-				type: Boolean,
-				default: false
-			}
 		},
 		data() {
 			return {
@@ -109,7 +105,7 @@
 
 				const loc = e.changedTouches[0];
 				const element = document.elementFromPoint(loc.clientX,loc.clientY);
-				if (!element.closest) { return }
+				if (!element || !element.closest) { return }
 
 				const tile = element.closest(".game-tile");
 				if (!tile || !tile.dataset) { return }
@@ -171,11 +167,6 @@
  -moz-user-select: none;
  -ms-user-select: none;
  user-select: none;
-}
-.board-game.simple {
-	grid-template-columns: 1fr;
-	grid-template-rows: 1fr;
-	grid-template-areas: "game"
 }
 
 .board {

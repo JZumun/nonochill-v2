@@ -1,6 +1,6 @@
 <template lang="pug">
 	.game-card(v-if="empty")
-		game-board.game-card-board(simple)
+		game-board.game-card-board
 		dl.game-card-details
 			dt &nbsp;
 			dd &nbsp;
@@ -11,7 +11,6 @@
 		game-board.game-card-board(
 				:board="generateBoard(width, colors)"
 				:style="generateStyle(colorScheme)"
-				simple
 		)
 		dl.game-card-details
 			dt Size
@@ -22,7 +21,7 @@
 </template>
 
 <script>
-	import GameBoard from "components/game/GameBoard.vue";
+	import GameBoard from "components/game/MiniBoard.vue";
 	import generateGame from "utils/game/GenerateGame";
 
 	export default {
