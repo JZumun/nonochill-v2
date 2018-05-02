@@ -18,13 +18,18 @@
 			@mouseenter.native="setHighlight({x})"
 		)
 	#section-board-game.board( @mouseleave="clearHighlight", :class="{win}" )
-		.game-row(v-for="row,x in board" v-bind:key="x")
+		.game-row(v-for="row,x in board" v-bind:key="x" )
 			game-tile(
+				:data-x="x"
+				:data-y="y"
 				v-for="tile,y in row" key="`${x}-${y}`"
 				:state="board[x][y]"
 				:class="{highlighted: isHighlighted({x,y})}"
 				@mouseenter.native="enterTile({x,y},$event)"
 				@mousedown.native="setTile({x,y})"
+				@touchmove.native.prevent="touchTile($event)"
+				@touchend.native.prevent="endTouchTile"
+				@touchstart.native.prevent="touchTile($event)"
 			)
 
 
@@ -79,7 +84,8 @@
 					row: [],
 					column: []
 				},
-				win: false
+				win: false,
+				currentlyTouched: { x: null, y: null }
 			}
 		},
 		computed: {
@@ -96,6 +102,28 @@
 			})
 		},
 		methods: {
+			endTouchTile() {
+				this.currentlyTouched = { x: null, y: null }
+			},
+			touchTile(e) {
+
+				const loc = e.changedTouches[0];
+				const element = document.elementFromPoint(loc.clientX,loc.clientY);
+				if (!element.closest) { return }
+
+				const tile = element.closest(".game-tile");
+				if (!tile || !tile.dataset) { return }
+
+				const x = parseInt(tile.dataset.x);
+				const y = parseInt(tile.dataset.y);
+
+				if (this.currentlyTouched.x === x && this.currentlyTouched.y === y) { return }
+
+				this.currentlyTouched = {x,y};
+				this.setTile(this.currentlyTouched);
+
+				e.preventDefault();
+			},
 			computeSolved() {
 				return {
 					row: this.rows.map((row, i) => sameRules(computedRule(row), this.rules.row[i])),
@@ -139,9 +167,9 @@
 	;
 	width:100%;
 	overflow:hidden;
-	-webkit-user-select: none;  /* Chrome all / Safari all */
- -moz-user-select: none;     /* Firefox all */
- -ms-user-select: none;      /* IE 10+ */
+	 -webkit-user-select: none;
+ -moz-user-select: none;
+ -ms-user-select: none;
  user-select: none;
 }
 .board-game.simple {
