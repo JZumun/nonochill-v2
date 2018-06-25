@@ -18,8 +18,8 @@ const assignTo = (map = {}, thing) => el => {
 };
 
 export default {
-	data() {
-		return { activeTile: {x:0, y:0} }
+	data () {
+		return { activeTile: { x: 0, y: 0 }};
 	},
 	computed: {
 		keymap () {
@@ -58,6 +58,6 @@ export default {
 			const y = Math.max(0, Math.min(size - 1, this.activeTile.y + dy));
 
 			this.activeTile = { x, y };
-		},
+		}
 	}
-}
+};

@@ -8,21 +8,22 @@ const saveToStorage = (key, value) => workWithStorage(
 	storage => storage.setItem(key, JSON.stringify(value))
 );
 const loadFromStorage = (key, def) => workWithStorage(storage => {
-	if (storage[key]) { return JSON.parse(storage[key]) }
-	else return def;
+	if (storage[key]) {
+		return JSON.parse(storage[key]);
+	} else return def;
 }, _ => def);
 
 const play = (audio, volume = 1, muted = false) => {
 	if (muted) return;
-	if (!audio.ended) { audio.currentTime = 0 }
+	if (!audio.ended) { audio.currentTime = 0; }
 	audio.volume = volume;
 	audio.play();
-}
+};
 
 const cachedAudioGetter = (file) => {
 	let cachedAudio = null;
-	return () => cachedAudio || (cachedAudio = new Audio(file));
-}
+	return () => cachedAudio || (cachedAudio = new window.Audio(file));
+};
 
 const getBlopAudio = cachedAudioGetter(blop);
 const getSnapAudio = cachedAudioGetter(snap);
@@ -36,7 +37,7 @@ const playBackgroundAudio = (play = true) => {
 	} else {
 		player.pause();
 	}
-}
+};
 
 export const SET_EFFECTS_VOLUME = "mutation:sounds:effects-volume";
 export const SET_MUSIC_VOLUME = "mutation:sounds:music-volume";
@@ -57,45 +58,45 @@ export default {
 		}
 	},
 	mutations: {
-		[LOAD_FROM_LOCAL](state) {
+		[LOAD_FROM_LOCAL] (state) {
 			state.music.volume = loadFromStorage("sound.music.volume", 0.5);
 			state.music.muted = loadFromStorage("sound.music.muted", false);
 			state.effects.volume = loadFromStorage("sound.effects.volume", 0.5);
 			state.effects.muted = loadFromStorage("sound.effects.muted", false);
 		},
-		[SET_EFFECTS_VOLUME](state, volume) {
+		[SET_EFFECTS_VOLUME] (state, volume) {
 			state.effects.volume = volume;
 			saveToStorage("sound.effects.volume", volume);
 		},
-		[MUTE_EFFECTS](state, mute = true) {
+		[MUTE_EFFECTS] (state, mute = true) {
 			state.effects.muted = mute;
 			saveToStorage("sound.effects.muted", mute);
 		},
-		[SET_MUSIC_VOLUME](state, volume) {
+		[SET_MUSIC_VOLUME] (state, volume) {
 			state.music.volume = volume;
 			getBackgroundAudio().volume = volume;
 			saveToStorage("sound.music.volume", volume);
 		},
-		[PLAY_EFFECT](state, audio) {
+		[PLAY_EFFECT] (state, audio) {
 			play(audio, state.effects.volume, state.effects.muted);
 		},
-		[PLAY_MUSIC](state) {
-			if (!state.music.muted){
-				playBackgroundAudio(play)
+		[PLAY_MUSIC] (state) {
+			if (!state.music.muted) {
+				playBackgroundAudio(play);
 			}
 		},
-		[MUTE_MUSIC](state, mute = true) {
+		[MUTE_MUSIC] (state, mute = true) {
 			state.music.muted = mute;
 			playBackgroundAudio(!mute);
 			saveToStorage("sound.music.muted", mute);
 		}
 	},
 	actions: {
-		[ACTION_SET_TILE]({state, commit}) {
+		[ACTION_SET_TILE] ({ state, commit }) {
 			commit(PLAY_EFFECT, getBlopAudio());
 		},
-		[ACTION_WIN_GAME]({state, commit}) {
+		[ACTION_WIN_GAME] ({ state, commit }) {
 			commit(PLAY_EFFECT, getSnapAudio());
 		}
 	}
-}
+};

@@ -1,15 +1,13 @@
-import Vue from "vue";
 import { SET_TILE,
 	START_GAME, START_EDITOR,
 	ANCHOR_COLOR, UNANCHOR_COLOR, REVERSE_COLOR,
-	UPDATE_RULES,
-	SET_BOARD } from "./mutations";
+	UPDATE_RULES
+} from "./mutations";
 
 import incrementColor from "utils/game/IncrementColor";
 import generateRule from "utils/game/GenerateRule";
 import { count } from "utils/ArrayUtils";
 import { deserialize } from "utils/game/Serializer";
-
 
 export const ACTION_SET_TILE = "action:set-tile";
 export const ACTION_TOGGLE_TILE = "action:toggle-tile";
@@ -36,7 +34,7 @@ export default {
 		if (!state.colorAnchor) {
 			next = incrementColor(curr, state.colorNum, state.colorReverse, state.disableCrossed ? 0 : -1);
 		} else {
-			next = incrementColor(curr === state.colorAnchor ? 1 : curr > 0 ? 0 : curr, 1, state.colorReverse,  state.disableCrossed ? 0 : -1);
+			next = incrementColor(curr === state.colorAnchor ? 1 : curr > 0 ? 0 : curr, 1, state.colorReverse, state.disableCrossed ? 0 : -1);
 			next = next === 1 ? state.colorAnchor : next;
 		}
 
@@ -49,7 +47,7 @@ export default {
 			column: count(state.board.length).map(col => generateRule(state.board.map(row => row[col])))
 		});
 	},
-	[ACTION_START_GAME_FROM_LONGCODE] ({dispatch}, payload) {
+	[ACTION_START_GAME_FROM_LONGCODE] ({ dispatch }, payload) {
 		const options = deserialize(payload);
 		payload = {
 			size: options.width,

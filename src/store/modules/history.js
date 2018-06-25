@@ -9,7 +9,7 @@ const invertMove = move => ({
 	curr: move.next
 });
 const invertMoves = moves => moves.reverse().map(invertMove);
-const getTopMove = list => list.length == 0 ? [] : invertMoves(list[list.length - 1]);
+const getTopMove = list => list.length === 0 ? [] : invertMoves(list[list.length - 1]);
 
 export const STAGE_MOVE = "mutation:history:stage";
 export const COMMIT_MOVES = "mutation:history:commit";
@@ -23,9 +23,9 @@ const clearHistory = state => {
 	state.past = [];
 	state.staged = [];
 	state.future = [];
-}
+};
 
-const commitStagedMoves = debounce(500, commit => commit(COMMIT_MOVES))
+const commitStagedMoves = debounce(500, commit => commit(COMMIT_MOVES));
 
 export default {
 	state: {
@@ -34,23 +34,23 @@ export default {
 		future: []
 	},
 	getters: {
-		lastMove: ({past}) => getTopMove(past),
-		nextMove: ({future}) => getTopMove(future)
+		lastMove: ({ past }) => getTopMove(past),
+		nextMove: ({ future }) => getTopMove(future)
 	},
 	mutations: {
-		[STAGE_MOVE](state, payload) {
+		[STAGE_MOVE] (state, payload) {
 			state.future = [];
 			state.staged.push(payload);
 		},
-		[COMMIT_MOVES](state) {
+		[COMMIT_MOVES] (state) {
 			state.past.push(state.staged);
 			state.staged = [];
 		},
-		[UNDO_MOVE](state, moves) {
+		[UNDO_MOVE] (state, moves) {
 			state.future.push(moves);
 			state.past.pop();
 		},
-		[REDO_MOVE](state, moves) {
+		[REDO_MOVE] (state, moves) {
 			state.past.push(moves);
 			state.future.pop();
 		},
@@ -71,7 +71,6 @@ export default {
 				commit(SET_TILES, move);
 				commit(UNDO_MOVE, move);
 			}
-
 		},
 		[ACTION_REDO_MOVE] ({ commit, dispatch, getters, state }) {
 			if (state.future.length) {
@@ -81,4 +80,4 @@ export default {
 			}
 		}
 	}
-}
+};

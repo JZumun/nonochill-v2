@@ -26,20 +26,20 @@ export default {
 				commit(CHANGE_HAS_SAVED_GAME, true);
 			});
 		},
-		[ACTION_LOAD_GAME] ({dispatch, commit}) {
+		[ACTION_LOAD_GAME] ({ dispatch, commit }) {
 			workWithStorage(storage => {
 				dispatch(ACTION_START_GAME_FROM_LONGCODE, storage.serialization)
 					.then(_ => {
-						commit(SET_BOARD, JSON.parse( storage.board ));
-						commit(SET_SHORT_CODE, JSON.parse( storage.code ));
+						commit(SET_BOARD, JSON.parse(storage.board));
+						commit(SET_SHORT_CODE, JSON.parse(storage.code));
 					});
 			});
 		},
-		[ACTION_CLEAR_SAVED_GAME] ({commit}) {
+		[ACTION_CLEAR_SAVED_GAME] ({ commit }) {
 			workWithStorage(storage => {
 				storage.clear();
 				commit(CHANGE_HAS_SAVED_GAME, false);
-			})
+			});
 		}
 	}
-}
+};

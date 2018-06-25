@@ -12,12 +12,12 @@ export default {
 		error: null
 	},
 	mutations: {
-		[SET_PUZZLES](state, puzzles) { state.puzzles = puzzles },
-		[SET_LOADING](state, loading) { state.loading = loading },
-		[SET_ERROR](state, error) { state.error = error }
+		[SET_PUZZLES] (state, puzzles) { state.puzzles = puzzles; },
+		[SET_LOADING] (state, loading) { state.loading = loading; },
+		[SET_ERROR] (state, error) { state.error = error; }
 	},
 	actions: {
-		[ACTION_LOAD_PUZZLE_LIST]({commit}) {
+		[ACTION_LOAD_PUZZLE_LIST] ({ commit }) {
 			commit(SET_LOADING, true);
 			commit(SET_ERROR, null);
 			return api({
@@ -27,4 +27,4 @@ export default {
 				.then(_ => commit(SET_LOADING, false));
 		}
 	}
-}
+};

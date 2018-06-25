@@ -1,8 +1,8 @@
 export default {
-	created() { this.load() },
+	created () { this.load(); },
 	watch: {
-		"$route": function(val) {
-			this.load()
+		"$route": function (val) {
+			this.load();
 		}
 	}
-}
+};

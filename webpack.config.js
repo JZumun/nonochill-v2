@@ -4,8 +4,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var PrerenderSpaPlugin = require("prerender-spa-plugin");
 var pretty = require("pretty");
 
-
-const CircularDependencyPlugin = require('circular-dependency-plugin')
+const CircularDependencyPlugin = require("circular-dependency-plugin");
 
 require("dotenv").config();
 
@@ -48,7 +47,7 @@ module.exports = {
 			},
 			{
 				test: /\.svg$/,
-				loader: 'svg-inline-loader'
+				loader: "svg-inline-loader"
 			}
 		]
 	},
@@ -70,8 +69,8 @@ module.exports = {
 		new webpack.NamedModulesPlugin(),
 		new webpack.DefinePlugin({
 			"process.env": {
-          API_URL: JSON.stringify(process.env.API_URL || "http://localhost:8081/")
-        }
+				API_URL: JSON.stringify(process.env.API_URL || "http://localhost:8081/")
+			}
 		}),
 		new CircularDependencyPlugin({
 			// exclude detection of files based on a RegExp
@@ -79,7 +78,7 @@ module.exports = {
 			// add errors to webpack instead of warnings
 			failOnError: true,
 			// set the current working directory for displaying module paths
-			cwd: process.cwd(),
+			cwd: process.cwd()
 		})
 	]
 };

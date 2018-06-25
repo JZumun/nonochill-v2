@@ -51,7 +51,7 @@ const modules = {
 		namespaced: true,
 		modules: { start, editor: start }
 	}
-}
+};
 
 export default new Vuex.Store({
 	modules,
