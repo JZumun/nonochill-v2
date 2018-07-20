@@ -18,7 +18,7 @@
 	};
 </script>
 
-<style>
+<style scoped>
 	.github-corner svg {
 		fill:#151513;
 		color:#fff;

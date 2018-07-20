@@ -48,17 +48,17 @@
 	};
 </script>
 
-<style>
-	.shortcuts [data-shortcut] {
-		position:relative;
-	}
-	.shortcuts [data-shortcut]:after {
-		content: attr(data-shortcut);
-		background: var(--dark-accent);
-		border: 1px solid var(--dim-accent);
-		display: block;
-		padding: 0.25em;
-		font-size:0.5em;
-		width:100%;
-	}
+<style lang="stylus">
+	@import "~styles/variables"
+	.shortcuts [data-shortcut] 
+		position relative
+	
+	.shortcuts [data-shortcut]after 
+		content attr(data-shortcut)
+		background $dark-accent
+		border 1px solid $dim-accent
+		display block
+		padding 0.25em
+		font-size 0.5em
+		width 100%
 </style>

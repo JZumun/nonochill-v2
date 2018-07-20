@@ -12,21 +12,15 @@
 	};
 </script>
 
-<style>
-.form-field {
-	position:relative;
-	display:grid;
-	grid-auto-flow:column;
-	grid-gap:0.25em;
-	align-items:baseline;
-	flex: 1 1 0;
-}
+<style lang="stylus" scoped>
+	.form-field
+		position relative
+		display grid
+		grid-auto-flow column
+		grid-gap 0.25em
+		align-items baseline
+		flex 1 1 0
 
-.form-field > *+* {
-	margin-top:0;
-}
-
-.form-field .label {
-	display:block;
-}
+	.label
+		display block
 </style>

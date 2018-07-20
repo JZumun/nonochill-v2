@@ -26,13 +26,13 @@
 	};
 </script>
 
-<style>
-	.history-buttons {
-		display:grid;
-		grid-gap:0.5em;
-		grid-template-columns: 1fr 1fr;
-	}
-	.history-buttons button {
-		margin-top:0;
-	}
+<style lang="stylus" scoped>
+	.history-buttons
+		display grid
+		grid-gap 0.5em
+		grid-template-columns 1fr 1fr
+
+	button
+		margin-top 0
+
 </style>

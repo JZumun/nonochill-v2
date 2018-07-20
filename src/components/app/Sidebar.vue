@@ -42,25 +42,26 @@
 	};
 </script>
 
-<style>
-	.sidebar {
-		background-color:var(--dark-accent);
-		color:var(--translucent-white);
-		overflow-y:auto;
-		display:flex;
-		flex-direction:column;
-	}
+<style lang="stylus" scoped>
+	@import "~styles/variables"
 
-	.sidebar .game-title {
-		font-size:1.5em;
-		padding:0.5em;
-		text-align:center;
-		margin:0;
-		background: var(--dark-accent);
-		color:var(--translucent-white);
-	}
-	.sidebar .game-title sup {
-		font-size:0.5em;
-		font-weight:bold;
-	}
+	.sidebar  
+		background-color $dark-accent 
+		color $translucent-white 
+		overflow-y auto 
+		display flex 
+		flex-direction column 
+	 
+	.game-title  
+		font-size 1.5em 
+		padding 0.5em 
+		text-align center 
+		margin 0 
+		background $dark-accent
+		color $translucent-white
+	 
+	.game-title sup  
+		font-size 0.5em 
+		font-weight bold 
+	 
 </style>

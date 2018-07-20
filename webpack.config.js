@@ -49,6 +49,14 @@ module.exports = {
 			{
 				test: /\.svg$/,
 				loader: 'svg-inline-loader'
+			},
+			{
+				test: /\.styl(us)?$/,
+				use: [
+				  'vue-style-loader',
+				  'css-loader',
+				  'stylus-loader'
+				]
 			}
 		]
 	},

@@ -27,23 +27,30 @@
 	};
 </script>
 
-<style>
-	.sidebar-section-container:not(:first-of-type) { margin-top:0.5em; }
-	.sidebar-section { padding:1em; margin-top:0; }
-	.sidebar-section *+* { margin-top:0.5rem; }
+<style lang="stylus">
+	@import "~styles/variables.styl"
+	.sidebar-section-container:not(first-of-type)  
+		margin-top 0.5em 
+	.sidebar-section  
+		padding 1em
+		margin-top 0 
+	.sidebar-section *+*  
+		margin-top 0.5rem 
 
-	.sidebar-section.closed { display:none }
-	.sidebar-section-container.disabled { opacity:0.5 }
-	.sidebar-section-header {
-		font-size:1em;
-		background: var(--light-accent);
-		color: var(--dark-accent);
-		padding: 0.5em;
-		margin: 0;
-		text-align:center;
-		cursor:pointer;
-	}
-	.disabled .sidebar-section-header {
-		cursor:default;
-	}
+	.sidebar-section.closed  
+		display none 
+	.sidebar-section.disabled  
+		opacity 0.5 
+	.sidebar-section-header 
+		font-size 1em
+		background $light-accent
+		color $dark-accent
+		padding 0.5em
+		margin 0
+		text-align center
+		cursor pointer
+	
+	.disabled .sidebar-section-header 
+		cursor default
+	
 </style>

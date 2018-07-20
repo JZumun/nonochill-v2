@@ -40,68 +40,71 @@ export default {
 };
 </script>
 
-<style>
-	.floating-options {
-		font-size: 3vmin;
-	}
+<style lang="stylus">
+	@import "~styles/variables"
 
-	.floating-option, .floating-options {
-		border-color: var(--translucent-white);
-		color: var(--dim-accent);
-	}
+	.floating-options 
+		font-size 3vmin
+	
 
-	.floating-options legend {
-		font-size: 0.75em;
-	}
+	.floating-option, .floating-options 
+		border-color $translucent-white
+		color $dim-accent
+	
 
-	.toggle-colors {
-		display: grid;
-		margin:0; padding:0;
-		grid-template-columns: repeat(auto-fit,minmax(2.25em,1fr));
-		grid-gap:0.25em;
-	}
+	.floating-options legend 
+		font-size 0.75em
+	
 
-	.toggle-color {
-		--background-color: var(--translucent-white);
-		display:block;
-		width:100%;
-		height:2em;
-		margin:0;
-		border:1px solid var(--translucent-white);
-		position:relative;
-		cursor:pointer;
-		padding: 2px;
-	}
-	.toggle-color:before {
-		content: "";
-		display: block;
-		height: 100%;
-		width: 100%;
-		background-color: var(--color);
-	}
-	.toggle-color.reset {
-		border: 0;
-	}
-	.toggle-color.reset:before {
-		content: "reset";
-		line-height: 1.5em;
-		margin: 0 0.25em;
-	}
+	.toggle-colors 
+		display grid
+		margin 0 
+		padding 0
+		grid-template-columns repeat(auto-fit,minmax(2.25em,1fr))
+		grid-gap 0.25em
+	
 
-	.toggle-color.highlighted {
-		background: var(--light-accent);
-		box-shadow: 0 0 0 1px var(--light-accent);
-	}
+	.toggle-color 
+		--background-color $translucent-white
+		display block
+		width 100%
+		height 2em
+		margin 0
+		border 1px solid $translucent-white
+		position relative
+		cursor pointer
+		padding 2px
+	
+	.toggle-color:before 
+		content ""
+		display block
+		height 100%
+		width 100%
+		background-color var(--color)
+	
+	.toggle-color.reset 
+		border 0
+	
+	.toggle-color.resetbefore 
+		content "reset"
+		line-height 1.5em
+		margin 0 0.25em
+	
 
-	.floating-option button {
-		color: white;
-	}
+	.toggle-color.highlighted 
+		background $light-accent
+		box-shadow 0 0 0 1px $light-accent
+	
 
-	.floating-option .restart-level {
-		display:none;
-	}
+	.floating-option button 
+		color white
+	
 
-	.floating-option small {
-		display: none !important;
-	}
+	.floating-option .restart-level 
+		display none
+	
+
+	.floating-option small 
+		display none !important
+	
 </style>

@@ -1,19 +1,20 @@
 <template lang="pug">
-.main-game-board( v-hotkey="keymap" )
-	game-board(
-			:board="board",
-			:rules="rules",
-			:activeTile="activeTile"
-			@toggle="toggle"
-			@win="win"
-			v-if="ready"
-		)
-		floating-options
-	loading-symbol.loarding-game-symbol( v-else slot="contents" :display="true", size="2em", :error="errorMessage")
+	board-container( v-hotkey="keymap" )
+		game-board(
+				:board="board",
+				:rules="rules",
+				:activeTile="activeTile"
+				@toggle="toggle"
+				@win="win"
+				v-if="ready"
+			)
+			floating-options
+		loading-symbol.loarding-game-symbol( v-else slot="contents" :display="true", size="2em", :error="errorMessage")
 </template>
 
 <script>
 	import gameKeyMap from "../mixins/gameKeyMap";
+	import BoardContainer from "components/app/BoardContainer.vue";
 	import GameBoard from "components/game/GameBoard.vue";
 	import LoadingSymbol from "components/app/symbols/Loading.vue";
 	import FloatingOptions from "components/app/FloatingOptions.vue";
@@ -22,7 +23,7 @@
 	import { mapState, mapActions, mapMutations } from "vuex";
 	export default {
 		mixins: [gameKeyMap],
-		components: { GameBoard, FloatingOptions, LoadingSymbol },
+		components: { GameBoard, FloatingOptions, LoadingSymbol, BoardContainer },
 		data() {
 			return { ready: true }
 		},

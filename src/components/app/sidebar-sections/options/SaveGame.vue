@@ -29,19 +29,19 @@ export default {
 };
 </script>
 
-<style>
-	.save-game small {
-		display: block;
-		margin-top: 0;
-	}
-	.save-game button {
-		float: left;
-	}
-	.save-game .saved {
-		float: left;
-		margin-left: 0.5em;
-		margin-top: 1em;
-		vertical-align: baseline;
-		line-height: 1rem;
-	}
+<style lang="stylus" scoped>
+	small  
+		display block 
+		margin-top 0 
+	 
+	button  
+		float left 
+	 
+	.saved  
+		float left 
+		margin-left 0.5em 
+		margin-top 1em 
+		vertical-align baseline 
+		line-height 1rem 
+	 
 </style>
