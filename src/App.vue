@@ -39,8 +39,8 @@
 	};
 </script>
 
-<style lang="stylus" scoped>
-	@import "~styles/variables.styl"
+<style lang="stylus">
+	@import "~styles/index"
 
 	.whole
 		height 100vh
