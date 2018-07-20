@@ -46,42 +46,44 @@
 </script>
 
 <style lang="stylus" scoped>
-.game-card 
-	color var(--dim-accent)
-	display block
-	width 100%
-	background-color rgba(255,255,255,0.5)
-	padding 1em
+	@import "~styles/variables"
+		
+	.game-card 
+		color $dim-accent
+		display block
+		width 100%
+		background-color rgba(255,255,255,0.5)
+		padding 1em
 
-.board-game.game-card-board 
-	width 100%
+	.board-game.game-card-board 
+		width 100%
 
 
-dl.game-card-details 
-	display grid
-	grid-template-columns auto auto
-	grid-gap 1px
-	margin 1px 0
+	dl.game-card-details 
+		display grid
+		grid-template-columns auto auto
+		grid-gap 1px
+		margin 1px 0
 
-.game-card-details > * 
-	padding 0.25em
-	background-color white
-	text-align right
-	font-size 0.75em
+	.game-card-details > * 
+		padding 0.25em
+		background-color white
+		text-align right
+		font-size 0.75em
 
-.game-card-details dd  
-	margin 0 
-.game-card-details dt 
-	margin 0
-	background rgba(255,255,255,0.5)
-	grid-row 1
-	font-size 0.5em
+	.game-card-details dd  
+		margin 0 
+	.game-card-details dt 
+		margin 0
+		background rgba(255,255,255,0.5)
+		grid-row 1
+		font-size 0.5em
 
-.game-card-id 
-	font-size 0.75em
-	background-color var(--dark-accent)
-	color var(--translucent-white)
-	padding 0.5em
-	text-align center
+	.game-card-id 
+		font-size 0.75em
+		background-color $dark-accent
+		color $translucent-white
+		padding 0.5em
+		text-align center
 
 </style>

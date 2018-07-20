@@ -19,37 +19,35 @@
 	};
 </script>
 
-<style>
-	.game-tile {
-		width:100%;
-		height: auto;
-	}
-	.game-tile.highlighted .tile-background {
-		fill: var(--highlight-color);
-	}
-	.win .game-tile {
-		z-index: 1;
-	}
+<style lang="stylus" scoped>
+	@import "~styles/variables"
 
-	.fill-symbol, .cross-symbol {
-		transition: opacity 0.1s, fill 0.1s, transform 0.3s;
-		transform-origin: 50% 50%;
-	}
-	.fill-symbol {
-		fill: var(--fill-color, transparent);
-	}
-	.cross-symbol {
-		fill: var(--gray-accent);
-	}
-	.tile-background {
-		fill: white;
-		transition: fill 0.1s;
-	}
+	.game-tile 
+		width 100%
+		height auto
+		&.highlighted 
+			.tile-background 
+				fill $highlight-color
 
-	.tile-fade-enter, .tile-fade-leave-active {
-		opacity: 0;
-	}
+	.tile-background 
+		fill white
+		transition fill 0.1s
+	.tile-fade-enter, .tile-fade-leave-active 
+		opacity 0
+		
+	.fill-symbol, .cross-symbol 
+		transition opacity 0.1s, fill 0.1s, transform 0.3s
+		transform-origin 50% 50%
+	.fill-symbol 
+		fill var(--fill-color, transparent)
+	.cross-symbol 
+		fill $gray-accent
 
- 	.win .cross-symbol { transform: scale(0) }
-	.win .fill-symbol { transform: scale(2) }
+	.win 
+		.game-tile 
+			z-index 1
+		.cross-symbol 
+			transform scale(0)
+		.fill-symbol 
+			transform scale(2)
 </style>
