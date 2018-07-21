@@ -48,6 +48,14 @@ module.exports = {
 			{
 				test: /\.svg$/,
 				loader: "svg-inline-loader"
+			},
+			{
+				test: /\.styl(us)?$/,
+				use: [
+				  'style-loader',
+				  'css-loader',
+				  'stylus-loader'
+				]
 			}
 		]
 	},
@@ -88,6 +96,7 @@ if (process.env.NODE_ENV === "production") {
 	// http://vue-loader.vuejs.org/en/workflow/production.html
 	module.exports.module.rules[0].options.extractCSS = true;
 	module.exports.module.rules[3].use = ExtractTextPlugin.extract({ fallback: "style-loader", use: ["css-loader"] }); ;
+	module.exports.module.rules[5].use = ExtractTextPlugin.extract({ fallback: "style-loader", use: ["css-loader", "stylus-loader"] }); ;
 	module.exports.plugins = [
 		new ExtractTextPlugin("[name].css"),
 		new webpack.DefinePlugin({

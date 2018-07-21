@@ -145,73 +145,72 @@
 	}
 </script>
 
-<style>
-.board-game {
-	--fill-scale:0.6;
-	--cross-scale:0.2;
-	--board-gap:1px;
-	--board-size:17;
-	--clue-size:17;
-	position:relative;
-	display:grid;
-	grid-template-rows: 1fr 2fr;
-	grid-template-columns: 1fr 2fr;
-	grid-gap: var(--board-gap);
-	grid-template-areas:
-		"corner upper-rules"
-		"side-rules game"
-	;
-	width:100%;
-	overflow:hidden;
-	 -webkit-user-select: none;
- -moz-user-select: none;
- -ms-user-select: none;
- user-select: none;
-}
+<style lang="stylus" scoped>
+	@import "~styles/variables"
 
-.board {
-	display:grid;
-	grid-area: game;
-	grid: repeat(var(--board-size),1fr) / 1fr;
-	grid-gap:var(--board-gap);
-	cursor: pointer;
-}
-.game-row {
-	display:grid;
-	grid: 1fr / repeat(var(--board-size),1fr);
-	grid-gap:var(--board-gap);
-}
-.vertical.clue-list {
-    grid-area:upper-rules;
-    grid: 1fr / repeat(var(--board-size),1fr);
-	grid-gap:var(--board-gap);
-}
-.horizontal.clue-list {
-	grid-area:side-rules;
-	grid: repeat(var(--board-size),1fr) / 1fr;
-	grid-gap:var(--board-gap);
-}
-.clue-list {
-	display:grid;
-}
-.win {
-	--board-gap:0;
-}
+	$board-gap = 1px
 
-.game-tile, .clues {
-	will-change: background;
-}
-.game-tile.highlighted, .clues.highlighted {
-	background: var(--highlight-color) ;
-}
 
-.clues.solved {
-	background-color:rgba(255,255,255,0.125);
-}
+	.board-game
+		--board-size 17
+		--clue-size 17
+		position relative
+		display grid
+		grid-template-rows  1fr 2fr
+		grid-template-columns  1fr 2fr
+		grid-gap  $board-gap
+		grid-template-areas  "corner upper-rules" "side-rules game"
+		width 100%
+		overflow hidden
+		-webkit-user-select  none
+		-moz-user-select  none
+		-ms-user-select  none
+		user-select  none
 
-.misc-section {
-	grid-area: corner;
-	padding-right: 1em;
-	padding-bottom: 1em;
-}
+
+	.board
+		display grid
+		grid-area  game
+		grid  repeat(var(--board-size),1fr) \/ 1fr
+		grid-gap $board-gap
+		cursor  pointer
+
+	.game-row
+		display grid
+		grid  1fr \/ repeat(var(--board-size),1fr)
+		grid-gap $board-gap
+
+	.vertical.clue-list
+		grid-area upper-rules
+		grid  1fr \/ repeat(var(--board-size),1fr)
+		grid-gap $board-gap
+
+	.horizontal.clue-list
+		grid-area side-rules
+		grid  repeat(var(--board-size),1fr) \/ 1fr
+		grid-gap $board-gap
+
+	.clue-list
+		display grid
+
+	.win
+		--board-gap 0
+
+
+	.game-tile, .clues
+		will-change  background
+
+	.game-tile.highlighted, .clues.highlighted
+		background  $highlight-color
+
+
+	.clues.solved
+		background-color rgba(255,255,255,0.125)
+
+
+	.misc-section
+		grid-area  corner
+		padding-right  1em
+		padding-bottom  1em
+
 </style>

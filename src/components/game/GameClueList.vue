@@ -28,65 +28,75 @@
 	};
 </script>
 
-<style>
-	.clues {
-		position:relative;
-		margin:0;
-		padding:0;
-		font-size:2vmin;
-		font-size: calc(22vmin/var(--board-size));
-		background-color:var(--translucent-white);
-		color: var(--state-1);
-		display: grid;
-		align-items: center;
-		justify-items: center;
-	}
+<style lang="stylus" scoped>
+	@import "~styles/variables"
+	$board-gap = 1px  
+	$long-side = 500%
+	$short-side =  $board-gap
+	$offset = "calc(-1*%s)" % $board-gap 
 
-	.clue[data-state="2"] { color:var(--state-2); }
-	.clue[data-state="3"] { color:var(--state-3); }
-	.clue[data-state="4"] { color:var(--state-4); }
-	.clue[data-state="5"] { color:var(--state-5); }
+	.clues  
+		position relative 
+		margin 0 
+		padding 0 
+		font-size 2vmin 
+		font-size  calc(22vmin/var(--board-size)) 
+		background-color $translucent-white 
+		color  var(--state-1) 
+		display  grid 
+		align-items  center 
+		justify-items  center 
+	 
 
-	.clues.vertical {
-		grid-template-rows: repeat(var(--clue-size),1fr);
-		grid-template-columns: 1fr;
-	}
-	.clues.horizontal {
-		grid-template-rows: 1fr;
-		grid-template-columns: repeat(var(--clue-size),1fr);
-	}
+	.clue[data-state="2"]   
+		color var(--state-2)   
+	.clue[data-state="3"]   
+		color var(--state-3)   
+	.clue[data-state="4"]   
+		color var(--state-4)   
+	.clue[data-state="5"]   
+		color var(--state-5)   
 
-	.clues.horizontal.sparse:before {
-		content:"";
-		grid-column: span var(--clue-gap,1);
-	}
+	.clues.vertical  
+		grid-template-rows  repeat(var(--clue-size),1fr) 
+		grid-template-columns  1fr 
+	 
+	.clues.horizontal  
+		grid-template-rows  1fr 
+		grid-template-columns  repeat(var(--clue-size),1fr) 
+	 
 
-	.clues.vertical.sparse:before {
-		content:"";
-		grid-row: span var(--clue-gap,1);
-	}
+	.clues.horizontal.sparse:before  
+		content "" 
+		grid-column  span var(--clue-gap,1) 
+	 
 
-	.clue { display:block; text-align:center; line-height:0.5 }
+	.clues.vertical.sparse:before  
+		content "" 
+		grid-row  span var(--clue-gap,1) 
+	 
 
-	.clues:nth-of-type(5n+5):not(:last-child)::after {
-		content: "";
-		display: block;
-		position: absolute;
-		background: var(--light-accent);
-		--short-side: var(--board-gap);
-		--long-side: 500%;
-		--offset: calc(-1*var(--board-gap));
-	}
-	.clues.vertical:nth-of-type(5n+5):not(:last-child)::after {
-		width: var(--short-side);
-		height: var(--long-side);
-		top: 0;
-		right: var(--offset);
-	}
-	.clues.horizontal:nth-of-type(5n+5):not(:last-child)::after {
-		height: var(--short-side);
-		width: var(--long-side);
-		left: 0;
-		bottom: var(--offset);
-	}
+	.clue   
+		display block  
+		text-align center 
+		line-height 0.5  
+
+	.clues:nth-of-type(5n+5):not(:last-child):after  
+		content  "" 
+		display  block 
+		position  absolute 
+		background  $light-accent 
+	 
+	.clues.vertical:nth-of-type(5n+5):not(:last-child):after  
+		width  $short-side 
+		height  $long-side 
+		top  0 
+		right  $offset 
+	 
+	.clues.horizontal:nth-of-type(5n+5):not(:last-child):after  
+		height  $short-side 
+		width  $long-side 
+		left  0 
+		bottom  $offset 
+	 
 </style>

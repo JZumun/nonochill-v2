@@ -36,20 +36,26 @@ const getters = {
 import shortCode from "store/modules/shortcode";
 import localSave from "store/modules/localsave";
 import history from "store/modules/history";
-import floatingOptions from "store/modules/floatingOptions";
 import soundManager from "store/modules/soundManager";
 import puzzleList from "store/modules/puzzleList";
 import start from "store/modules/StartOptions";
+import toggle from "store/modules/toggleOptions";
 const modules = {
 	soundManager,
 	shortCode,
 	localSave,
 	history,
-	floatingOptions,
 	puzzles: puzzleList,
 	options: {
 		namespaced: true,
 		modules: { start, editor: start }
+	},
+	accessibility: {
+		namespaced: true,
+		modules: {
+			shortcut: toggle,
+			floatingOptions: toggle
+		}
 	}
 };
 

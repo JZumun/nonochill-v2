@@ -1,0 +1,102 @@
+@import "variables"
+
+*
+*:before
+*:after 
+	box-sizing border-box
+	font-weight inherit
+html 
+	--state-1 $dark-accent
+	--state-2 $light-accent
+	--state-3 $lighter-accent
+	--state-4 $red
+	--state-5 $blue
+body 
+	font-family "Roboto Slab"
+	font-weight 300
+	margin 0
+	padding 0
+	background-image url(https://source.unsplash.com/random/?purple)
+	background-size cover
+	background-repeat no-repeat
+	background-color $background
+
+a 
+	color inherit
+a:hover, button:hover 
+	opacity 0.75
+	cursor pointer
+
+.input 
+	text-align right
+	width 100%
+.button
+.input
+button 
+	display block
+	font-family inherit
+	font-size 1em
+	background inherit
+	border 1px solid $dim-accent
+	color currentColor
+.button
+button 
+	padding 1px 5px
+	background $dim-accent
+	cursor pointer
+	text-transform inherit
+	.attach 
+		border-left-width 0
+	.secondary 
+		background transparent
+		color $dim-accent
+		border 0
+:focus 
+	outline none
+
+textarea 
+	width 100%
+	min-width 100%
+	max-width 100%
+	border 1px solid $dim-accent
+	background-color $dim-accent
+	color currentColor
+	resize vertical
+	padding 0.5em
+
+fieldset 
+	border 1px solid $dim-accent
+	margin-left 0
+	font-size 0.75em
+	& > * + *
+		margin-top 0.5em
+legend 
+	font-size 1.33em
+
+[disabled] 
+	opacity 0.25
+	cursor default !important
+[disabled]:hover 
+	opacity 0.25
+
+.inline > * 
+		display inline-block
+		vertical-align middle
+.flexy 
+	display flex
+	flex-wrap wrap
+	justify-content space-between
+.buttons > * 
+		display inline
+[v-cloak] 
+	display none
+	
+::-webkit-scrollbar 
+	height 5px
+	width 5px
+::-webkit-scrollbar-track 
+	background $dim-accent
+::-webkit-scrollbar-thumb 
+	background $dark-accent
+::-webkit-scrollbar-corner 
+	background $dim-accent

@@ -1,12 +1,12 @@
 <template lang="pug">
 	section#sidebar.sidebar.page-section
 		h1.game-title NonoChill#[sup v.2]
-		sidebar-section(title="Play" :closed="!section[0]" @toggle="toggle(0)")
+		sidebar-section.section(title="Play" :closed="!section[0]" @toggle="toggle(0)")
 			start-game
 			tutorial-section
-		sidebar-section(title="Level Editor" :closed="!section[1]" @toggle="toggle(1)")
+		sidebar-section.section(title="Level Editor" :closed="!section[1]" @toggle="toggle(1)")
 			create-game
-		sidebar-section(title="Options", :closed="!section[2]" @toggle="toggle(2)")
+		sidebar-section.section(title="Options", :closed="!section[2]" @toggle="toggle(2)")
 			game-options
 		slot
 </template>
@@ -42,25 +42,29 @@
 	};
 </script>
 
-<style>
-	.sidebar {
-		background-color:var(--dark-accent);
-		color:var(--translucent-white);
-		overflow-y:auto;
-		display:flex;
-		flex-direction:column;
-	}
+<style lang="stylus" scoped>
+	@import "~styles/variables"
 
-	.sidebar .game-title {
-		font-size:1.5em;
-		padding:0.5em;
-		text-align:center;
-		margin:0;
-		background: var(--dark-accent);
-		color:var(--translucent-white);
-	}
-	.sidebar .game-title sup {
-		font-size:0.5em;
-		font-weight:bold;
-	}
+	.sidebar  
+		background-color $dark-accent 
+		color $translucent-white 
+		overflow-y auto 
+		display flex 
+		flex-direction column 
+	
+	.section + .section 
+		margin-top: 0.5em
+	 
+	.game-title  
+		font-size 1.5em 
+		padding 0.5em 
+		text-align center 
+		margin 0 
+		background $dark-accent
+		color $translucent-white
+	 
+	.game-title sup  
+		font-size 0.5em 
+		font-weight bold 
+	 
 </style>

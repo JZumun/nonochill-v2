@@ -72,8 +72,10 @@
 	};
 </script>
 
-<style>
-	.form-field.form-range {
+<style lang="stylus" scoped>
+	@import "~styles/variables.styl"
+
+	.form-range {
 		display:grid;
 		grid-template-columns: 5.5ch 1fr 6ch;
 		grid-gap:0.5em;
@@ -109,70 +111,70 @@
 		outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
 	}
 
-.input-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 1em;
-  width: 1em;
-  border-radius: 50%;
-  background: var(--light-accent);
-  cursor: pointer;
-  margin-top: -0.25em;
-}
-.input-range::-moz-range-thumb {
-	height: 1em;
-	width: 1em;
-	border-radius: 50%;
-	background: var(--light-accent);
-	cursor: pointer;
-	margin-top: -0.25em;
-	box-shadow:0;
-	border:0;
-}
-
-.input-range::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 0.5em;
-	border-radius:0.5em;
-  cursor: pointer;
-  background: var(--dim-accent);
-}
-
-.input-range::-moz-range-track {
-	width: 100%;
-	height: 0.5em;
-	border-radius:0.5em;
-	cursor: pointer;
-	background: var(--dim-accent);
-}
-
-.input-text::-webkit-inner-spin-button,
-.input-text::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-.input-text {
-    -moz-appearance:textfield;
-}
-
-@media all and (max-width:800px) {
-	.input-range {
-		margin: 0.5em 0;
-	}
 	.input-range::-webkit-slider-thumb {
-	  height: 2em;
-	  width: 2em;
-		margin-top:-0.5em;
+		-webkit-appearance: none;
+		height: 1em;
+		width: 1em;
+		border-radius: 50%;
+		background: $light-accent;
+		cursor: pointer;
+		margin-top: -0.25em;
 	}
 	.input-range::-moz-range-thumb {
-		height: 2em;
-		width: 2em;
-		margin-top:-0.5em;
+		height: 1em;
+		width: 1em;
+		border-radius: 50%;
+		background: $light-accent;
+		cursor: pointer;
+		margin-top: -0.25em;
+		box-shadow:0;
+		border:0;
 	}
+
 	.input-range::-webkit-slider-runnable-track {
-		height:1em;
+		width: 100%;
+		height: 0.5em;
+			border-radius:0.5em;
+		cursor: pointer;
+		background: $dim-accent;
 	}
+
 	.input-range::-moz-range-track {
-		height:1em;
+		width: 100%;
+		height: 0.5em;
+		border-radius:0.5em;
+		cursor: pointer;
+		background: $dim-accent;
 	}
-}
+
+	.input-text::-webkit-inner-spin-button,
+	.input-text::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	.input-text {
+		-moz-appearance:textfield;
+	}
+
+	@media all and (max-width:800px) {
+		.input-range {
+			margin: 0.5em 0;
+		}
+		.input-range::-webkit-slider-thumb {
+			height: 2em;
+			width: 2em;
+			margin-top:-0.5em;
+		}
+		.input-range::-moz-range-thumb {
+			height: 2em;
+			width: 2em;
+			margin-top:-0.5em;
+		}
+		.input-range::-webkit-slider-runnable-track {
+			height:1em;
+		}
+		.input-range::-moz-range-track {
+			height:1em;
+		}
+	}
 </style>
