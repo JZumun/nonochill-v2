@@ -18,12 +18,14 @@
 	};
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+	@import "~styles/variables"
+
 	.github-corner svg {
 		fill:#151513;
 		color:#fff;
-		fill: var(--dark-accent);
-		color: var(--translucent-white);
+		fill: $dark-accent;
+		color: $translucent-white;
 	}
 
 	.github-corner:hover .octo-arm {

@@ -1,6 +1,8 @@
 @import "variables"
 
-*,*:before,*:after 
+*
+*:before
+*:after 
 	box-sizing border-box
 	font-weight inherit
 html 
@@ -18,35 +20,40 @@ body
 	background-size cover
 	background-repeat no-repeat
 	background-color $background
+
 a 
 	color inherit
 a:hover, button:hover 
 	opacity 0.75
 	cursor pointer
+
 .input 
 	text-align right
 	width 100%
-.button, .input, button 
+.button
+.input
+button 
 	display block
 	font-family inherit
 	font-size 1em
 	background inherit
 	border 1px solid $dim-accent
 	color currentColor
-.button, button 
+.button
+button 
 	padding 1px 5px
 	background $dim-accent
 	cursor pointer
 	text-transform inherit
-.button 
-	&.attach 
+	.attach 
 		border-left-width 0
-.secondary 
-	background transparent
-	color $dim-accent
-	border 0
+	.secondary 
+		background transparent
+		color $dim-accent
+		border 0
 :focus 
 	outline none
+
 textarea 
 	width 100%
 	min-width 100%
@@ -56,30 +63,34 @@ textarea
 	color currentColor
 	resize vertical
 	padding 0.5em
+
 fieldset 
 	border 1px solid $dim-accent
 	margin-left 0
 	font-size 0.75em
+	& > * + *
+		margin-top 0.5em
 legend 
 	font-size 1.33em
+
 [disabled] 
 	opacity 0.25
 	cursor default !important
 [disabled]:hover 
 	opacity 0.25
-.inline 
-	& > * 
+
+.inline > * 
 		display inline-block
 		vertical-align middle
 .flexy 
 	display flex
 	flex-wrap wrap
 	justify-content space-between
-.buttons 
-	& > * 
+.buttons > * 
 		display inline
 [v-cloak] 
 	display none
+	
 ::-webkit-scrollbar 
 	height 5px
 	width 5px
