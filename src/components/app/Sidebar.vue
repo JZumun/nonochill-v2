@@ -1,12 +1,12 @@
 <template lang="pug">
 	section#sidebar.sidebar.page-section
 		h1.game-title NonoChill#[sup v.2]
-		sidebar-section(title="Play" :closed="!section[0]" @toggle="toggle(0)")
+		sidebar-section.section(title="Play" :closed="!section[0]" @toggle="toggle(0)")
 			start-game
 			tutorial-section
-		sidebar-section(title="Level Editor" :closed="!section[1]" @toggle="toggle(1)")
+		sidebar-section.section(title="Level Editor" :closed="!section[1]" @toggle="toggle(1)")
 			create-game
-		sidebar-section(title="Options", :closed="!section[2]" @toggle="toggle(2)")
+		sidebar-section.section(title="Options", :closed="!section[2]" @toggle="toggle(2)")
 			game-options
 		slot
 </template>
@@ -51,6 +51,9 @@
 		overflow-y auto 
 		display flex 
 		flex-direction column 
+	
+	.section + .section 
+		margin-top: 0.5em
 	 
 	.game-title  
 		font-size 1.5em 

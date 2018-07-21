@@ -1,5 +1,5 @@
 <template lang="pug">
-	#game-options( :class="{shortcuts}" )
+	#game-options
 		save-game
 		color-scheme
 		game-history
@@ -7,11 +7,11 @@
 		fieldset
 			legend Other
 			label
-				input(type="checkbox" v-model="shortcuts")
+				input(type="checkbox" :checked="showShortcut", @change="toggleShortcut($event.target.checked)")
 				| Toggle Shortcut Guide
 			br
 			label
-				input(type="checkbox" :value="showFloatingOptions", @change="toggleFloatingOptions($event.target.checked)")
+				input(type="checkbox" :checked="showFloatingOptions", @change="toggleFloatingOptions($event.target.checked)")
 				| Toggle Floating Options
 		sound-options
 </template>
@@ -23,7 +23,6 @@
 	import GameHistory from "./options/GameHistory.vue";
 	import SoundOptions from "./options/SoundOptions.vue";
 
-	import { SHOW_FLOATING_OPTIONS } from "store/modules/floatingOptions";
 	import { mapState, mapMutations } from "vuex";
 
 	export default {
@@ -31,34 +30,20 @@
 		data () {
 			return {
 				disabled: true,
-				closed: true,
-				shortcuts: false
+				closed: true
 			};
 		},
 		computed: {
 			...mapState({
-				showFloatingOptions: state => state.floatingOptions.show
+				showFloatingOptions: state => state.accessibility.floatingOptions.show,
+				showShortcut: state => state.accessibility.shortcut.show
 			})
 		},
 		methods: {
 			...mapMutations({
-				toggleFloatingOptions: SHOW_FLOATING_OPTIONS
+				toggleFloatingOptions: "accessibility/floatingOptions/toggle",
+				toggleShortcut: "accessibility/shortcut/toggle"
 			})
 		}
 	};
 </script>
-
-<style lang="stylus">
-	@import "~styles/variables"
-	.shortcuts [data-shortcut] 
-		position relative
-	
-	.shortcuts [data-shortcut]after 
-		content attr(data-shortcut)
-		background $dark-accent
-		border 1px solid $dim-accent
-		display block
-		padding 0.25em
-		font-size 0.5em
-		width 100%
-</style>

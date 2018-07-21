@@ -27,20 +27,17 @@
 	};
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 	@import "~styles/variables.styl"
-	.sidebar-section-container:not(first-of-type)  
-		margin-top 0.5em 
+	
 	.sidebar-section  
 		padding 1em
-		margin-top 0 
-	.sidebar-section *+*  
-		margin-top 0.5rem 
 
-	.sidebar-section.closed  
+	.closed  
 		display none 
-	.sidebar-section.disabled  
+	.disabled  
 		opacity 0.5 
+
 	.sidebar-section-header 
 		font-size 1em
 		background $light-accent
