@@ -1,0 +1,17 @@
+{
+	"target": "es2017",
+  "allowSyntheticDefaultImports": false,
+	"compilerOptions": {
+	  "baseUrl": "./",
+	  "paths": {
+		"api/*": ["src/api/*"],
+		"assets/*": ["src/assets/*"],
+		"components/*": ["src/components/*"],
+		"router/*": ["src/router/*"],
+		"store/*": ["src/store/*"],
+		"styles/*": ["src/styles/*"],
+		"utils/*": ["src/utils/*"]
+	  }
+	},
+	"exclude": ["node_modules", "dist"]
+  }
