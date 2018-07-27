@@ -40,11 +40,14 @@ import soundManager from "store/modules/soundManager";
 import puzzleList from "store/modules/puzzleList";
 import start from "store/modules/StartOptions";
 import toggle from "store/modules/toggleOptions";
+import upload from "store/modules/upload";
+
 const modules = {
 	soundManager,
 	shortCode,
 	localSave,
 	history,
+	upload,
 	puzzles: puzzleList,
 	options: {
 		namespaced: true,
