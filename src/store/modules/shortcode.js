@@ -1,18 +1,16 @@
 import { ACTION_START_GAME_FROM_LONGCODE } from "store/actions";
+import loading from "store/mixins/loading";
 import api from "api/api";
 
 export const ACTION_GENERATE_SHORTCODE = "action:short-code:generate";
 export const ACTION_LOAD_FROM_SHORTCODE = "action:short-code:load";
 export const CLEAR_SHORTCODE = "mutation:short-code:clear";
 export const SET_SHORT_CODE = "mutation:short-code:set";
-const SET_LOADING = "mutation:short-code:loading-signal";
-const SET_ERROR = "mutation:short-code:set-error";
 
 export default {
 	state: {
 		code: null,
-		loading: false,
-		errorMessage: null
+		...loading.state
 	},
 	mutations: {
 		[SET_SHORT_CODE] (state, value) {
@@ -21,38 +19,30 @@ export default {
 		[CLEAR_SHORTCODE] (state) {
 			state.code = null;
 		},
-		[SET_LOADING] (state, value) {
-			state.loading = value;
-		},
-		[SET_ERROR] (state, value) {
-			if (value != null) { console.warn(value); }
-			state.errorMessage = value;
-		}
+		...loading.mutations
 	},
 	actions: {
-		[ACTION_GENERATE_SHORTCODE] ({ commit, getters }) {
-			commit(SET_LOADING, true);
-			commit(SET_ERROR, null);
-			return api({
-				data: { game: getters.serialization }
-			})
-				.then(data => commit(SET_SHORT_CODE, data.id))
-				.catch(e => commit(SET_ERROR, e.message))
-				.then(_ => commit(SET_LOADING, false));
+		...loading.actions,
+		[ACTION_GENERATE_SHORTCODE]: {
+			root: true,
+			handler: ({ dispatch, commit, getters }) =>
+				dispatch("load", _ => api({
+					data: { game: getters.serialization }
+				}).then(data => commit(SET_SHORT_CODE, data.id)))
 		},
-		[ACTION_LOAD_FROM_SHORTCODE] ({ dispatch, commit }, code) {
-			if (code == null || code.trim().length === 0) {
-				return commit(SET_ERROR, "invalid game id");
+		[ACTION_LOAD_FROM_SHORTCODE]: {
+			root: true,
+			handler ({ dispatch, commit }, code) {
+				if (code == null || code.trim().length === 0) {
+					return commit("setError", "invalid game id");
+				} else {
+					return dispatch("load", _ => api({
+						url: `${code}`,
+						method: "get"
+					}).then(data => dispatch(ACTION_START_GAME_FROM_LONGCODE, data.game, { root: true }))
+						.then(() => commit(SET_SHORT_CODE, code)));
+				}
 			}
-			commit(SET_LOADING, true);
-			commit(SET_ERROR, null);
-			return api({
-				url: `${code}`,
-				method: "get"
-			}).then(data => dispatch(ACTION_START_GAME_FROM_LONGCODE, data.game))
-				.then(() => commit(SET_SHORT_CODE, code))
-				.catch(e => commit(SET_ERROR, e.message))
-				.then(_ => commit(SET_LOADING, false));
 		}
 	}
 };

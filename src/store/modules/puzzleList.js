@@ -1,30 +1,26 @@
 import api from "api/api";
+import loading from "store/mixins/loading";
 
 export const ACTION_LOAD_PUZZLE_LIST = "action:list:puzzles";
-const SET_PUZZLES = "mutation:puzzles";
-const SET_LOADING = "mutation:puzzles:set-loading";
-const SET_ERROR = "mutation:puzzles:set-error";
 
 export default {
+	namespaced: true,
 	state: {
-		puzzles: [],
-		loading: false,
-		error: null
+		...loading.state,
+		puzzles: []
 	},
 	mutations: {
-		[SET_PUZZLES] (state, puzzles) { state.puzzles = puzzles; },
-		[SET_LOADING] (state, loading) { state.loading = loading; },
-		[SET_ERROR] (state, error) { state.error = error; }
+		...loading.mutations,
+		setPuzzles (state, puzzles) { state.puzzles = puzzles; }
 	},
 	actions: {
-		[ACTION_LOAD_PUZZLE_LIST] ({ commit }) {
-			commit(SET_LOADING, true);
-			commit(SET_ERROR, null);
-			return api({
-				method: "get"
-			}).then(data => commit(SET_PUZZLES, data.games))
-				.catch(e => commit(SET_ERROR, e.message))
-				.then(_ => commit(SET_LOADING, false));
+		...loading.actions,
+		[ACTION_LOAD_PUZZLE_LIST]: {
+			root: true,
+			handler: ({ commit, dispatch }) =>
+				dispatch("load", _ => api({
+					method: "get"
+				}).then(data => commit("setPuzzles", data.games)))
 		}
 	}
 };
