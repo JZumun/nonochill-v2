@@ -28,7 +28,7 @@
 		.board-container
 			width calc(100vw - 2em)
 			height calc(100vw - 2em)
-			margin1em auto
+			margin 1em auto
 			padding 0.5em
 			max-width 100%
 			max-height 100%
