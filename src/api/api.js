@@ -13,5 +13,5 @@ export default (options) => axios({
 	...{ url: API_URL + (options.url ? `/${options.url}` : "") }
 }).then(({ data }) => {
 	if (data.success) return data;
-	else throw new Error(data.reason);
+	else throw new Error(data.reason || "An Error Occured");
 });

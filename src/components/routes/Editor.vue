@@ -3,11 +3,11 @@
 	import routeMixin from "../mixins/routeMixin";
 	import { mapState, mapActions } from "vuex";
 	import { ACTION_START_EDITOR, ACTION_CREATOR_UPDATE_RULES } from "store/actions";
-
+	
 	export default {
 		mixins: [interactiveBoard, routeMixin],
 		computed: {
-			...mapState("options/editor", ["size", "colors"]),
+			...mapState("options/editor", ["size", "colors", "file"]),
 			...mapState({
 					shortCode: state => state.shortCode.code,
 					errorMessage: state => state.shortCode.errorMessage
@@ -23,10 +23,14 @@
 		methods: {
 			load() {
 				this.ready = false;
-				this.$store.dispatch(ACTION_START_EDITOR, {
+				
+				let options = !this.file ? [ACTION_START_EDITOR, {
 					size: this.size,
 					colors: this.colors
-				}).then(_ => this.ready = true);
+				}] : ["options/editor/upload"];
+
+
+				this.$store.dispatch(...options).then(_ => this.ready = true);
 			}
 		},
 		watch: {

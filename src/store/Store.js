@@ -39,19 +39,18 @@ import history from "store/modules/history";
 import soundManager from "store/modules/soundManager";
 import puzzleList from "store/modules/puzzleList";
 import start from "store/modules/StartOptions";
+import editor from "store/modules/editorOptions";
 import toggle from "store/modules/toggleOptions";
-import upload from "store/modules/upload";
 
 const modules = {
 	soundManager,
 	shortCode,
 	localSave,
 	history,
-	upload,
 	puzzles: puzzleList,
 	options: {
 		namespaced: true,
-		modules: { start, editor: start }
+		modules: { start, editor }
 	},
 	accessibility: {
 		namespaced: true,
