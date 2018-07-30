@@ -63,8 +63,12 @@ export default {
 	[ACTION_START_GAME] ({ commit, dispatch }, payload) {
 		commit(START_GAME, payload);
 	},
-	[ACTION_START_EDITOR] ({ commit }, payload) {
+	[ACTION_START_EDITOR] ({ commit, state }, payload) {
 		commit(START_EDITOR, payload);
+		commit(UPDATE_RULES, {
+			row: state.board.map(row => generateRule(row)),
+			column: count(state.board.length).map(col => generateRule(state.board.map(row => row[col])))
+		});
 	},
 
 	[ACTION_ANCHOR_COLOR] ({ commit, state }, value) {

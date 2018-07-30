@@ -35,7 +35,7 @@ export default {
 		state.board = board;
 		state.disableCrossed = false;
 	},
-	[START_EDITOR] (state, { size, colors, scheme = originalColors.slice() }) {
+	[START_EDITOR] (state, { size, colors, scheme = originalColors.slice(), board = clearBoard(size) }) {
 		state.colorScheme = scheme;
 		state.colorNum = colors;
 		state.rules = {
@@ -43,7 +43,7 @@ export default {
 			row: count(size).map(el => [])
 		};
 		state.disableCrossed = true;
-		state.board = clearBoard(size);
+		state.board = board;
 	},
 
 	[CHANGE_COLORS] (state, colors) {
