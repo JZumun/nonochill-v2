@@ -4,6 +4,7 @@ import { SET_TILE,
 	UPDATE_RULES
 } from "./mutations";
 
+import debounce from "throttle-debounce/debounce";
 import incrementColor from "utils/game/IncrementColor";
 import generateRule from "utils/game/GenerateRule";
 import { count } from "utils/ArrayUtils";
@@ -41,12 +42,11 @@ export default {
 		dispatch(ACTION_SET_TILE, { tile, curr, next });
 	},
 
-	[ACTION_CREATOR_UPDATE_RULES] ({ commit, state }) {
+	[ACTION_CREATOR_UPDATE_RULES]: debounce(100, ({ commit, state }) =>
 		commit(UPDATE_RULES, {
 			row: state.board.map(row => generateRule(row)),
 			column: count(state.board.length).map(col => generateRule(state.board.map(row => row[col])))
-		});
-	},
+		})),
 	[ACTION_START_GAME_FROM_LONGCODE] ({ dispatch }, payload) {
 		const options = deserialize(payload);
 		payload = {
