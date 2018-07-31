@@ -17,7 +17,7 @@
 			dd(v-text="width")
 			dt Colors
 			dd(v-text="colors")
-		.game-card-id(v-text="id")
+		.game-card-id(v-text="cardName")
 </template>
 
 <script>
@@ -31,7 +31,11 @@
 			colors: { type: Number, default: 1 },
 			colorScheme: { type: Array, default() { return [] } },
 			id: { type: String, default: null },
-			empty: { type: Boolean, default: false }
+			empty: { type: Boolean, default: false },
+			label: { type: String, default: null }
+		},
+		computed: {
+			cardName() { return this.label || this.id; }
 		},
 		methods: {
 			generateBoard(width, colors) {

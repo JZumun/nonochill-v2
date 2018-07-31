@@ -10,14 +10,20 @@ export default {
 	namespaced: true,
 	state: {
 		code: null,
+		label: undefined,
 		...loading.state
 	},
 	mutations: {
 		setCode (state, value) {
 			state.code = value;
+			state.label = undefined;
 		},
 		clearCode (state) {
 			state.code = null;
+			state.label = undefined;
+		},
+		setLabel (state, value) {
+			state.label = value;
 		},
 		...loading.mutations
 	},
@@ -29,9 +35,12 @@ export default {
 		},
 		[ACTION_GENERATE_SHORTCODE]: {
 			root: true,
-			handler: ({ dispatch, commit, getters }) =>
+			handler: ({ dispatch, commit, rootGetters, state }) =>
 				dispatch("load", _ => api({
-					data: { game: getters.serialization }
+					data: {
+						game: rootGetters.serialization,
+						label: state.label
+					}
 				}).then(data => commit("setCode", data.id)))
 		},
 		[ACTION_LOAD_FROM_SHORTCODE]: {

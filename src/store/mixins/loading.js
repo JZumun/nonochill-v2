@@ -8,13 +8,13 @@ export default {
 			state.loading = value;
 		},
 		setErrorMessage (state, value) {
-			state.errorMessage = null;
+			state.errorMessage = value;
 		}
 	},
 	actions: {
 		load ({ commit }, action) {
 			commit("setLoading", true);
-			commit("setErrorMessage", true);
+			commit("setErrorMessage", null);
 			return action()
 				.catch(e => commit("setErrorMessage", e.message))
 				.then(_ => commit("setLoading", false));
