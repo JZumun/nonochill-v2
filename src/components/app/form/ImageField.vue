@@ -39,6 +39,7 @@
 				this.$emit("change", file);
 			},
 			setPreview(file) {
+				if (!file) { return; }
 				const reader = new window.FileReader();
 				reader.onload = _ => {
 					this.preview.source = reader.result;
