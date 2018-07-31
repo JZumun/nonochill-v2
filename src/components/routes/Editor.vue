@@ -7,19 +7,8 @@
 	export default {
 		mixins: [interactiveBoard, routeMixin],
 		computed: {
-			...mapState("options/editor", ["size", "colors", "file"]),
-			...mapState({
-					shortCode: state => state.shortCode.code,
-					errorMessage: state => state.shortCode.errorMessage
-				})
+			...mapState("options/editor", ["size", "colors", "file", "errorMessage"]),
 		},
-		// watch: {
-		// 	shortCode(value) {
-		// 		if (value != null) {
-		// 			this.$router.replace(`/editor/${value}`);
-		// 		}
-		// 	}
-		// },
 		methods: {
 			load() {
 				this.ready = false;
@@ -30,7 +19,7 @@
 				}] : ["options/editor/upload"];
 
 
-				this.$store.dispatch(...options).then(_ => this.ready = true);
+				this.$store.dispatch(...options).then(_ => this.ready = !this.errorMessage);
 			}
 		},
 		watch: {

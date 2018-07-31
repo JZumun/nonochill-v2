@@ -9,7 +9,7 @@
 				v-if="ready"
 			)
 			floating-options
-		loading-symbol.loarding-game-symbol( v-else slot="contents" :display="true", size="2em", :error="errorMessage")
+		loading-symbol.loarding-game-symbol( v-else :display="true", size="2em", :error="errorMessage")
 </template>
 
 <script>
