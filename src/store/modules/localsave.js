@@ -1,6 +1,6 @@
 import { ACTION_START_GAME_FROM_LONGCODE } from "store/actions";
 import { SET_BOARD } from "store/mutations";
-import { SET_SHORT_CODE } from "./shortcode";
+import { ACTION_SET_SHORTCODE } from "./shortcode";
 
 import workWithStorage from "utils/Storage.js";
 
@@ -31,7 +31,7 @@ export default {
 				dispatch(ACTION_START_GAME_FROM_LONGCODE, storage.serialization)
 					.then(_ => {
 						commit(SET_BOARD, JSON.parse(storage.board));
-						commit(SET_SHORT_CODE, JSON.parse(storage.code));
+						dispatch(ACTION_SET_SHORTCODE, JSON.parse(storage.code));
 					});
 			});
 		},
