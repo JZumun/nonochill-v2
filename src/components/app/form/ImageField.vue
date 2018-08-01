@@ -12,7 +12,7 @@
 
 <script>
 	export default {
-		data() {
+		data () {
 			return {
 				preview: {
 					display: false,
@@ -22,33 +22,33 @@
 			};
 		},
 		computed: {
-			label() {
-				return this.file ? this.file.name : "Choose an image..."
+			label () {
+				return this.file ? this.file.name : "Choose an image...";
 			}
 		},
 		watch: {
-			file() {
+			file () {
 				this.preview.display = false;
 				this.preview.source = null;
 			}
 		},
 		methods: {
-			setFile(file) {
-				this.file = file
+			setFile (file) {
+				this.file = file;
 				this.setPreview(file);
 				this.$emit("change", file);
 			},
-			setPreview(file) {
+			setPreview (file) {
 				if (!file) { return; }
 				const reader = new window.FileReader();
 				reader.onload = _ => {
 					this.preview.source = reader.result;
 					this.preview.display = true;
-				}
+				};
 				reader.readAsDataURL(file);
 			}
 		}
-	}
+	};
 </script>
 
 <style lang="stylus" scoped>

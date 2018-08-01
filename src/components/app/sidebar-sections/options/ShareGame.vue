@@ -29,10 +29,10 @@ fieldset
 
 	export default {
 		components: { LoadingSymbol, FormField },
-		data() {
+		data () {
 			return {
 				url: window.location.origin + window.location.pathname
-			}
+			};
 		},
 		computed: {
 			...mapGetters({
@@ -46,10 +46,10 @@ fieldset
 			})
 		},
 		methods: {
-			generateShortCode() {
+			generateShortCode () {
 				this.$store.dispatch(ACTION_GENERATE_SHORTCODE);
 			},
-			setLabel(value) {
+			setLabel (value) {
 				this.$store.commit("shortCode/setLabel", value);
 			}
 		},
@@ -61,5 +61,5 @@ fieldset
 				this.url = window.location.origin + window.location.pathname + "#/game/" + val;
 			}
 		}
-	}
+	};
 </script>

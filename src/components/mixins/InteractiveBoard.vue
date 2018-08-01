@@ -24,17 +24,17 @@
 	export default {
 		mixins: [gameKeyMap],
 		components: { GameBoard, FloatingOptions, LoadingSymbol, BoardContainer },
-		data() {
-			return { ready: true }
+		data () {
+			return { ready: true };
 		},
 		computed: {
 			...mapState({
 				board: "board",
 				rules: "rules"
-			}),
+			})
 		},
 		methods: {
-			...mapActions({toggle: ACTION_TOGGLE_TILE, win: ACTION_WIN_GAME})
+			...mapActions({ toggle: ACTION_TOGGLE_TILE, win: ACTION_WIN_GAME })
 		}
-	}
+	};
 </script>

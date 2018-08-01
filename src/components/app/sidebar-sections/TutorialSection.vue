@@ -13,7 +13,7 @@ import "driver.js/dist/driver.min.css";
 import { ACTION_START_GAME_FROM_LONGCODE, ACTION_SET_TILE } from "store/actions";
 import ForceRouterLink from "components/app/ForceRouterLink.vue";
 export default {
-	components: {ForceRouterLink},
+	components: { ForceRouterLink },
 	data () {
 		return {
 			game: "NC8vNC8vMi8vW1t7MSwxfXsxLDF9ezIsMX1dfFt7MSwyfXsyLDF9XXxbezEsMX17MSwxfV18W3sxLDF9ezEsMn1dXS8vW1t7MSw0fV18W3sxLDF9XXxbezEsMX17MSwxfV18W3syLDJ9ezEsMn1dXS8vIzNhMWEyZj8jQTM2NThDPyNlN2NiZGQ/I2ZmNzE4Nz8jOGRiMGUx",

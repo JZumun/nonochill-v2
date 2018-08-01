@@ -4,16 +4,15 @@
 </template>
 
 <script>
-	import {random} from "utils/RandomUtils";
+	import { random } from "utils/RandomUtils";
 	export default {
 		props: {
 			to: String
 		},
 		methods: {
-			route() {
-				this.$router.push(`${random(1,5)}`,_=>this.$router.replace(this.to))
-
+			route () {
+				this.$router.push(`${random(1, 5)}`, _ => this.$router.replace(this.to));
 			}
 		}
-	}
+	};
 </script>

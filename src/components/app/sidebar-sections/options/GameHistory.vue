@@ -18,7 +18,7 @@
 	import ShortcutSpan from "components/app/symbols/Shortcut.vue";
 
 	export default {
-		components: {ShortcutSpan},
+		components: { ShortcutSpan },
 		computed: mapState({
 			past: state => state.history.past,
 			future: state => state.history.future

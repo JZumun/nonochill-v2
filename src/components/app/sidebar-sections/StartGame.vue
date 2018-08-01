@@ -46,20 +46,20 @@
 				loadGameLoading: state => state.shortCode.loading,
 				loadGameErrorMessage: state => state.shortCode.errorMessage
 			}),
-			...mapState("options/start", [ "size", "density", "colors" ])
+			...mapState("options/start", ["size", "density", "colors"])
 		},
 		methods: {
-			...mapMutations("options/start",["randomize", "setSize", "setDensity", "setColors"]),
+			...mapMutations("options/start", ["randomize", "setSize", "setDensity", "setColors"]),
 			startWithCode () {
 				// Need to support oldstyle codes.
-				this.$router.push("/")
+				this.$router.push("/");
 				if (this.code.length > 20) {
 					this.$router.push("game", _ => {
 						this.$nextTick(_ => this.$nextTick(_ => {
 							this.$store.dispatch(ACTION_START_GAME_FROM_LONGCODE, this.code);
 							this.code = "";
-						}))
-					})
+						}));
+					});
 				} else {
 					this.$router.push(`/game/${this.code}`);
 					this.code = "";

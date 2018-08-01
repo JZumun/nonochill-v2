@@ -35,21 +35,21 @@
 
 	export default {
 		components: { RangeField, ForceRouterLink, FormField, ImageField, LoadingSymbol },
-		data() {
+		data () {
 			return {
 				useImage: false
-			}
+			};
 		},
 		watch: {
-			useImage(val) {
+			useImage (val) {
 				if (!val) { this.setFile(null); }
 			}
-		},	
+		},
 		computed: {
 			...mapState("options/editor", ["size", "colors", "file", "loading", "errorMessage"])
 		},
 		methods: {
-			...mapMutations("options/editor", ["setSize", "setColors", "setFile"]),
+			...mapMutations("options/editor", ["setSize", "setColors", "setFile"])
 		}
 	};
 </script>

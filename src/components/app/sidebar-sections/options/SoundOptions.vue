@@ -3,9 +3,9 @@
 		legend Music
 		small Background Music
 		sound-field(
-			:muted="musicMuted",
+			:muted="musicPaused",
 			:volume="musicVolume"
-			@toggle="toggleMusic"
+			@toggle="toggleMusic(musicPaused)"
 			@volume="setMusicVolume"
 		)
 		small Sound Effects
@@ -19,40 +19,67 @@
 
 <script>
 	import SoundField from "components/app/form/SoundField.vue";
-	import { mapState, mapMutations } from "vuex";
-	import { LOAD_FROM_LOCAL, SET_EFFECTS_VOLUME, SET_MUSIC_VOLUME, PLAY_MUSIC, MUTE_EFFECTS, MUTE_MUSIC } from "store/modules/soundManager";
+	import { mapState, mapMutations, mapActions } from "vuex";
+
+	import workWithStorage from "utils/Storage.js";
+	const saveToStorage = (key, value) => workWithStorage(
+		storage => storage.setItem(key, JSON.stringify(value))
+	);
+	const loadFromStorage = (key, def) => workWithStorage(storage => {
+		if (storage[key]) {
+			return JSON.parse(storage[key]);
+		} else return def;
+	}, _ => def);
 
 	export default {
-		components: {SoundField},
+		components: { SoundField },
 		methods: {
 			...mapMutations({
-				playMusic: PLAY_MUSIC,
-				muteMusic: MUTE_MUSIC,
-				muteEffects: MUTE_EFFECTS,
-				setEffectsVolume: SET_EFFECTS_VOLUME,
-				setMusicVolume: SET_MUSIC_VOLUME,
-				loadSettings: LOAD_FROM_LOCAL
+				muteMusic: "sounds/background/mute",
+				setMusicVolume: "sounds/background/setVolume"
 			}),
-			toggleMusic() {
-				this.muteMusic( !this.musicMuted );
+			...mapActions({
+				playMusic: "sounds/background/play",
+				pauseMusic: "sounds/background/pause",
+				muteEffects: "sounds/muteEffects",
+				setEffectsVolume: "sounds/setEffectsVolume"
+			}),
+			loadSettings () {
+				this.setMusicVolume(loadFromStorage("sound.music.volume", 0.5));
+				this.setEffectsVolume(loadFromStorage("sound.effects.volume", 0.5));
+				this.muteEffects(loadFromStorage("sound.effects.muted"), false);
+				this.toggleMusic(!loadFromStorage("sound.music.muted"), false);
 			},
-			toggleEffects() {
-				this.muteEffects( !this.effectsMuted );
+			toggleMusic (paused) {
+				if (paused) {
+					this.playMusic();
+				} else {
+					this.pauseMusic();
+				}
+			},
+			toggleEffects () {
+				this.muteEffects(!this.effectsMuted);
 			}
 		},
 		computed: mapState({
-			effectsVolume: state => state.soundManager.effects.volume,
-			musicVolume: state => state.soundManager.music.volume,
-			musicMuted: state => state.soundManager.music.muted,
-			effectsMuted: state => state.soundManager.effects.muted
+			effectsVolume: state => state.sounds.blop.volume,
+			musicVolume: state => state.sounds.background.volume,
+			musicPaused: state => state.sounds.background.paused,
+			effectsMuted: state => state.sounds.blop.muted
 		}),
-		mounted() {
+		mounted () {
 			if (window.Audio) {
-				this.loadSettings();
 				this.playMusic();
+				this.loadSettings();
 			}
+		},
+		watch: {
+			effectsVolume (val) { saveToStorage("sound.effects.volume", val); },
+			musicVolume (val) { saveToStorage("sound.music.volume", val); },
+			effectsMuted (val) { saveToStorage("sound.effects.muted", val); },
+			musicPaused (val) { saveToStorage("sound.music.muted", val); }
 		}
-	}
+	};
 </script>
 
 <style lang="stylus" scoped>

@@ -23,7 +23,7 @@ export default {
 					window.setTimeout(_ => {
 						this.saved = false;
 					}, 5000);
-				})
+				});
 		}
 	}
 };

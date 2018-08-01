@@ -35,8 +35,8 @@
 			}
 		},
 		watch: {
-			'$route' (to, from) {
-				this.section =  initOrActive(this.$route.path);
+			"$route" (to, from) {
+				this.section = initOrActive(this.$route.path);
 			}
 		}
 	};

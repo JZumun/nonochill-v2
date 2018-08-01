@@ -29,24 +29,24 @@
 		props: {
 			width: { type: Number, default: 1 },
 			colors: { type: Number, default: 1 },
-			colorScheme: { type: Array, default() { return [] } },
+			colorScheme: { type: Array, default () { return []; } },
 			id: { type: String, default: null },
 			empty: { type: Boolean, default: false },
 			label: { type: String, default: null }
 		},
 		computed: {
-			cardName() { return this.label || this.id; }
+			cardName () { return this.label || this.id; }
 		},
 		methods: {
-			generateBoard(width, colors) {
-				const size = Math.min(Math.ceil((width+1) / 5), 4);
+			generateBoard (width, colors) {
+				const size = Math.min(Math.ceil((width + 1) / 5), 4);
 				return generateGame(size, colors, 0.8);
 			},
-			generateStyle(scheme) {
-					return scheme ? scheme.reduce((mem, curr, i) => mem + `--state-${i+1}: ${curr}; `,'') : "";
+			generateStyle (scheme) {
+				return scheme ? scheme.reduce((mem, curr, i) => mem + `--state-${i + 1}: ${curr}; `, "") : "";
 			}
 		}
-	}
+	};
 </script>
 
 <style lang="stylus" scoped>

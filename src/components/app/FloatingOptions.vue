@@ -28,7 +28,7 @@ export default {
 	},
 	computed: {
 		...mapState({ anchor: "colorAnchor", show: state => state.accessibility.floatingOptions.show }),
-		...mapGetters({ colors: "colorsUsed" }),
+		...mapGetters({ colors: "colorsUsed" })
 	},
 	methods: {
 		...mapActions({

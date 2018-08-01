@@ -24,7 +24,7 @@ export default {
 			default: "2px"
 		}
 	}
-}
+};
 </script>
 
 <style lang="stylus" scoped>

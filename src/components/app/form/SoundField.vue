@@ -12,24 +12,25 @@
 </template>
 
 <script>
+	import debounce from "throttle-debounce/debounce";
 	import volumeButton from "assets/volume.svg";
 	import volumeOffButton from "assets/volume-off.svg";
 	import RangeField from "components/app/form/RangeField.vue";
 
 	export default {
-		components: {RangeField},
+		components: { RangeField },
 		props: {
 			muted: { type: Boolean, default: false },
 			volume: { type: Number, default: 0.5 }
 		},
 		computed: {
-			icon() { return this.muted ? volumeOffButton : volumeButton },
+			icon () { return this.muted ? volumeOffButton : volumeButton; }
 		},
 		methods: {
-			toggle() { this.$emit("toggle") },
-			setVolume(value) { this.$emit("volume", value) }
+			toggle () { this.$emit("toggle"); },
+			setVolume: debounce(500, function (value) { this.$emit("volume", value); })
 		}
-	}
+	};
 </script>
 
 <style lang="stylus" scoped>

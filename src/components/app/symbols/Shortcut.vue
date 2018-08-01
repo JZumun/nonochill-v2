@@ -6,10 +6,10 @@
 <script>
     import { mapState } from "vuex";
     export default {
-        computed: mapState("accessibility/shortcut",{
-            shortcut: s => s.show
-        })
-    }
+    	computed: mapState("accessibility/shortcut", {
+    		shortcut: s => s.show
+    	})
+    };
 </script>
 
 <style lang="stylus" scoped>

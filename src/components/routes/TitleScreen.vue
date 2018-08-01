@@ -27,20 +27,20 @@
 	import { mapState, mapActions } from "vuex";
 	import { ACTION_LOAD_PUZZLE_LIST } from "store/modules/puzzleList";
 	export default {
-		components: {GameCard, LoadingSymbol, BoardContainer},
+		components: { GameCard, LoadingSymbol, BoardContainer },
 		computed: {
 			...mapState({
 				games: state => state.puzzles.puzzles,
 				loading: state => state.puzzles.loading,
 				error: state => state.puzzles.error
 			}),
-			errorMessage() { return this.error && "Unable to load puzzle list" }
+			errorMessage () { return this.error && "Unable to load puzzle list"; }
 	},
 		methods: mapActions({ load: ACTION_LOAD_PUZZLE_LIST }),
-		mounted() {
+		mounted () {
 			this.load();
 		}
-	}
+	};
 </script>
 
 <style lang="stylus" scoped>

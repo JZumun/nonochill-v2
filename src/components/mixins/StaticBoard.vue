@@ -8,15 +8,15 @@
 	import BoardContainer from "components/app/BoardContainer.vue";
 	import { deserialize } from "utils/game/Serializer";
 	export default {
-		components: {GameBoard, BoardContainer},
+		components: { GameBoard, BoardContainer },
 		computed: {
-			options() { return deserialize(this.serialization) },
-			rules() {
+			options () { return deserialize(this.serialization); },
+			rules () {
 				return {
 					row: this.options.row,
 					column: this.options.column
-				}
+				};
 			}
 		}
-	}
+	};
 </script>

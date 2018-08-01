@@ -7,11 +7,11 @@
 <script>
 	import GameTile from "./GameTile.vue";
 	export default {
-		components: {GameTile},
+		components: { GameTile },
 		props: {
-			board: { type: Array, default() {return [[0]]} }
+			board: { type: Array, default () { return [[0]]; } }
 		}
-	}
+	};
 </script>
 
 <style lang="stylus" scoped>

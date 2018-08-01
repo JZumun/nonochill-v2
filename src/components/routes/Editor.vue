@@ -7,25 +7,24 @@
 	export default {
 		mixins: [interactiveBoard, routeMixin],
 		computed: {
-			...mapState("options/editor", ["size", "colors", "file", "errorMessage"]),
+			...mapState("options/editor", ["size", "colors", "file", "errorMessage"])
 		},
 		methods: {
-			load() {
+			load () {
 				this.ready = false;
-				
-				let options = !this.file ? [ACTION_START_EDITOR, {
+	
+				const options = !this.file ? [ACTION_START_EDITOR, {
 					size: this.size,
 					colors: this.colors
 				}] : ["options/editor/upload"];
-
 
 				this.$store.dispatch(...options).then(_ => this.ready = !this.errorMessage);
 			}
 		},
 		watch: {
-			board(val) {
+			board (val) {
 				this.$store.dispatch(ACTION_CREATOR_UPDATE_RULES);
 			}
 		}
-	}
+	};
 </script>

@@ -49,14 +49,14 @@
 	const sameRule = (x, y) => x.val === y.val && x.count === y.count;
 	const sameRules = (a, b) => sameArrays(a, b, sameRule);
 
-	const frozenArray = (...contents) => Object.freeze([ ...contents ]);
+	const frozenArray = (...contents) => Object.freeze([...contents]);
 	export const EMPTY_GAME = Object.freeze({
-		board: frozenArray( frozenArray(0) ),
+		board: frozenArray(frozenArray(0)),
 		rules: Object.freeze({
 			row: frozenArray(frozenArray()),
-			column: frozenArray( frozenArray() )
+			column: frozenArray(frozenArray())
 		})
-	})
+	});
 
 	export default {
 		mixins: [highlighter],
@@ -64,16 +64,16 @@
 		props: {
 			board: {
 				type: Array,
-				default: _ =>EMPTY_GAME.board
+				default: _ => EMPTY_GAME.board
 			},
 			rules: {
 				type: Object,
 				default: _ => EMPTY_GAME.rules,
 				validator: val => val.row instanceof Array && val.column instanceof Array
 			},
-			activeTile: { type: Object, default: _ =>({ x:0, y:0 }) },
+			activeTile: { type: Object, default: _ => ({ x: 0, y: 0 }) }
 		},
-		data() {
+		data () {
 			return {
 				highlight: {},
 				solved: {
@@ -82,67 +82,66 @@
 				},
 				win: false,
 				currentlyTouched: { x: null, y: null }
-			}
+			};
 		},
 		computed: {
-			size() { return this.board.length },
-			rows() { return this.board },
-			columns() { return count(this.size).map(col => this.board.map(row => row[col])) },
+			size () { return this.board.length; },
+			rows () { return this.board; },
+			columns () { return count(this.size).map(col => this.board.map(row => row[col])); }
 		},
 		watch: {
-			win(val) { if (val) { this.$emit("win") } },
-			activeTile(val) { this.setHighlight(val) },
-			board: debounce(200, function(val) {
+			win (val) { if (val) { this.$emit("win"); } },
+			activeTile (val) { this.setHighlight(val); },
+			board: debounce(200, function (val) {
 				this.solved = this.computeSolved();
 				this.win = this.computeWin();
 			})
 		},
 		methods: {
-			endTouchTile() {
-				this.currentlyTouched = { x: null, y: null }
+			endTouchTile () {
+				this.currentlyTouched = { x: null, y: null };
 			},
-			touchTile(e) {
-
+			touchTile (e) {
 				const loc = e.changedTouches[0];
-				const element = document.elementFromPoint(loc.clientX,loc.clientY);
-				if (!element || !element.closest) { return }
+				const element = document.elementFromPoint(loc.clientX, loc.clientY);
+				if (!element || !element.closest) { return; }
 
 				const tile = element.closest(".game-tile");
-				if (!tile || !tile.dataset) { return }
+				if (!tile || !tile.dataset) { return; }
 
 				const x = parseInt(tile.dataset.x);
 				const y = parseInt(tile.dataset.y);
 
-				if (this.currentlyTouched.x === x && this.currentlyTouched.y === y) { return }
+				if (this.currentlyTouched.x === x && this.currentlyTouched.y === y) { return; }
 
-				this.currentlyTouched = {x,y};
+				this.currentlyTouched = { x, y };
 				this.setTile(this.currentlyTouched);
 
 				e.preventDefault();
 			},
-			computeSolved() {
+			computeSolved () {
 				return {
 					row: this.rows.map((row, i) => sameRules(computedRule(row), this.rules.row[i])),
 					column: this.columns.map((col, j) => sameRules(computedRule(col), this.rules.column[j]))
-				}
+				};
 			},
-			computeWin() {
+			computeWin () {
 				return (filteredLength(this.solved.column) === this.size) &&
 						(filteredLength(this.solved.row) === this.size);
 			},
-			enterTile(tile, e) {
+			enterTile (tile, e) {
 				this.setHighlight(tile);
-				if (e.buttons === 1) { this.setTile(tile) }
+				if (e.buttons === 1) { this.setTile(tile); }
 			},
-			setTile(tile) {
+			setTile (tile) {
 				this.$emit("toggle", tile);
 			}
 		},
-		created() {
+		created () {
 			this.solved = this.computeSolved();
 			this.win = this.computeWin();
 		}
-	}
+	};
 </script>
 
 <style lang="stylus" scoped>

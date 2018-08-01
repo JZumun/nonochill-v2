@@ -15,9 +15,9 @@
 	import ShortcutSpan from "components/app/symbols/Shortcut.vue";
 
 	export default {
-		components: {ShortcutSpan},
+		components: { ShortcutSpan },
 		computed: {
-			...mapState({ 
+			...mapState({
 				anchor: "colorAnchor",
 				shortcut: s => s.shortcut.show
 			}),

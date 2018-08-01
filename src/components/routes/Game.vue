@@ -24,36 +24,36 @@
 			}
 		},
 		mixins: [interactiveBoard, routeMixin],
-		data() {
+		data () {
 			return {
 				errorMessage: null
-			}
+			};
 		},
 		computed: {
 			...mapState("options/start", ["size", "density", "colors"]),
 			...mapState({
-					shortCode: state => state.shortCode.code ,
-					loadingErrorMessage: state => state.shortCode.errorMessage
-				})
+				shortCode: state => state.shortCode.code,
+				loadingErrorMessage: state => state.shortCode.errorMessage
+			})
 		},
 		watch: {
-			shortCode(value) {
+			shortCode (value) {
 				if (value != null) {
 					this.$router.replace(`/game/${value}`);
 				}
 			}
 		},
 		methods: {
-			load() {
+			load () {
 				this.ready = false;
 
-				if (this.saved) { return this.startFromStorage() }
-				if (this.id !== null) { return this.startFromCode() }
+				if (this.saved) { return this.startFromStorage(); }
+				if (this.id !== null) { return this.startFromCode(); }
 
 				const o = this;
 				const board = generateGame(o.size, o.colors, o.density);
 				const rules = {
-					column: count(o.size).map(col => generateRule( board.map(row => row[col]))),
+					column: count(o.size).map(col => generateRule(board.map(row => row[col]))),
 					row: count(o.size).map(row => generateRule(board[row]))
 				};
 				this.$store.dispatch(ACTION_START_GAME, {
@@ -62,25 +62,24 @@
 					rules
 				}).then(readyOrNot(this));
 			},
-			startFromStorage() {
+			startFromStorage () {
 				this.$store.dispatch(ACTION_LOAD_GAME)
 					.then(readyOrNot(this));
-
 			},
-			startFromCode() {
+			startFromCode () {
 				if (this.id === this.$store.state.shortCode.code) {
 					console.log("Same route");
-					readyOrNot(this)
+					readyOrNot(this);
 				}
 				this.$store.dispatch(ACTION_LOAD_FROM_SHORTCODE, this.id)
 					.then(readyOrNot(this));
 			}
 		},
 		watch: {
-			loadingErrorMessage(val) {
+			loadingErrorMessage (val) {
 				if (val == null) this.errorMessage = null;
-				else this.errorMessage = "Unable to load game: "+val;
+				else this.errorMessage = "Unable to load game: " + val;
 			}
 		}
-	}
+	};
 </script>
