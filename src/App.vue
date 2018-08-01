@@ -55,8 +55,7 @@
 
 	.main
 		grid-area game
-		display grid 
-		background $translucent-background
+		display grid
 
 	@media all and (max-width 800px)
 		.whole
