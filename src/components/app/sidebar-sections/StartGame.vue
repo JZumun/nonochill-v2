@@ -53,7 +53,7 @@
 			startWithCode () {
 				// Need to support oldstyle codes.
 				this.$router.push("/");
-				if (this.code.length > 20) {
+				if (this.code.length > 40) {
 					this.$router.push("game", _ => {
 						this.$nextTick(_ => this.$nextTick(_ => {
 							this.$store.dispatch(ACTION_START_GAME_FROM_LONGCODE, this.code);
