@@ -7,7 +7,6 @@ require("dotenv").config();
 
 module.exports = {
 	baseUrl: process.env.NODE_ENV === "production" ? "/nonochill-v2/" : "/",
-	outputDir: "docs",
 	lintOnSave: false,
 	filenameHashing: false,
 	configureWebpack: {
@@ -36,7 +35,7 @@ module.exports = {
 			config.plugin("prerender")
 				.use(PrerenderSpaPlugin, [
 					{
-						staticDir: path.join(__dirname, "docs"),
+						staticDir: path.join(__dirname, "dist"),
 						routes: ["/"],
 						postProcess(route) {
 							return {
