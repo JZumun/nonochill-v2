@@ -117,7 +117,6 @@
 
 	.game-placeholder-item 
 		width 100%
-		padding-top 150%
 		background $translucent-white
 		animation-name fade-in-out
 		animation-duration 5s
