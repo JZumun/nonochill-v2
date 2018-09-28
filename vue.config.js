@@ -6,7 +6,7 @@ const pretty = require("pretty");
 require("dotenv").config();
 
 module.exports = {
-	baseUrl: "/nonochill-v2/",
+	baseUrl: process.env.NODE_ENV === "production" ? "/nonochill-v2/" : "/",
 	outputDir: "docs",
 	lintOnSave: false,
 	filenameHashing: false,
@@ -31,21 +31,8 @@ module.exports = {
 
 		svgRule.use("svg-inline-loader")
 			.loader("svg-inline-loader");
-		
-		config.plugin("define")
-			.tap(args => {
-				args[0]["process.env"].API_URL = JSON.stringify(process.env.API_URL || "http://localhost:8081/");
-				return args;
-			})
 
 		if (process.env.NODE_ENV === "production") {
-			config.plugin("define")
-				.tap(args => {
-					const env = args[0]["process.env"];
-					env.API_URL = JSON.stringify(process.env.PROD_API_URL),
-					env.BASE = JSON.stringify(process.env.PROD_BASE)
-					return args;
-				});
 			config.plugin("prerender")
 				.use(PrerenderSpaPlugin, [
 					{
