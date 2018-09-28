@@ -22,7 +22,8 @@
 			game-tile(
 				:data-x="x"
 				:data-y="y"
-				v-for="tile,y in row" key="`${x}-${y}`"
+				v-for="tile,y in row" 
+				:key="`${x}-${y}`"
 				:state="board[x][y]"
 				:class="{highlighted: isHighlighted({x,y})}"
 				@mouseenter.native="enterTile({x,y},$event)"

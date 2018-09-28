@@ -26,7 +26,7 @@
 		storage => storage.setItem(key, JSON.stringify(value))
 	);
 	const loadFromStorage = (key, def) => workWithStorage(storage => {
-		if (storage[key]) {
+		if (storage[key] && storage[key] !== "undefined") {
 			return JSON.parse(storage[key]);
 		} else return def;
 	}, _ => def);

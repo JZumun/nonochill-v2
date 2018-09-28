@@ -37,7 +37,7 @@ import shortCode from "store/modules/shortcode";
 import localSave from "store/modules/localsave";
 import history from "store/modules/history";
 import puzzleList from "store/modules/puzzleList";
-import start from "store/modules/StartOptions";
+import start from "store/modules/startOptions";
 import editor from "store/modules/editorOptions";
 import toggle from "store/modules/toggleOptions";
 import sounds from "store/modules/soundManager";
