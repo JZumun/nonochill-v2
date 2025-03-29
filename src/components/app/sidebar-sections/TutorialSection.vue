@@ -59,56 +59,125 @@ export default {
 				},
 				{
 					stageBackground: "var(--background)",
-					element: ".main-game-board",
+					element: ".board-container",
 					popover: {
 						title: "The Board",
-						description: `Nonograms are a puzzle that's made up of a grid of cells,
-							surrounded by clues that help determine how the cells should be filled.`
+						description: `A Nonogram is a puzzle made up of a grid of cells,
+							surrounded by clues that say how each cell should be filled.`
 					}
 				},
 				{
+					stageBackground: "var(--background)",
 					element: "#section-board-game",
 					popover: {
 						title: "Clicking on a cell cycles it through its states.",
-						description: `A cell can be empty, filled with color (black, pink, etc.), or intentionally marked empty (X)`
+						description: `A cell can be empty or filled with color (black, pink, etc.). You can mark a cell with (X) to indicate it is empty, or just leave it blank.`
 					},
 					action () {
 						this.setTiles([
 							[0, 0, 1],
-							[0, 0, 2],
-							[0, 0, -1],
-							[0, 0, 0],
-							[0, 0, 1],
-							[0, 1, 1],
-							[0, 2, 1],
-							[0, 3, 1],
-							[1, 0, -1],
-							[2, 0, 1],
-							[3, 0, 2]
+							[1, 1, 2],
+							[2, 2, -1],
 						]);
 					}
 				},
 				{
-					element: "#section-clues-vertical",
-					popover: {
-						title: "Each row and column has a corresponding clue.",
-						description: `A clue is a list of numbers that say how many cells in that row or column have that color
-							and in what order they appear (from top to bottom or left to right)`
-					}
-				},
-				{
+					stageBackground: "var(--background)",
 					element: "#section-clues-horizontal",
 					popover: {
-						title: "If a clue is greyed out, it means the row or column is 'solved'.",
-						description: `Once all the clues are solved, then you've solved the puzzle!`
+						title: "Each clue consists of a list of numbers.",
+						description: `Each number shows how many adjacent cells are of that color. `
+					},
+					action () {
+						this.setTiles([
+							[0, 0, 1],
+							[0, 1, -1],
+							[0, 2, 1],
+							[0, 3, 1],
+							[0, 1, 1],
+							[1, 1, 0],
+							[2, 2, 0],
+						]);
 					}
 				},
 				{
-					element: ".main-game-board",
+					stageBackground: "var(--background)",
+					element: "#section-clues-horizontal .clues:nth-child(1)",
+					popover: {
+						title: "If a clue is greyed out, it means the row or column is 'solved'.",
+						description: `A clue can be satisfied in multiple ways. It doesn't necessarily mean the row or column is actually correct.`
+					}
+				},
+				{
+					stageBackground: "var(--background)",
+					element: "#section-clues-vertical .clues:nth-child(3)",
+					popover: {
+						title: "Two adjacent clues of the same color mean they are separated by one or more empty cells.",
+						description: `The number of empty cells is not stated, and must be determined through logic.`
+					},
+					position: "left",
+					action () {
+						this.setTiles([
+							[1,2,1],
+							[1,2,1],
+							[1,2,-1],
+							[2,2,1],
+							[2,2,1],
+							[2,2,-1],
+							[3,2,1],
+							[3,2,1],
+							[2,2,0],
+							[3,2,0],
+						]);
+					}
+				},
+				{
+					stageBackground: "var(--background)",
+					element: "#section-clues-horizontal .clues:nth-child(4)",
+					popover: {
+						title: "Two adjacent clues of different colors can have zero or more empty cells between them",
+						description: `The number of empty cells must also be determined through logic.`
+					},
+					action () {
+						this.setTiles([
+							[3,0,2],
+							[3,1,2],
+							[3,2,1],
+							[3,3,1]
+						]);
+					}
+				},
+				{
+					stageBackground: "var(--background)",
+					element: "#section-clues-vertical .clues:nth-child(4)",
+					popover: {
+						title: "The order of the numbers is important.",
+						description: `You can't switch them around`
+					},
+					position: "left",
+					action () {
+						this.setTiles([
+							[1, 3, 1],
+							[1, 3, 1],
+							[1, 3, -1],
+							[2, 3, 1]
+						]);
+					}
+				},
+				{
+					stageBackground: "var(--background)",
+					element: "#section-clues-vertical",
+					popover: {
+						title: "Once all the clues are satisfied, then the puzzle will be solved!",
+					}
+				},
+				{
+					
+					element: ".board-container",
 					stageBackground: "var(--background)",
 					popover: {
 						title: "The End",
-						description: `Try solving the provided puzzle. If you're up to the challenge, create a new puzzle in the
+						description: `Try finishing this puzzle. Or, you can start a new puzzle in the
 							Play section in the sidebar.`
 					}
 				}
@@ -123,14 +192,20 @@ export default {
 			list.reverse().reduce((prev, args) => () => setTimeout(() => {
 				this.setTile(...args);
 				prev();
-			}, args[3] || 500), () => {})();
+			}, args[3] || 1000), () => {})();
 		},
 		start () {
 			this.step = 0;
-			this.$store.dispatch(ACTION_START_GAME_FROM_LONGCODE, this.game);
 			this.$nextTick(function () {
-				this.driver.defineSteps(this.steps);
-				this.driver.start();
+				const _this = this;
+				this.$nextTick(function () {
+					_this.$store.dispatch(ACTION_START_GAME_FROM_LONGCODE, _this.game);
+					setTimeout(function() {
+						_this.driver.defineSteps(_this.steps);
+						_this.driver.start();
+					}, 250)
+					
+				});
 			});
 		},
 		highlightColumn (i) {

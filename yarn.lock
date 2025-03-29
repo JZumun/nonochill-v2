@@ -2518,9 +2518,10 @@ dotenv@^5.0.1:
   version "5.0.1"
   resolved "http://registry.npmjs.org/dotenv/-/dotenv-5.0.1.tgz#a5317459bd3d79ab88cff6e44057a6a3fbb1fcef"
 
-driver.js@^0.3.4:
-  version "0.3.9"
-  resolved "https://registry.yarnpkg.com/driver.js/-/driver.js-0.3.9.tgz#59da7c847b252610d286aea45b7277bb60ba988f"
+driver.js@0.9:
+  version "0.9.8"
+  resolved "https://registry.yarnpkg.com/driver.js/-/driver.js-0.9.8.tgz#4b327f4537b1c9b9fb19419de86174be821ae32a"
+  integrity sha512-bczjyKdX6XmFyCDkwtRmlaORDwfBk1xXmRO0CAe5VwNQTM98aWaG2LAIiIdTe53iV/B7W5lXlIy2xYtf0JRb7Q==
 
 duplexer@^0.1.1:
   version "0.1.1"

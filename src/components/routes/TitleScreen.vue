@@ -8,14 +8,14 @@
 			div.game-list(v-if="loading || error")
 				game-card.game-placeholder-item(v-for="x in [0,1,2,3,4]" :key="x" :style="`--delay:${x}s`" empty)
 			div.game-list(v-else)
-				router-link.game-item(v-for="game in games.slice(0,5)" v-if="game && game.id" key="game" :to="`/game/${game.id}`")
+				router-link.game-item(v-for="game in games.slice(0,5)" v-if="game && game.id" :key="game.id" :to="`/game/${game.id}`")
 					game-card(v-bind="game")
 		.puzzle-list.second-half
 			h2 Recent Community Puzzles
 			div.game-list(v-if="loading || error")
 				game-card.game-placeholder-item(v-for="x in [4,3,2,1,0]" :key="x" :style="`--delay:${x}s`" empty)
 			div.game-list(v-else)
-				router-link.game-item(v-for="game in games.slice(5,10)" v-if="game && game.id" key="game" :to="`/game/${game.id}`")
+				router-link.game-item(v-for="game in games.slice(5,10)" v-if="game && game.id" :key="game.id" :to="`/game/${game.id}`")
 					game-card(v-bind="game")
 	</template>
 

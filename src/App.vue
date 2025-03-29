@@ -61,6 +61,8 @@
 		display grid 
 		grid-template-columns $sidebar-width 1fr 
 		grid-template-areas "sidebar game" 
+		--translucent-white $translucent-white
+		--background $background
 
 
 	.sidebar
