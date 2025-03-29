@@ -41,7 +41,7 @@
 	.fill-symbol 
 		fill var(--fill-color, transparent)
 	.cross-symbol 
-		fill $gray-accent
+		fill darken($gray-accent, 30%)
 
 	.win 
 		.game-tile 

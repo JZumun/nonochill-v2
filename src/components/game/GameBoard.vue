@@ -233,13 +233,18 @@
 	.game-tile, .clues
 		will-change  background
 
-	.game-tile.highlighted, .clues.highlighted
-		background  $highlight-color
 
 	.clues
-		transition background-color 0.5s
+		transition background-color 0.1s
 	.clues.solved
 		background-color $gray-accent
+		opacity: 0.5
+	.clues.solved.highlighted
+		opacity: 0.6
+
+	.game-tile.highlighted, .clues.highlighted		
+		background  $highlight-color
+
 
 
 	.misc-section
