@@ -227,6 +227,7 @@
 
 	.win
 		--board-gap 0
+		--grid-gap 0
 
 
 	.game-tile, .clues
@@ -235,9 +236,10 @@
 	.game-tile.highlighted, .clues.highlighted
 		background  $highlight-color
 
-
+	.clues
+		transition background-color 0.5s
 	.clues.solved
-		background-color rgba(255,255,255,0.125)
+		background-color $gray-accent
 
 
 	.misc-section
