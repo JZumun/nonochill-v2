@@ -40,7 +40,7 @@
 		margin 0 
 		padding 0 
 		font-size 2vmin 
-		font-size  calc(22vmin/var(--board-size)) 
+		font-size  calc(30vmin/var(--board-size)) 
 		background-color $translucent-white 
 		color  var(--state-1) 
 		display  grid 
@@ -81,23 +81,4 @@
 		display block  
 		text-align center 
 		line-height 0.5  
-
-	.clues:nth-of-type(5n+5):not(:last-child):after  
-		content  "" 
-		display  block 
-		position  absolute 
-		background  $light-accent 
-	 
-	.clues.vertical:nth-of-type(5n+5):not(:last-child):after  
-		width  $short-side 
-		height  $long-side 
-		top  0 
-		right  $offset 
-	 
-	.clues.horizontal:nth-of-type(5n+5):not(:last-child):after  
-		height  $short-side 
-		width  $long-side 
-		left  0 
-		bottom  $offset 
-	 
 </style>

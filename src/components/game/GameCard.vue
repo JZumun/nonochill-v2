@@ -35,7 +35,7 @@
 			label: { type: String, default: null }
 		},
 		computed: {
-			cardName () { return this.label || this.id; }
+			cardName () { return this.label || `Puzzle #${this.id.substr(0, 6)}`; }
 		},
 		methods: {
 			generateBoard (width, colors) {

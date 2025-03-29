@@ -11,8 +11,7 @@
 	$game-width-restraint = "calc(100vw - (%s + 2*%s))" % ($sidebar-width $margin)
 
 	.board-container
-		background-color $translucent-white
-		padding 2em
+		padding 1em
 
 		position relative
 		height $game-width-restraint
@@ -24,6 +23,9 @@
 		align-self center
 		display grid
 
+		background-color rgba(255,255,255,0.25)
+		backdrop-filter blur(10px)
+
 	@media all and (max-width 800px) 
 		.board-container
 			width calc(100vw - 2em)
@@ -32,4 +34,5 @@
 			padding 0.5em
 			max-width 100%
 			max-height 100%
+	
 </style>

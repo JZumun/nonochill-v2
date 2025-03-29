@@ -24,7 +24,7 @@
 
 	.game-tile 
 		width 100%
-		height auto
+		height 100%
 		&.highlighted 
 			.tile-background 
 				fill $highlight-color
