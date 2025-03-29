@@ -1,6 +1,6 @@
 <template lang="pug">
 	section#sidebar.sidebar.page-section
-		h1.game-title NonoChill#[sup v.2]
+		h1.game-title #[a(href="/") NonoChill#[sup v.2]]
 		sidebar-section.section(title="Play" :closed="!section[0]" @toggle="toggle(0)")
 			start-game
 			tutorial-section
@@ -66,5 +66,8 @@
 	.game-title sup  
 		font-size 0.5em 
 		font-weight bold 
-	 
+
+	.game-title a 
+		text-decoration none
+	
 </style>

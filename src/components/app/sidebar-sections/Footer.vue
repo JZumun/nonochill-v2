@@ -22,10 +22,10 @@ export default {
     computed: {
         ...mapState({
             bgAuthor: state => state.background.author.name,
-            bgAuthorLink: state => state.background.author.link
+            bgAuthorLink: state => state.background.author.url
         }),
         actualBgAuthorLink() {
-            return this.backgroundlink + "?utm_source=nonochill&utm_medium=referral";
+            return this.bgAuthorLink + "?utm_source=nonochill&utm_medium=referral";
         }
     }
 }

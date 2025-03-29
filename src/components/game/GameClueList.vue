@@ -46,6 +46,7 @@
 		display  grid 
 		align-items  center 
 		justify-items  center 
+		font-weight 600
 	 
 
 	.clue[data-state="2"]   
