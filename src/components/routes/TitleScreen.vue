@@ -51,7 +51,6 @@
 		grid-gap 1em
 		color $dim-accent
 		font-size 2vmin
-		background $translucent-white
 		padding 2em
 		margin 2em
 

@@ -44,8 +44,8 @@ export default {
 
 	.floating-option
 	.floating-options 
-		border-color $translucent-white
-		color $dim-accent
+		border-color $gray-accent
+		color $gray-accent
 
 	.floating-options 
 		font-size 3vmin

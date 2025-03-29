@@ -61,10 +61,12 @@
 	.clues.vertical  
 		grid-template-rows  repeat(var(--clue-size),1fr) 
 		grid-template-columns  1fr 
+		padding-top 1em
 	 
 	.clues.horizontal  
 		grid-template-rows  1fr 
 		grid-template-columns  repeat(var(--clue-size),1fr) 
+		padding-left 1em
 	 
 
 	.clues.horizontal.sparse:before  
