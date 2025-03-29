@@ -41,8 +41,10 @@ import start from "store/modules/startOptions";
 import editor from "store/modules/editorOptions";
 import toggle from "store/modules/toggleOptions";
 import sounds from "store/modules/soundManager";
+import background from "store/modules/background";
 
 const modules = {
+	background,
 	sounds,
 	shortCode,
 	localSave,

@@ -17,6 +17,8 @@
 	import FloatingOptions from "components/app/FloatingOptions.vue";
 	import SidebarFooter from "components/app/sidebar-sections/Footer.vue";
 
+	import { ACTION_RETRIEVE_BG_INFO } from "store/modules/background";
+
 	export default {
 		store,
 		name: "app",
@@ -27,7 +29,8 @@
 			board: "board",
 			colorStyling: ({ colorScheme }) => `${colorScheme.map((color, index) => {
 				return `--state-${index + 1}:${color};`;
-			}).join("")}`
+			}).join("")}`,
+			bgUrl: state => state.background.url
 		}),
 		components: {
 			Sidebar,
@@ -35,6 +38,16 @@
 			GithubCornerLink,
 			FloatingOptions,
 			SidebarFooter
+		},
+		watch: {
+			bgUrl: function (url) {
+				if (url) {
+					document.body.style.backgroundImage = `url(${url})`;
+				}
+			}
+		},
+		created () {
+			this.$store.dispatch(ACTION_RETRIEVE_BG_INFO);
 		}
 	};
 </script>
