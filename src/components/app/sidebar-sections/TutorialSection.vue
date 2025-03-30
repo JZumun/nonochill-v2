@@ -12,6 +12,8 @@ import Driver from "driver.js";
 import "driver.js/dist/driver.min.css";
 import { ACTION_START_GAME_FROM_LONGCODE, ACTION_SET_TILE } from "store/actions";
 import ForceRouterLink from "components/app/ForceRouterLink.vue";
+import { count } from "utils/ArrayUtils";
+
 export default {
 	components: { ForceRouterLink },
 	data () {
@@ -64,6 +66,13 @@ export default {
 						title: "The Board",
 						description: `A Nonogram is a puzzle made up of a grid of cells,
 							surrounded by clues that say how each cell should be filled.`
+					},
+					action () {
+						const tiles = [
+							...count(4).flatMap(x => count(4).map(y => [x, y, x%2+1, 100])),
+							...count(4).flatMap(y => count(4).map(x => [x, y, 0, x+y ? 100 : 0]))
+						]
+						this.setTiles(tiles)
 					}
 				},
 				{
@@ -76,7 +85,10 @@ export default {
 					action () {
 						this.setTiles([
 							[0, 0, 1],
+							[1, 1, 1, 500],
 							[1, 1, 2],
+							[2, 2, 1, 500],
+							[2, 2, 2],
 							[2, 2, -1],
 						]);
 					}
@@ -90,11 +102,6 @@ export default {
 					},
 					action () {
 						this.setTiles([
-							[0, 0, 1],
-							[0, 1, -1],
-							[0, 2, 1],
-							[0, 3, 1],
-							[0, 1, 1],
 							[1, 1, 0],
 							[2, 2, 0],
 						]);
@@ -106,6 +113,13 @@ export default {
 					popover: {
 						title: "If a clue is greyed out, it means the row or column is 'solved'.",
 						description: `A clue can be satisfied in multiple ways. It doesn't necessarily mean the row or column is actually correct.`
+					},
+					action () {
+						this.setTiles([
+							[0, 2, 1],
+							[0, 3, 1],
+							[0, 1, 1],
+						]);
 					}
 				},
 				{
@@ -118,15 +132,12 @@ export default {
 					position: "left",
 					action () {
 						this.setTiles([
-							[1,2,1],
-							[1,2,1],
-							[1,2,-1],
+							[1,2,1 ],
+							[1,2,-1, 1000],
 							[2,2,1],
-							[2,2,1],
-							[2,2,-1],
+							[2,2,-1, 1000],
 							[3,2,1],
-							[3,2,1],
-							[2,2,0],
+							[2,2,0, 1000],
 							[3,2,0],
 						]);
 					}
@@ -158,8 +169,7 @@ export default {
 					action () {
 						this.setTiles([
 							[1, 3, 1],
-							[1, 3, 1],
-							[1, 3, -1],
+							[1, 3, -1, 1500],
 							[2, 3, 1]
 						]);
 					}
@@ -169,6 +179,14 @@ export default {
 					element: "#section-clues-vertical",
 					popover: {
 						title: "Once all the clues are satisfied, then the puzzle will be solved!",
+					},
+					action () {
+						this.setTiles([
+							[1, 1, 1],
+							[2, 0, 1],
+							[1, 1, 0, 2000],
+							[2, 0, 0]
+						]);
 					}
 				},
 				{
@@ -192,7 +210,7 @@ export default {
 			list.reverse().reduce((prev, args) => () => setTimeout(() => {
 				this.setTile(...args);
 				prev();
-			}, args[3] || 1000), () => {})();
+			}, args[3] || 250), () => {})();
 		},
 		start () {
 			this.step = 0;
