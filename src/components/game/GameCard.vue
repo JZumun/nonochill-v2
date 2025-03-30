@@ -68,6 +68,7 @@
 		grid-template-columns auto auto
 		grid-gap 1px
 		margin 1px 0
+		font-weight 600
 
 	.game-card-details > * 
 		padding 0.25em
