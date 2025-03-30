@@ -1,3 +1,5 @@
+import debounce from "throttle-debounce/debounce";
+
 export default (audioFile, { maxVolume = 1, volume=0.5, muted = false, looping = false, paused = true } = {}) => {
 	const audio = new window.Audio(audioFile);
 	audio.volume = maxVolume*volume;
@@ -29,7 +31,7 @@ export default (audioFile, { maxVolume = 1, volume=0.5, muted = false, looping =
 			}
 		},
 		actions: {
-			play ({ commit, state }) {
+			play: debounce(200, true, function ({ commit, state }) {
 				if (state.muted) return;
 				if (!state.looping) {
 					audio.currentTime = 0;
@@ -39,7 +41,7 @@ export default (audioFile, { maxVolume = 1, volume=0.5, muted = false, looping =
 					console.warn(e);
 					commit("setPausedValue", true);
 				});
-			},
+			}),
 			pause ({ commit, state }) {
 				audio.pause();
 				commit("setPausedValue", true);
