@@ -1,11 +1,12 @@
-export default (audioFile, { volume = 0.5, muted = false, looping = false, paused = true } = {}) => {
+export default (audioFile, { maxVolume = 1, volume=0.5, muted = false, looping = false, paused = true } = {}) => {
 	const audio = new window.Audio(audioFile);
+	audio.volume = maxVolume*volume;
 
 	return {
 		namespaced: true,
 		state () {
 			return {
-				volume,
+				volume: maxVolume*volume,
 				muted,
 				looping,
 				paused
@@ -14,7 +15,7 @@ export default (audioFile, { volume = 0.5, muted = false, looping = false, pause
 		mutations: {
 			setVolume (state, vol) {
 				state.volume = vol;
-				audio.volume = vol;
+				audio.volume = maxVolume*vol;
 			},
 			mute (state, mute) {
 				state.muted = mute;

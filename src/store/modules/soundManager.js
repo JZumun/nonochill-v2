@@ -1,6 +1,7 @@
 import sound from "./sound";
 import blop from "assets/sounds/blop.mp3";
 import snap from "assets/sounds/snap.mp3";
+import ding from "assets/sounds/ding.mp3";
 import backgroundMusic from "assets/sounds/escapism.mp3";
 import { ACTION_SET_TILE, ACTION_WIN_GAME } from "store/actions";
 
@@ -9,6 +10,7 @@ export default {
 	modules: {
 		blop: sound(blop),
 		snap: sound(snap),
+		ding: sound(ding, { maxVolume: 0.5 }),
 		background: sound(backgroundMusic, { looping: true })
 	},
 	actions: {
@@ -29,7 +31,7 @@ export default {
 		},
 		[ACTION_WIN_GAME]: {
 			root: true,
-			handler: ({ dispatch }) => dispatch("blop/play")
+			handler: ({ dispatch }) => dispatch("ding/play")
 		}
 	}
 };
