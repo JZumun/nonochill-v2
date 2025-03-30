@@ -235,7 +235,7 @@
 
 
 	.clues
-		transition background-color 0.1s
+		// transition background-color 0.1s
 	.clues.solved
 		background-color $gray-accent
 		opacity: 0.5
