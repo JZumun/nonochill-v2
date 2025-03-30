@@ -5,7 +5,6 @@ import { SET_TILE,
 } from "./mutations";
 
 import debounce from "throttle-debounce/debounce";
-import incrementColor from "utils/game/IncrementColor";
 import generateRule from "utils/game/GenerateRule";
 import { count } from "utils/ArrayUtils";
 import { deserialize } from "utils/game/Serializer";
@@ -29,16 +28,9 @@ export default {
 			commit(SET_TILE, payload);
 		}
 	},
-	[ACTION_TOGGLE_TILE] ({ commit, dispatch, state }, tile) {
+	[ACTION_TOGGLE_TILE] ({ commit, dispatch, state, getters }, tile) {
 		const curr = state.board[tile.x][tile.y];
-		let next;
-		if (!state.colorAnchor) {
-			next = incrementColor(curr, state.colorNum, state.colorReverse, state.disableCrossed ? 0 : -1);
-		} else {
-			next = incrementColor(curr === state.colorAnchor ? 1 : curr > 0 ? 0 : curr, 1, state.colorReverse, state.disableCrossed ? 0 : -1);
-			next = next === 1 ? state.colorAnchor : next;
-		}
-
+		const next = getters.nextColor(tile.x, tile.y);
 		dispatch(ACTION_SET_TILE, { tile, curr, next });
 	},
 

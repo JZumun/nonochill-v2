@@ -6,6 +6,7 @@ import mutations from "./mutations";
 import actions from "./actions";
 
 import { serialize } from "utils/game/Serializer";
+import incrementColor from "utils/game/IncrementColor";
 
 Vue.use(Vuex);
 const state = {
@@ -30,7 +31,19 @@ const getters = {
 		row: rules.row,
 		colorScheme
 	}),
-	colorsUsed: ({ colorNum, colorScheme }) => colorScheme.slice(0, colorNum)
+	colorsUsed: ({ colorNum, colorScheme }) => colorScheme.slice(0, colorNum),
+	colorAt:({board}) => (x,y) => {
+		return board[x][y];
+	},
+	nextColor: ({board, colorAnchor, colorNum, colorReverse, disableCrossed}) => (x,y) => {
+		const curr = board[x][y];
+		if (!colorAnchor) {
+			return incrementColor(curr, colorNum, colorReverse, disableCrossed ? 0 : -1)
+		} else {
+			let next = incrementColor(curr === colorAnchor ? 1 : curr > 0 ? 0 : curr, 1, colorReverse, disableCrossed ? 0 : -1);
+			return next === 1 ? colorAnchor : next;
+		}
+	}
 };
 
 import shortCode from "store/modules/shortcode";

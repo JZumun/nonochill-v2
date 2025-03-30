@@ -26,6 +26,7 @@
 				:key="`${x}-${y}`"
 				:state="board[x][y]"
 				:class="{highlighted: isHighlighted({x,y})}"
+				@mouseup.native="setTileEnd()"
 				@mouseenter.native="enterTile({x,y},$event)"
 				@mousedown.native="setTile({x,y})"
 				@touchmove.native.prevent="touchTile($event)"
@@ -106,6 +107,7 @@
 		methods: {
 			endTouchTile () {
 				this.currentlyTouched = { x: null, y: null };
+				this.setTileEnd();
 			},
 			touchTile (e) {
 				const loc = e.changedTouches[0];
@@ -139,8 +141,11 @@
 				this.setHighlight(tile);
 				if (e.buttons === 1) { this.setTile(tile); }
 			},
-			setTile (tile) {
+			setTile(tile) {
 				this.$emit("toggle", tile);
+			},
+			setTileEnd(tile) {
+				this.$emit("toggle-end");
 			}
 		},
 		created () {

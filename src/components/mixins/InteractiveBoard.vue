@@ -5,6 +5,7 @@
 				:rules="rules",
 				:activeTile="activeTile"
 				@toggle="toggle"
+				@toggle-end="toggleEnd"
 				@win="win"
 				v-if="ready"
 			)
@@ -23,23 +24,39 @@
 	import GameBoard from "components/game/GameBoard.vue";
 	import LoadingSymbol from "components/app/symbols/Loading.vue";
 	import FloatingOptions from "components/app/FloatingOptions.vue";
-	import { ACTION_TOGGLE_TILE, ACTION_WIN_GAME } from "store/actions";
+	import { ACTION_SET_TILE, ACTION_WIN_GAME } from "store/actions";
 
-	import { mapState, mapActions, mapMutations } from "vuex";
+	import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 	export default {
 		mixins: [gameKeyMap],
 		components: { GameBoard, FloatingOptions, LoadingSymbol, BoardContainer },
 		data () {
-			return { ready: true };
+			return { 
+				ready: true,
+				currentColor: null
+			};
 		},
 		computed: {
 			...mapState({
 				board: "board",
 				rules: "rules"
-			})
+			}),
+			...mapGetters(["nextColor"])
 		},
 		methods: {
-			...mapActions({ toggle: ACTION_TOGGLE_TILE, win: ACTION_WIN_GAME })
+			...mapActions({ 
+				set: ACTION_SET_TILE,
+				win: ACTION_WIN_GAME 
+			}),
+			toggle(tile) {
+				if (!this.currentColor) {
+					this.currentColor = this.nextColor(tile.x, tile.y);
+				}
+				this.set({ tile, next: this.currentColor});
+			},
+			toggleEnd() {
+				this.currentColor = null;
+			}
 		}
 	};
 </script>
