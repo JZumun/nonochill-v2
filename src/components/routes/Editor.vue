@@ -19,6 +19,9 @@
 				}] : ["options/editor/upload"];
 
 				this.$store.dispatch(...options).then(_ => this.ready = !this.errorMessage);
+			},
+			win() {
+				// do nothing;
 			}
 		},
 		watch: {
