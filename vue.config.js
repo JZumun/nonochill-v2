@@ -6,7 +6,7 @@ const pretty = require("pretty");
 require("dotenv").config();
 
 module.exports = {
-	baseUrl: process.env.NODE_ENV === "production" ? "/nonochill-v2/" : "/",
+	baseUrl: "/",
 	lintOnSave: false,
 	filenameHashing: false,
 	configureWebpack: {
