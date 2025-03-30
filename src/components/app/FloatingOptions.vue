@@ -1,7 +1,7 @@
 <template lang="pug">
 	.floating-options(v-if="show")
 		fieldset.floating-option(v-if="colors.length > 1")
-			legend Toggle Color
+			legend Anchor Color
 			ul.toggle-colors
 				li.toggle-color(
 					v-for="color,i in colors",
@@ -82,13 +82,14 @@ export default {
 		&.reset 
 			border 0
 			&:before 
-				content "reset"
+				content "Unanchor"
 				line-height 1.5em
 				margin 0 0.25em	
 
 		.highlighted 
 			background $light-accent
 			box-shadow 0 0 0 1px $light-accent
+			
 	
 	.floating-option 
 		& >>> button 

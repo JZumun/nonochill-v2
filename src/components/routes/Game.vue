@@ -11,7 +11,6 @@
 	import generateRule from "utils/game/GenerateRule";
 
 	const readyOrNot = context => _ => (context.errorMessage || (context.ready = true));
-
 	export default {
 		props: {
 			saved: {
@@ -25,7 +24,7 @@
 		},
 		mixins: [interactiveBoard, routeMixin],
 		computed: {
-			...mapState("options/start", ["size", "density", "colors"]),
+			...mapState("options/start", ["size", "colors"]),
 			...mapState({
 				shortCode: state => state.shortCode.code,
 				errorMessage: state => state.shortCode.errorMessage
@@ -46,7 +45,7 @@
 				if (this.id !== null) { return this.startFromCode(); }
 
 				const o = this;
-				const board = generateGame(o.size, o.colors, o.density);
+				const board = generateGame(o.size, o.colors);
 				const rules = {
 					column: count(o.size).map(col => generateRule(board.map(row => row[col]))),
 					row: count(o.size).map(row => generateRule(board[row]))

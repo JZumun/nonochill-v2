@@ -4,7 +4,6 @@
 			legend Options
 			range-field( name="Size" :min="2" :max="20" :value="size" @input="setSize" )
 			range-field( name="Colors" :min="1" :max="5" :value="colors" @input="setColors")
-			range-field( name="Density" :min="0.6" :max="0.95" :step="0.05" :value="density", @input="setDensity" )
 			.buttons.
 				#[button.secondary( @click.prevent="randomize") Randomize]
 				#[force-router-link(to="/game") Start New Game]
@@ -46,10 +45,10 @@
 				loadGameLoading: state => state.shortCode.loading,
 				loadGameErrorMessage: state => state.shortCode.errorMessage
 			}),
-			...mapState("options/start", ["size", "density", "colors"])
+			...mapState("options/start", ["size", "colors"])
 		},
 		methods: {
-			...mapMutations("options/start", ["randomize", "setSize", "setDensity", "setColors"]),
+			...mapMutations("options/start", ["randomize", "setSize", "setColors"]),
 			startWithCode () {
 				// Need to support oldstyle codes.
 				this.$router.push("/");

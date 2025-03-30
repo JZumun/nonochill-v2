@@ -9,7 +9,17 @@ const bounded = (center, radius, size) => [
 	Math.min(size, center + radius)
 ];
 
-export default (size, colors, density) => {
+function generateDensity(v, imin=2, imax=20, omin=0.6, omax=0.8, rand=0.1) {
+	const input = (v - imin) / (imax - imin);
+	const output = (input * (omax - omin)) + omin;
+	const noise = rand*(Math.random() - 0.5)
+
+	return output + noise;
+}
+
+export default (size, colors) => {
+	const density = generateDensity(size);
+	console.log(`generate density: ${density}`);
 	const board = square(size, (i, j) => Math.random() < density ? 1 : 0);
 	if (colors === 1) return board;
 
