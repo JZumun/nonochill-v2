@@ -86,4 +86,5 @@
 		.sidebar
 			max-height none 
 			height 100% 
+			overflow-y initial !important
 </style>
