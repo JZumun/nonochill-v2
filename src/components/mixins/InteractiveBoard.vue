@@ -10,6 +10,11 @@
 			)
 			floating-options
 		loading-symbol.loarding-game-symbol( v-else :display="true", size="2em", :error="errorMessage")
+			template(slot="error" slot-scope="{ error }")
+				div.error
+					div Unable to load puzzle:
+					div.error-message  {{ error }}
+					router-link.link(to="/") Back to Home
 </template>
 
 <script>
@@ -38,3 +43,20 @@
 		}
 	};
 </script>
+
+<style lang=stylus scoped>
+.error div
+	text-align center
+.error-message 
+	font-size 5em
+	font-weight 600
+	line-height 1
+
+.link
+	display block
+	padding 1em
+	max-width max-content
+	margin auto
+	margin-top 1em
+
+</style>

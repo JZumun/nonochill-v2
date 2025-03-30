@@ -1,7 +1,9 @@
 <template lang="pug">
 	span.loading-symbol-container
 		.loading-symbol(v-if="display && !error", :style="`--size:${size}; --thickness:${thickness}`")
-		small.loading-symbol-error(v-if="error", v-text="error")
+		template(v-if="error")
+			slot(name="error" :error="error")
+				small.loading-symbol-error( v-text="error")
 </template>
 
 <script>

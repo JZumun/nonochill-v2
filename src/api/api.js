@@ -5,7 +5,7 @@ console.log(`API_URL set to ${API_URL}`);
 export default (options) => axios({
 	method: "post",
 	responseType: "json",
-	validateStatus: status => status === 200 || status === 400,
+	validateStatus: status => status < 500,
 	headers: {
 		"Content-Type": "application/json"
 	},

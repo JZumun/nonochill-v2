@@ -15,9 +15,9 @@ fieldset
 		button(:disabled="savingGame") Generate Level Code
 		loading-symbol(:display="savingGame" :error="errorMessage")
 	.code-area(v-if="shortCode != null")
-		textarea(v-text="shortCode" readonly onclick="this.focus();this.select()" rows="1")
+		textarea(v-text="shortCode" readonly onclick="this.focus();this.select()" rows="2")
 		small or copy this link:
-		textarea(v-text="url" readonly onclick="this.focus();this.select()" rows="2" style="white-space:nowrap")
+		textarea(v-text="url" readonly onclick="this.focus();this.select()" rows="5")
 </template>
 
 <script>

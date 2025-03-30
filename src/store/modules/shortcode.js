@@ -47,7 +47,7 @@ export default {
 			root: true,
 			handler ({ dispatch, commit }, code) {
 				if (code == null || code.trim().length === 0) {
-					return commit("setError", "invalid game id");
+					return commit("setError", "Invalid Puzzle Code");
 				} else {
 					return dispatch("load", _ => api({
 						url: `${code}`,

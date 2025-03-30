@@ -10,7 +10,7 @@
 	import generateGame from "utils/game/GenerateGame";
 	import generateRule from "utils/game/GenerateRule";
 
-	const readyOrNot = context => _ => (context.loadingErrorMessage || (context.ready = true));
+	const readyOrNot = context => _ => (context.errorMessage || (context.ready = true));
 
 	export default {
 		props: {
@@ -24,16 +24,11 @@
 			}
 		},
 		mixins: [interactiveBoard, routeMixin],
-		data () {
-			return {
-				errorMessage: null
-			};
-		},
 		computed: {
 			...mapState("options/start", ["size", "density", "colors"]),
 			...mapState({
 				shortCode: state => state.shortCode.code,
-				loadingErrorMessage: state => state.shortCode.errorMessage
+				errorMessage: state => state.shortCode.errorMessage
 			})
 		},
 		watch: {
@@ -73,12 +68,6 @@
 				}
 				this.$store.dispatch(ACTION_LOAD_FROM_SHORTCODE, this.id)
 					.then(readyOrNot(this));
-			}
-		},
-		watch: {
-			loadingErrorMessage (val) {
-				if (val == null) this.errorMessage = null;
-				else this.errorMessage = "Unable to load game: " + val;
 			}
 		}
 	};
