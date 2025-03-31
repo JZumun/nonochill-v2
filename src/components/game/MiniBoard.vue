@@ -19,7 +19,7 @@
 	.board
 		display grid
 		grid repeat(var(--board-size), 1fr) \/ 1fr
-		grid-gap $board-gap
+		background white
 	.game-row 
 		display grid
 		grid 1fr \/ repeat(var(--board-size), 1fr)
