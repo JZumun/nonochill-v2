@@ -1,9 +1,9 @@
 <template lang="pug">
 	#game-options
-		save-game
+		save-game(v-if="inGame || inEditor")
 		color-scheme
 		game-history
-		share-game
+		share-game(v-if="inGame || inEditor")
 		fieldset
 			legend Other
 			label
@@ -14,6 +14,7 @@
 				input(type="checkbox" :checked="showFloatingOptions", @change="toggleFloatingOptions($event.target.checked)")
 				| Toggle Floating Options
 		sound-options
+		game-solver(v-if="inGame")
 </template>
 
 <script>
@@ -22,11 +23,12 @@
 	import ColorScheme from "./options/ColorScheme.vue";
 	import GameHistory from "./options/GameHistory.vue";
 	import SoundOptions from "./options/SoundOptions.vue";
+	import GameSolver from "../../solver/Solver.vue"
 
 	import { mapState, mapMutations } from "vuex";
 
 	export default {
-		components: { GameHistory, ColorScheme, SaveGame, ShareGame, SoundOptions },
+		components: { GameHistory, ColorScheme, SaveGame, ShareGame, SoundOptions, GameSolver },
 		data () {
 			return {
 				disabled: true,
@@ -37,7 +39,13 @@
 			...mapState({
 				showFloatingOptions: state => state.accessibility.floatingOptions.show,
 				showShortcut: state => state.accessibility.shortcut.show
-			})
+			}),
+			inGame() {
+				return this.$route.path.startsWith("/game");
+			},
+			inEditor() {
+				return this.$route.path.startsWith("/editor");
+			}
 		},
 		methods: {
 			...mapMutations({
