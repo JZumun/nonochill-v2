@@ -51,8 +51,8 @@
 		grid-gap 1em
 		color $dim-accent
 		font-size 2vmin
-		padding 2em
-		margin 2em
+		padding 1em
+		margin 1em
 
 	.title-screen-header 
 		text-align center

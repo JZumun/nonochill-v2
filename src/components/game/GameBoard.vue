@@ -189,6 +189,7 @@
 	.game-tile + .game-tile
 		border-left-width var(--grid-gap)
 	
+	.clue-list
 	.clues:nth-child(5n+6)
 	.game-row:nth-child(5n+6)
 	.game-tile:nth-child(5n+6)

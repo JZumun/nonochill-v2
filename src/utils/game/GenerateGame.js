@@ -19,7 +19,6 @@ function generateDensity(v, imin=2, imax=20, omin=0.6, omax=0.8, rand=0.1) {
 
 export default (size, colors) => {
 	const density = generateDensity(size);
-	console.log(`generate density: ${density}`);
 	const board = square(size, (i, j) => Math.random() < density ? 1 : 0);
 	if (colors === 1) return board;
 
