@@ -26,12 +26,11 @@
 				:key="`${x}-${y}`"
 				:state="board[x][y]"
 				:class="{highlighted: isHighlighted({x,y})}"
-				@mouseup.native="setTileEnd()"
-				@mouseenter.native="enterTile({x,y},$event)"
-				@mousedown.native="setTile({x,y})"
-				@touchmove.native.prevent="touchTile($event)"
-				@touchend.native.prevent="endTouchTile"
-				@touchstart.native.prevent="touchTile($event)"
+				@pointerup.native.prevent="setTileEnd()"
+				@pointerenter.native="enterTile({x,y},$event)"
+				@pointerdown.native.prevent="setTile({x,y}, $event)"
+				@touchmove.native="preventPanning"
+				@touchend.native="unHighlight"
 			)
 
 
@@ -105,28 +104,6 @@
 			})
 		},
 		methods: {
-			endTouchTile () {
-				this.currentlyTouched = { x: null, y: null };
-				this.setTileEnd();
-			},
-			touchTile (e) {
-				const loc = e.changedTouches[0];
-				const element = document.elementFromPoint(loc.clientX, loc.clientY);
-				if (!element || !element.closest) { return; }
-
-				const tile = element.closest(".game-tile");
-				if (!tile || !tile.dataset) { return; }
-
-				const x = parseInt(tile.dataset.x);
-				const y = parseInt(tile.dataset.y);
-
-				if (this.currentlyTouched.x === x && this.currentlyTouched.y === y) { return; }
-
-				this.currentlyTouched = { x, y };
-				this.setTile(this.currentlyTouched);
-
-				e.preventDefault();
-			},
 			computeSolved () {
 				return {
 					row: this.rows.map((row, i) => sameRules(computedRule(row), this.rules.row[i])),
@@ -139,13 +116,22 @@
 			},
 			enterTile (tile, e) {
 				this.setHighlight(tile);
-				if (e.buttons === 1) { this.setTile(tile); }
+				if (e.buttons === 1) { this.setTile(tile, e); }
 			},
-			setTile(tile) {
+			setTile(tile, e) {
 				this.$emit("toggle", tile);
+				e.target.releasePointerCapture(e.pointerId)
 			},
-			setTileEnd(tile) {
+			setTileEnd() {
 				this.$emit("toggle-end");
+			},
+			preventPanning(e) {
+				if (e.touches.length == 1) {
+					e.preventDefault();
+				}
+			},
+			unHighlight() {
+				setTimeout(() => this.clearHighlight(), 250);
 			}
 		},
 		created () {
@@ -214,6 +200,7 @@
 		grid-area  game
 		grid  repeat(var(--board-size),1fr) \/ 1fr
 		cursor  pointer
+		touch-action pinch-zoom
 
 	.game-row
 		display grid

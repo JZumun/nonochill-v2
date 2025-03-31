@@ -28,8 +28,8 @@
 
 	@media all and (max-width 800px) 
 		.board-container
-			width calc(100vw - 2em)
-			height calc(100vw - 2em)
+			width calc(100vw - 4em)
+			height calc(100vw - 4em)
 			margin 1em auto
 			padding 0.5em
 			max-width 100%
