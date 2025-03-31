@@ -8,7 +8,7 @@
 
 	import { count } from "utils/ArrayUtils";
 	import generateGame from "utils/game/GenerateGame";
-	import generateRule from "utils/game/GenerateRule";
+	import generateRule, {generateRuleFromBoard} from "utils/game/GenerateRule";
 
 	const readyOrNot = context => _ => (context.errorMessage || (context.ready = true));
 	export default {
@@ -38,19 +38,17 @@
 			}
 		},
 		methods: {
-			load () {
+			async load () {
 				this.ready = false;
+				await this.$nextTick();
 
 				if (this.saved) { return this.startFromStorage(); }
 				if (this.id !== null) { return this.startFromCode(); }
 
 				const o = this;
 				const board = generateGame(o.size, o.colors);
-				const rules = {
-					column: count(o.size).map(col => generateRule(board.map(row => row[col]))),
-					row: count(o.size).map(row => generateRule(board[row]))
-				};
-				this.$store.dispatch(ACTION_START_GAME, {
+				const rules = generateRuleFromBoard(board);
+				await this.$store.dispatch(ACTION_START_GAME, {
 					size: this.size,
 					colors: this.colors,
 					rules

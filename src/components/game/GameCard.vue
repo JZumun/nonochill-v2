@@ -40,7 +40,7 @@
 		methods: {
 			generateBoard (width, colors) {
 				const size = Math.min(Math.ceil((width + 1) / 5), 4);
-				return generateGame(size, colors, 0.8);
+				return generateGame(size, colors, 1);
 			},
 			generateStyle (scheme) {
 				return scheme ? scheme.reduce((mem, curr, i) => mem + `--state-${i + 1}: ${curr}; `, "") : "";

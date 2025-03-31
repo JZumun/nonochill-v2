@@ -1,5 +1,7 @@
 import { random } from "utils/RandomUtils";
 import { count, square, range } from "utils/ArrayUtils";
+import { solve } from "./Solver";
+import {generateRuleFromBoard} from "./GenerateRule";
 
 const radial = (a, b) => Math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2);
 const shuffledCount = n => count(n).sort(_ => Math.random() - 0.5);
@@ -9,16 +11,18 @@ const bounded = (center, radius, size) => [
 	Math.min(size, center + radius)
 ];
 
-function generateDensity(v, imin=2, imax=20, omin=0.6, omax=0.8, rand=0.1) {
-	const input = (v - imin) / (imax - imin);
-	const output = (input * (omax - omin)) + omin;
+function generateDensity(v, imin=2, imax=20, omin=0.4, omax=0.65, rand=0.2, exp=3) {
+	const input = Math.max(Math.min((v - imin) / (imax - imin), 1),0.1);
+	const scaledInput = Math.pow(input, exp);
+	const output = (scaledInput * (omax - omin)) + omin;
 	const noise = rand*(Math.random() - 0.5)
 
 	return output + noise;
 }
 
-export default (size, colors) => {
-	const density = generateDensity(size);
+const generate = (size, colors, i) => {
+	const density = generateDensity(size+i);
+	console.log(`[${i}] gen size=${size} colors=${colors} density=${density.toFixed(2)}`)
 	const board = square(size, (i, j) => Math.random() < density ? 1 : 0);
 	if (colors === 1) return board;
 
@@ -41,3 +45,19 @@ export default (size, colors) => {
 
 	return board;
 };
+
+export default function(size, colors, max=20) {
+	let board;
+	for (let i = 0; i < max; i++) {
+		board = generate(size, colors, i);
+		try {
+			const rules = generateRuleFromBoard(board);
+			for (const moves of solve(rules)) {};
+			return board;
+		} catch(err) {
+			console.log(`[${i}] solve failed`);
+		}
+	}
+	console.log("exceeded max attempts. returning last generated board");
+	return board;
+}
