@@ -22,7 +22,7 @@
 
 <script>
 	import GameBoard from "components/game/MiniBoard.vue";
-	import generateGame from "utils/game/GenerateGame";
+	import {generate as generateGame } from "utils/game/GenerateGame";
 
 	export default {
 		components: { GameBoard },
@@ -40,7 +40,7 @@
 		methods: {
 			generateBoard (width, colors) {
 				const size = Math.min(Math.ceil((width + 1) / 5), 4);
-				return generateGame(size, colors, 1);
+				return generateGame(size, colors, 20);
 			},
 			generateStyle (scheme) {
 				return scheme ? scheme.reduce((mem, curr, i) => mem + `--state-${i + 1}: ${curr}; `, "") : "";

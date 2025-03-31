@@ -20,7 +20,7 @@ function generateDensity(v, imin=2, imax=20, omin=0.4, omax=0.65, rand=0.2, exp=
 	return output + noise;
 }
 
-const generate = (size, colors, i) => {
+export const generate = (size, colors, i) => {
 	const density = generateDensity(size+i);
 	console.log(`[${i}] gen size=${size} colors=${colors} density=${density.toFixed(2)}`)
 	const board = square(size, (i, j) => Math.random() < density ? 1 : 0);
