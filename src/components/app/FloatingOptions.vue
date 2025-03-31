@@ -6,14 +6,9 @@
 				li.toggle-color(
 					v-for="color,i in colors",
 					:style="`--color:${color}`",
-					:class="{highlighted: i+1 == anchor}",
-					@click="anchorColor(i+1)"
+					:class="{anchored: i+1 == anchor}",
+					@click="toggleColor(i+1)"
 				)
-				li.toggle-color.reset(
-					
-					@click="anchorColor(null)"
-				)
-		game-history.floating-option
 </template>
 
 <script>
@@ -33,7 +28,14 @@ export default {
 	methods: {
 		...mapActions({
 			anchorColor: ACTION_ANCHOR_COLOR
-		})
+		}),
+		toggleColor(color) {
+			if (color == this.anchor) {
+				this.anchorColor(null);
+			} else {
+				this.anchorColor(color);
+			}
+		}
 	},
 	components: { GameHistory, SaveGame }
 };
@@ -48,7 +50,7 @@ export default {
 		color $gray-accent
 
 	.floating-options 
-		font-size 3vmin
+		font-size 4vmin
 
 		legend 
 			font-size 0.75em
@@ -82,13 +84,15 @@ export default {
 		&.reset 
 			border 0
 			&:before 
-				content "Unanchor"
+				content "Unset"
 				line-height 1.5em
-				margin 0 0.25em	
+				padding 0 0.25em	
 
-		.highlighted 
-			background $light-accent
+		&.anchored 
+			background $light-accent !important
 			box-shadow 0 0 0 1px $light-accent
+			padding 0
+			border-width 3px
 			
 	
 	.floating-option 

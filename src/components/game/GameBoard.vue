@@ -254,7 +254,7 @@
 
 	.misc-section
 		grid-area  corner
-		padding-right  1em
-		padding-bottom  1em
+		padding-right  0.5em
+		padding-bottom  0.5em
 
 </style>
