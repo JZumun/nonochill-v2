@@ -6,8 +6,7 @@
 			range-field( name="Colors" :min="1" :max="5" :value="colors" @input="setColors")
 			.buttons.
 				#[button.secondary( @click.prevent="randomize") Randomize]
-				#[force-router-link(to="/game" @click="startGameLoading=true") Start New Game]
-				#[loading-symbol(:display="startGameLoading")]
+				#[force-router-link(to="/game") Start New Game]
 		fieldset
 			legend Load From Save
 			force-router-link(v-if="hasSavedGame", to="/game/saved") Load Game
@@ -37,8 +36,7 @@
 		data () {
 			return {
 				code: "",
-				closed: false,
-				startGameLoading: false
+				closed: false
 			};
 		},
 		computed: {
@@ -65,11 +63,6 @@
 					this.$router.push(`/game/${this.code}`);
 					this.code = "";
 				}
-			}
-		},
-		watch: {
-			"$route" () {
-				this.startGameLoading = false;
 			}
 		}
 	};

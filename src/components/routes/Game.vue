@@ -12,6 +12,11 @@
 
 	const readyOrNot = context => _ => (context.errorMessage || (context.ready = true));
 	export default {
+		data() {
+			return {
+				loadingMessage: "Loading Puzzle"
+			}
+		},
 		props: {
 			saved: {
 				type: Boolean,
@@ -40,10 +45,14 @@
 		methods: {
 			async load () {
 				this.ready = false;
-				await this.$nextTick();
+				this.loadingMessage = "Loading Puzzle"
 
 				if (this.saved) { return this.startFromStorage(); }
 				if (this.id !== null) { return this.startFromCode(); }
+
+				this.loadingMessage = "Generating Puzzle"
+				await this.$nextTick();
+				await new Promise(r=>setTimeout(r, 250))
 
 				const o = this;
 				const board = generateGame(o.size, o.colors);
@@ -60,7 +69,6 @@
 			},
 			startFromCode () {
 				if (this.id === this.$store.state.shortCode.code) {
-					console.log("Same route");
 					readyOrNot(this);
 				}
 				this.$store.dispatch(ACTION_LOAD_FROM_SHORTCODE, this.id)

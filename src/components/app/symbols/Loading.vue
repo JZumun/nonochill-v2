@@ -1,6 +1,9 @@
 <template lang="pug">
 	span.loading-symbol-container
 		.loading-symbol(v-if="display && !error", :style="`--size:${size}; --thickness:${thickness}`")
+		template(v-if="display && !error")
+			slot(name="message" :message="message")
+				small.loading-symbol-message( v-text="message" )
 		template(v-if="error")
 			slot(name="error" :error="error")
 				small.loading-symbol-error( v-text="error")
@@ -12,6 +15,10 @@ export default {
 		display: {
 			type: Boolean,
 			default: false
+		},
+		message: {
+			type: String,
+			default: null
 		},
 		error: {
 			type: String,
@@ -36,6 +43,9 @@ export default {
 		margin-left 0.25em
 		align-self center
 		justify-self center
+		display flex
+		align-items center
+		gap 0.5em
 	
 	.loading-symbol 
 		display inline-block

@@ -11,6 +11,8 @@
 			)
 			floating-options
 		loading-symbol.loarding-game-symbol( v-else :display="true", size="2em", :error="errorMessage")
+			template(slot="message")
+				span.message {{loadingMessage}}
 			template(slot="error" slot-scope="{ error }")
 				div.error
 					div Unable to load puzzle:
@@ -33,7 +35,8 @@
 		data () {
 			return { 
 				ready: true,
-				currentColor: null
+				currentColor: null,
+				loadingMessage: "Loading"
 			};
 		},
 		computed: {
@@ -62,6 +65,10 @@
 </script>
 
 <style lang=stylus scoped>
+.message
+	font-size 2em
+	font-weight 600
+	color white
 .error div
 	text-align center
 .error-message 

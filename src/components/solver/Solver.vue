@@ -28,7 +28,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["rules"])
+		...mapState(["rules", "board"])
 	},
 	methods: {
 		...mapMutations({
@@ -59,15 +59,17 @@ export default {
 						if (this.break) {
 							throw new Error("Cancelled");
 						}
+						if (this.board[move.tile.x][move.tile.y] == move.next) {
+							continue;
+						}
 						this.setOne(move);
 						await delay(10);
 					}
 					await delay(250);
 				}
 				this.loading = false
-				this.message = "Solved";
-			} catch (err) {
-				console.error(err);
+				this.message = "Solved!";
+			} catch (err) {;
 				this.loading = false;
 				this.message = err.message;
 				this.unsolvedRows = err.unsolvedRows;

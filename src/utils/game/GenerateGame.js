@@ -11,18 +11,19 @@ const bounded = (center, radius, size) => [
 	Math.min(size, center + radius)
 ];
 
-function generateDensity(v, imin=2, imax=20, omin=0.4, omax=0.65, rand=0.2, exp=3) {
+function generateDensity(v, b, imin=2, imax=20, omin=0.4, omax=0.5, rand=0.2, exp=3) {
+	const bias = Math.max(Math.min(b / imax, 1),0);
 	const input = Math.max(Math.min((v - imin) / (imax - imin), 1),0.1);
 	const scaledInput = Math.pow(input, exp);
 	const output = (scaledInput * (omax - omin)) + omin;
-	const noise = rand*(Math.random() - 0.5)
+	const noise = rand*(Math.random() - 0.5 + bias)
 
 	return output + noise;
 }
 
-export const generate = (size, colors, i) => {
-	const density = generateDensity(size+i);
-	console.log(`[${i}] gen size=${size} colors=${colors} density=${density.toFixed(2)}`)
+export const generate = (size, colors, bias) => {
+	const density = generateDensity(size, bias);
+	console.log(`[${bias}] gen size=${size} colors=${colors} density=${density.toFixed(2)}`)
 	const board = square(size, (i, j) => Math.random() < density ? 1 : 0);
 	if (colors === 1) return board;
 
@@ -54,9 +55,7 @@ export default function(size, colors, max=20) {
 			const rules = generateRuleFromBoard(board);
 			for (const moves of solve(rules)) {};
 			return board;
-		} catch(err) {
-			console.log(`[${i}] solve failed`);
-		}
+		} catch(err) {}
 	}
 	console.log("exceeded max attempts. returning last generated board");
 	return board;
