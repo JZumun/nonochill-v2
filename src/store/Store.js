@@ -46,6 +46,7 @@ const getters = {
 	}
 };
 
+import longCode from "store/modules/longcode";
 import shortCode from "store/modules/shortcode";
 import localSave from "store/modules/localsave";
 import history from "store/modules/history";
@@ -60,6 +61,7 @@ const modules = {
 	background,
 	sounds,
 	shortCode,
+	longCode,
 	localSave,
 	history,
 	puzzles: puzzleList,

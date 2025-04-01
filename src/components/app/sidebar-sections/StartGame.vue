@@ -43,22 +43,21 @@
 			...mapState({
 				hasSavedGame: state => state.localSave.hasSavedGame,
 				loadGameLoading: state => state.shortCode.loading,
-				loadGameErrorMessage: state => state.shortCode.errorMessage
+				loadGameErrorMessage: state => state.shortCode.errorMessage,
 			}),
 			...mapState("options/start", ["size", "colors"])
 		},
 		methods: {
+			...mapMutations("longCode", ['setCode']),
 			...mapMutations("options/start", ["randomize", "setSize", "setColors"]),
 			startWithCode () {
 				// Need to support oldstyle codes.
 				this.$router.push("/");
 				if (this.code.length > 40) {
-					this.$router.push("game", _ => {
-						this.$nextTick(_ => this.$nextTick(_ => {
-							this.$store.dispatch(ACTION_START_GAME_FROM_LONGCODE, this.code);
-							this.code = "";
-						}));
-					});
+					
+					this.setCode(this.code);
+					this.code = "";
+					this.$router.push("game");
 				} else {
 					this.$router.push(`/game/${this.code}`);
 					this.code = "";

@@ -1,8 +1,8 @@
 <script>
 	import interactiveBoard from "../mixins/InteractiveBoard.vue";
 	import routeMixin from "../mixins/routeMixin";
-	import { mapState } from "vuex";
-	import { ACTION_START_GAME } from "store/actions";
+	import { mapState, mapMutations } from "vuex";
+	import { ACTION_START_GAME, ACTION_START_GAME_FROM_LONGCODE } from "store/actions";
 	import { ACTION_LOAD_FROM_SHORTCODE } from "store/modules/shortcode";
 	import { ACTION_LOAD_GAME } from "store/modules/localsave";
 
@@ -14,7 +14,8 @@
 	export default {
 		data() {
 			return {
-				loadingMessage: "Loading Puzzle"
+				loadingMessage: "Loading Puzzle",
+				errorMessage: null
 			}
 		},
 		props: {
@@ -31,8 +32,9 @@
 		computed: {
 			...mapState("options/start", ["size", "colors"]),
 			...mapState({
+				longCode: state => state.longCode.code,
 				shortCode: state => state.shortCode.code,
-				errorMessage: state => state.shortCode.errorMessage
+				shortCodeErrorMessage: state => state.shortCode.errorMessage
 			})
 		},
 		watch: {
@@ -40,15 +42,24 @@
 				if (value != null) {
 					this.$router.replace(`/game/${value}`);
 				}
+			},
+			shortCodeErrorMessage(value) {
+				this.errorMessage = value;
 			}
 		},
 		methods: {
+			...mapMutations("longCode", {
+				"setLongCode": "setCode"
+			}),
 			async load () {
+				console.log("load");
 				this.ready = false;
+				this.errorMessage = null;
 				this.loadingMessage = "Loading Puzzle"
 
 				if (this.saved) { return this.startFromStorage(); }
 				if (this.id !== null) { return this.startFromCode(); }
+				if (this.longCode != null) { return this.startFromLongCode(); }
 
 				this.loadingMessage = "Generating Puzzle";
 				await this.$nextTick();
@@ -69,10 +80,19 @@
 			},
 			startFromCode () {
 				if (this.id === this.$store.state.shortCode.code) {
-					readyOrNot(this);
+					readyOrNot(this)();
 				}
 				this.$store.dispatch(ACTION_LOAD_FROM_SHORTCODE, this.id)
 					.then(readyOrNot(this));
+			},
+			startFromLongCode() {
+				try {
+					this.$store.dispatch(ACTION_START_GAME_FROM_LONGCODE, this.longCode)
+					this.ready = true;
+				} catch (err) {
+					this.errorMessage = "Code is invalid";
+				}
+				this.setLongCode(null);
 			}
 		}
 	};
