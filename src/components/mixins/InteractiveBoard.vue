@@ -51,9 +51,9 @@
 				set: ACTION_SET_TILE,
 				win: ACTION_WIN_GAME 
 			}),
-			toggle(tile) {
+			toggle(tile, reverse=false) {
 				if (!this.currentColor) {
-					this.currentColor = this.nextColor(tile.x, tile.y);
+					this.currentColor = this.nextColor(tile.x, tile.y, reverse);
 				}
 				this.set({ tile, next: this.currentColor});
 			},

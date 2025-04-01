@@ -35,10 +35,10 @@ const getters = {
 	colorAt:({board}) => (x,y) => {
 		return board[x][y];
 	},
-	nextColor: ({board, colorAnchor, colorNum, colorReverse, disableCrossed}) => (x,y) => {
+	nextColor: ({board, colorAnchor, colorNum, colorReverse, disableCrossed}) => (x,y, reverse=false) => {
 		const curr = board[x][y];
 		if (!colorAnchor) {
-			return incrementColor(curr, colorNum, colorReverse, disableCrossed ? 0 : -1)
+			return incrementColor(curr, colorNum, colorReverse||reverse, disableCrossed ? 0 : -1)
 		} else {
 			let next = incrementColor(curr === colorAnchor ? 1 : curr > 0 ? 0 : curr, 1, colorReverse, disableCrossed ? 0 : -1);
 			return next === 1 ? colorAnchor : next;

@@ -31,6 +31,7 @@
 				@pointerdown.native.prevent="setTile({x,y}, $event)"
 				@touchmove.native="preventPanning"
 				@touchend.native="unHighlight"
+				@contextmenu.native.prevent
 			)
 
 
@@ -116,10 +117,10 @@
 			},
 			enterTile (tile, e) {
 				this.setHighlight(tile);
-				if (e.buttons === 1) { this.setTile(tile, e); }
+				if (e.buttons === 1 || e.buttons === 2) { this.setTile(tile, e); }
 			},
 			setTile(tile, e) {
-				this.$emit("toggle", tile);
+				this.$emit("toggle", tile, e.buttons===2);
 				e.target.releasePointerCapture(e.pointerId)
 			},
 			setTileEnd() {

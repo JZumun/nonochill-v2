@@ -50,12 +50,12 @@
 				if (this.saved) { return this.startFromStorage(); }
 				if (this.id !== null) { return this.startFromCode(); }
 
-				this.loadingMessage = "Generating Puzzle"
+				this.loadingMessage = "Generating Puzzle";
 				await this.$nextTick();
 				await new Promise(r=>setTimeout(r, 250))
 
 				const o = this;
-				const board = generateGame(o.size, o.colors);
+				const board = await generateGame(o.size, o.colors);
 				const rules = generateRuleFromBoard(board);
 				await this.$store.dispatch(ACTION_START_GAME, {
 					size: this.size,
