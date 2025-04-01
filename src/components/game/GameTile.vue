@@ -26,6 +26,8 @@
 		&.highlighted 
 			.tile-background 
 				fill $highlight-color
+		> *
+			pointer-events none
 
 	.tile-background 
 		fill white
