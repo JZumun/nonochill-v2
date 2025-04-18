@@ -2,8 +2,8 @@
 	#start-game
 		fieldset
 			legend Options
-			range-field( name="Size" :min="2" :max="20" :value="size" @input="setSize" )
-			range-field( name="Colors" :min="1" :max="5" :value="colors" @input="setColors")
+			range-field( name="Size" :min="minSize" :max="maxSize" :step="sizeStep" :value="size" @input="setSize" )
+			range-field( name="Colors" :min="1" :max="maxColors" :value="colors" @input="setColors")
 			.buttons.
 				#[button.secondary( @click.prevent="randomize") Randomize]
 				#[force-router-link(to="/game") Start New Game]
@@ -45,7 +45,7 @@
 				loadGameLoading: state => state.shortCode.loading,
 				loadGameErrorMessage: state => state.shortCode.errorMessage,
 			}),
-			...mapState("options/start", ["size", "colors"])
+			...mapState("options/start", ["size", "colors", "minSize", "maxSize", "sizeStep", "maxColors"])
 		},
 		methods: {
 			...mapMutations("longCode", ['setCode']),

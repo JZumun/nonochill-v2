@@ -7,7 +7,7 @@
 				step="any"
 				:value="innerValue"
 				@input="updateRange($event.target.value)"
-				@mouseup="snapValue"
+				@mouseup="snapValue()"
 		)
 		input.input-text.input(
 				v-if="!simple"
