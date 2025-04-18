@@ -1,6 +1,6 @@
 import { random } from "utils/RandomUtils";
 import { count, square, range } from "utils/ArrayUtils";
-import { solve } from "./Solver";
+import { generateMoves as solve } from "@jzumun/nonogram-solver";
 import {generateRuleFromBoard} from "./GenerateRule";
 
 const radial = (a, b) => Math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2);

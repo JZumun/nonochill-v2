@@ -13,7 +13,7 @@ import { SET_TILES, SET_TILE, RESET_BOARD } from "store/mutations";
 import {mapState, mapMutations } from "vuex";
 import LoadingIcon from "components/app/symbols/Loading.vue";
 
-import {solve} from "utils/game/Solver";
+import { generateMoves as solve } from "@jzumun/nonogram-solver";
 
 const delay = (ms) => new Promise(r=>setTimeout(r, ms));
 export default {
@@ -54,18 +54,15 @@ export default {
 			await this.$nextTick();
 			await delay(500);
 			try {
-				for (const moves of solve(this.rules)) {
-					for (const move of moves) {
-						if (this.break) {
-							throw new Error("Cancelled");
-						}
-						if (this.board[move.tile.x][move.tile.y] == move.next) {
-							continue;
-						}
-						this.setOne(move);
-						await delay(10);
+				for (const move of solve(this.rules)) {
+					if (this.break) {
+						throw new Error("Cancelled");
 					}
-					await delay(250);
+					if (this.board[move.tile.x][move.tile.y] == move.next) {
+						continue;
+					}
+					this.setOne(move);
+					await delay(20);
 				}
 				this.loading = false
 				this.message = "Solved!";
