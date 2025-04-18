@@ -11,9 +11,9 @@
 			)
 			floating-options
 		loading-symbol.loarding-game-symbol( v-else :display="true", size="2em", :error="errorMessage")
-			template(slot="message")
+			template(v-slot:message)
 				span.message {{loadingMessage}}
-			template(slot="error" slot-scope="{ error }")
+			template(v-slot:error="{ error }")
 				div.error
 					div Unable to load puzzle:
 					div.error-message  {{ error }}
