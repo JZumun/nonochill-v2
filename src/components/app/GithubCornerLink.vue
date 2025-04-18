@@ -19,7 +19,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables"
+	
 
 	.github-corner svg {
 		fill:#151513;

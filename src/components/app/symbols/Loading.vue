@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables.styl"
+	
 
 	.loading-symbol-container 
 		margin-left 0.25em

@@ -34,7 +34,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables.styl"
+	
 	.audio-control 
 		display grid
 		grid-template-columns auto 1fr

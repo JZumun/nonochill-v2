@@ -31,7 +31,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables.styl"
+	
 	
 	.color-scheme 
 		display grid

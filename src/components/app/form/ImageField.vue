@@ -52,7 +52,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables"
+	
 	.image-field
 		max-width 100%
 	.image-field input

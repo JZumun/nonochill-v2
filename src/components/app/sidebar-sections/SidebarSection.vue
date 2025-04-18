@@ -28,7 +28,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables.styl"
+	
 	
 	.sidebar-section  
 		padding 1em

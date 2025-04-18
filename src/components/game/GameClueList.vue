@@ -29,7 +29,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables"
+	
 	$board-gap = 1px  
 	$long-side = 500%
 	$short-side =  $board-gap

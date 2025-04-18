@@ -15,7 +15,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables"
+	
 	.board
 		display grid
 		grid repeat(var(--board-size), 1fr) \/ 1fr

@@ -43,7 +43,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables"
+	
 
 	.sidebar  
 		background-color $dark-accent 

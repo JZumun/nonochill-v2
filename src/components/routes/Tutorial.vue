@@ -234,7 +234,7 @@ export default {
 </script>
 
 <style lang="stylus">
-	@import "~styles/variables.styl"
+	
 		
 	#driver-popover-item, #driver-popover-item * 
 		font-family inherit !important

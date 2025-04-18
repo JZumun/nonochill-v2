@@ -4,7 +4,7 @@
 </template>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables.styl"
+	
 
 	$margin = 2em
 	$game-height-restraint =  "calc(100vh - 2*%s)" % $margin

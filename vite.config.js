@@ -1,30 +1,30 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue2'
+import svgLoader from 'vite-svg-loader'
 import { fileURLToPath, URL } from 'node:url'
-import path from "node:path";
 
+const path = (relativePath) => fileURLToPath(new URL(relativePath, import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), svgLoader({
+	defaultImport: "raw"
+  })],
   resolve: {
 	"alias": {
-		"api": 	fileURLToPath(new URL("./src/api", import.meta.url)),
-		"assets": fileURLToPath(new URL("./src/assets", import.meta.url)),
-		"components": fileURLToPath(new URL("./src/components", import.meta.url)),
-		"router": fileURLToPath(new URL("./src/router", import.meta.url)),
-		"store": fileURLToPath(new URL("./src/store", import.meta.url)),
-		"styles": fileURLToPath(new URL("./src/styles", import.meta.url)),
-		"utils": fileURLToPath(new URL("./src/utils", import.meta.url)),
+		"api": 	path("./src/api"),
+		"assets": path("./src/assets"),
+		"components": path("./src/components"),
+		"router": path("./src/router"),
+		"store": path("./src/store"),
+		"styles": path("./src/styles"),
+		"utils": path("./src/utils"),
 	}
   },
   css: {
     preprocessorOptions: {
       stylus: {
-        additionalData: `@import "${path.resolve(
-          __dirname,
-          './src/styles/variables'
-        )}"`,
+        additionalData: `@import "${path("./src/styles/variables")}"`.replace(/\\/g, "/"),
       },
     },
   },

@@ -143,7 +143,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables"
+	
 	.board-game
 		--board-size 17
 		--clue-size 17

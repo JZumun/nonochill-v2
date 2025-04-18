@@ -83,7 +83,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables"
+	
 		
 	.controls 
 		display grid

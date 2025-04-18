@@ -13,7 +13,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables"
+	
 	
 	.shortcut
 		background $dark-accent

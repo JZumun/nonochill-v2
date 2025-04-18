@@ -18,7 +18,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables"
+	
 
 	.game-tile 
 		width 100%

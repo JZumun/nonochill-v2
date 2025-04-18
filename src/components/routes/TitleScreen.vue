@@ -46,7 +46,7 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/variables"
+	
 
 	.title-screen 
 		grid-template-rows auto 1fr auto
