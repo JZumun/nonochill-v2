@@ -11,7 +11,7 @@
 		},
 		methods: {
 			route () {
-				this.$router.push(`${random(1, 5)}`, _ => this.$router.replace(this.to));
+				this.$router.push(`${random(1, 5)}`).then(_ => this.$router.replace(this.to));
 			}
 		}
 	};

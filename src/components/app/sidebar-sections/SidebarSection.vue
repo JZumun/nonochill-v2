@@ -18,6 +18,7 @@
 				default: true
 			}
 		},
+		emits: ['toggle'],
 		computed: {
 			reallyClosed () { return this.disabled || this.closed; }
 		},

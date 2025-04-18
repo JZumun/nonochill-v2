@@ -37,8 +37,8 @@
 		},
 		computed: {
 			...mapState({
-				showFloatingOptions: state => state.accessibility.floatingOptions.show,
-				showShortcut: state => state.accessibility.shortcut.show
+				showFloatingOptions: state => state.accessibility.floatingOptions.show ? true : null,
+				showShortcut: state => state.accessibility.shortcut.show ? true : null
 			}),
 			inGame() {
 				return this.$route.path.startsWith("/game");

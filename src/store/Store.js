@@ -1,5 +1,4 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import {createStore } from "vuex";
 
 import colors from "./values/colors";
 import mutations from "./mutations";
@@ -8,7 +7,6 @@ import actions from "./actions";
 import { serialize } from "utils/game/Serializer";
 import incrementColor from "utils/game/IncrementColor";
 
-Vue.use(Vuex);
 const state = {
 	colorScheme: [...colors],
 	colorNum: 3,
@@ -78,7 +76,7 @@ const modules = {
 	}
 };
 
-export default new Vuex.Store({
+export default createStore({
 	modules,
 	state,
 	getters,

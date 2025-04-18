@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue2'
+import createVuePlugin from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import { fileURLToPath, URL } from 'node:url'
 
@@ -7,11 +7,15 @@ const path = (relativePath) => fileURLToPath(new URL(relativePath, import.meta.u
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), svgLoader({
-	defaultImport: "raw"
-  })],
+  plugins: [
+		createVuePlugin(), 
+  		svgLoader({
+			defaultImport: "raw"
+  		})
+	],
   resolve: {
 	"alias": {
+		"v-hotkey": "v-hotkey3",
 		"api": 	path("./src/api"),
 		"assets": path("./src/assets"),
 		"components": path("./src/components"),

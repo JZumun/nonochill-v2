@@ -96,11 +96,11 @@ export default {
 			
 	
 	.floating-option 
-		& >>> button 
+		&:deep(button) 
 			color white
-		& >>> .restart-level 
+		&:deep(.restart-level) 
 			display none
-		& >>> small 
+		&:deep(small) 
 			display none
 	
 </style>

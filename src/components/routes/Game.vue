@@ -52,7 +52,6 @@
 				"setLongCode": "setCode"
 			}),
 			async load () {
-				console.log("load");
 				this.ready = false;
 				this.errorMessage = null;
 				this.loadingMessage = "Loading Puzzle"

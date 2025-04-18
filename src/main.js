@@ -1,15 +1,13 @@
-import Vue from "vue";
+import {createApp } from "vue";
 import App from "./App.vue";
-import Hotkey from "v-hotkey";
+import Hotkey from "v-hotkey3";
 import router from "router/router";
 import store from "store/Store";
-import { sync } from "vuex-router-sync";
 
-sync(store, router);
 
-Vue.use(Hotkey);
-new Vue({
-	router,
-	el: "#app",
-	render: h => h(App)
-});
+const app = createApp(App);
+app.use(store);
+app.use(router);
+app.use(Hotkey);
+
+app.mount("#app");

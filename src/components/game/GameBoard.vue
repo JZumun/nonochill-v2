@@ -7,7 +7,7 @@
 			:clues="clues"
 			:width="clueSize"
 			:class="{solved: solved.column[y], highlighted: isHighlighted({y})}"
-			 @mouseenter.native="setHighlight({y})"
+			 @mouseenter="setHighlight({y})"
 		)
 	#section-clues-horizontal.horizontal.clue-list( @mouseleave="clearHighlight" )
 		game-clue-list(
@@ -15,7 +15,7 @@
 			:clues="clues"
 			:width="clueSize"
 			:class="{solved: solved.row[x], highlighted: isHighlighted({x})}"
-			@mouseenter.native="setHighlight({x})"
+			@mouseenter="setHighlight({x})"
 		)
 	#section-board-game.board( @mouseleave="clearHighlight", :class="{win}" )
 		.game-row(v-for="row,x in board" v-bind:key="x" )
@@ -26,12 +26,12 @@
 				:key="`${x}-${y}`"
 				:state="board[x][y]"
 				:class="{highlighted: isHighlighted({x,y})}"
-				@pointerup.native.prevent="setTileEnd()"
-				@pointerenter.native="enterTile({x,y},$event)"
-				@pointerdown.native.prevent="setTile({x,y}, $event)"
-				@touchmove.native="preventPanning"
-				@touchend.native="unHighlight"
-				@contextmenu.native.prevent
+				@pointerup.prevent="setTileEnd()"
+				@pointerenter="enterTile({x,y},$event)"
+				@pointerdown.prevent="setTile({x,y}, $event)"
+				@touchmove="preventPanning"
+				@touchend="unHighlight"
+				@contextmenu.prevent
 			)
 
 
@@ -75,9 +75,9 @@
 			},
 			activeTile: { type: Object, default: _ => ({ x: 0, y: 0 }) }
 		},
+		emits: [ "toggle", "toggle-end", "win" ],
 		data () {
 			return {
-				highlight: {},
 				solved: {
 					row: [],
 					column: []
@@ -99,10 +99,13 @@
 		watch: {
 			win (val) { if (val) { this.$emit("win"); } },
 			activeTile (val) { this.setHighlight(val); },
-			board: debounce(200, function (val) {
-				this.solved = this.computeSolved();
-				this.win = this.computeWin();
-			})
+			board: {
+				handler: debounce(200, function (val) {
+					this.solved = this.computeSolved();
+					this.win = this.computeWin();
+				}),
+				deep: true
+			}
 		},
 		methods: {
 			computeSolved () {

@@ -23,6 +23,7 @@
 			muted: { type: Boolean, default: false },
 			volume: { type: Number, default: 0.5 }
 		},
+		emits: ['toggle','volume'],
 		computed: {
 			icon () { return this.muted ? volumeOffButton : volumeButton; }
 		},

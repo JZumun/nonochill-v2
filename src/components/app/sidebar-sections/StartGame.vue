@@ -14,7 +14,7 @@
 		fieldset
 			legend Load From Code
 			small paste code below
-			textarea(v-model="code" spellcheck="false" onclick="this.focus();this.select()" rows="5")
+			textarea(v-model="code" :spellcheck="false" onclick="this.focus();this.select()" rows="5")
 			.buttons
 				button(@click="startWithCode") Load
 				loading-symbol(:display="loadGameLoading", :error="loadGameErrorMessage")

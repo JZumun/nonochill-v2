@@ -43,6 +43,7 @@
 				default: false
 			}
 		},
+		emits: [ "input" ],
 		computed: {
 			prettyValue () {
 				return Math.floor(this.value) === this.value ? this.value : this.value.toFixed(2);
@@ -51,9 +52,6 @@
 		data () {
 			return {
 				innerValue: this.value,
-				snapValue: debounce(150, function () {
-					this.innerValue = this.value;
-				})
 			};
 		},
 		watch: {
@@ -66,8 +64,12 @@
 
 				this.innerValue = value;
 				const roundedValue = Math.round(value / this.step) * this.step;
+				console.log(roundedValue);
 				this.$emit("input", roundedValue);
-			}
+			},
+			snapValue: debounce(150, function () {
+				this.innerValue = this.value;
+			})
 		}
 	};
 </script>
