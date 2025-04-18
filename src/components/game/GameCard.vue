@@ -40,6 +40,9 @@
 		methods: {
 			generateBoard (width, colors) {
 				const size = Math.min(Math.ceil((width + 1) / 5), 4);
+				if (size === 1) {
+					return [[Math.ceil(Math.random() * colors)]];
+				}
 				return generateGame(size, colors, 20);
 			},
 			generateStyle (scheme) {
