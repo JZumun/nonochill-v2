@@ -53,7 +53,7 @@
 </script>
 
 <style lang="stylus">
-	@import "~styles/index"
+	@import "styles/index"
 
 	.whole
 		height 100vh

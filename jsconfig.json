@@ -1,7 +1,8 @@
 {
-	"target": "es2017",
+	
   "allowSyntheticDefaultImports": false,
 	"compilerOptions": {
+	  "target": "esnext",
 	  "baseUrl": "./",
 	  "paths": {
 		"api/*": ["src/api/*"],

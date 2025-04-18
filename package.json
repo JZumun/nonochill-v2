@@ -5,41 +5,41 @@
   "description": "Nonogram puzzle game implemented in Vue",
   "author": "Rein Bulaong",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "deploy": "sh deploy.sh"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
+  },
+  "overrides": {
+    "vue": "^2.7",
+    "vite": "^6.0.6"
   },
   "dependencies": {
-    "@vue/cli-plugin-babel": "^3.0.4",
-    "@vue/cli-plugin-eslint": "^3.0.4",
-    "@vue/cli-service": "^3.0.4",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "@vitejs/plugin-vue2": "^2.3.3",
     "axios": "^0.18.0",
-    "circular-dependency-plugin": "~4",
-    "cross-env": "^3.0.0",
     "dotenv": "^5.0.1",
     "driver.js": "0.9",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "prerender-spa-plugin": "^3.0.0",
+    "eslint": "^8",
+    "eslint-plugin-vue": "^8",
     "pretty": "^2.0.0",
     "pug": "^2.0.0-rc.3",
-    "pug-plain-loader": "^1.0.0",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
     "svg-inline-loader": "^0.8.0",
     "throttle-debounce": "^1.0.1",
     "v-hotkey": "^0.2.0",
-    "vue": "^2.3.3",
+    "vite": "^6.0.6",
+    "vite-svg-loader": "^5.1.0",
+    "vue": "^2.7",
     "vue-router": "^3.0.1",
-    "vue-template-compiler": "^2.5.17",
     "vuex": "^3.0.1",
-    "vuex-router-sync": "^5.0.0",
-    "webpack": "^4.15.1"
+    "vuex-router-sync": "^5.0.0"
   },
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "node": true,
+      "es2022": true
     },
     "extends": [
       "plugin:vue/essential",
@@ -61,14 +61,6 @@
         "error",
         "always"
       ]
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
     }
   },
   "browserslist": [
